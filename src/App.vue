@@ -1,15 +1,15 @@
-<template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+<template lang='pug'>
+#App
+  #nav
+    router-link(to='/') Home
+    span !{' | '}
+    router-link(to='/about') About
+  router-view
+//
 </template>
 
 <style lang='scss'>
-#app {
+#App {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
