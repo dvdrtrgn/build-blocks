@@ -1,13 +1,11 @@
 <template>
   <div>
     <form action="" @submit.prevent="">
-      <p>REPRESENT NOTE</p>
-      <input type="number" v-model="arg" @change="process" />
-
-      <div>name {{ note.name }}</div>
-      <div>octave {{ note.octave }}</div>
-      <div>frequency {{ note.frequency }}</div>
-      <div>midi {{ note.midi }}</div>
+      <p>Note Info <input type="number" v-model="arg" @change="process" /></p>
+      <span>name: {{ note.name }}</span>
+      <span>octave: {{ note.octave }}</span>
+      <span>frequency: {{ note.frequency }}</span>
+      <span>midi: {{ note.midi }}</span>
     </form>
   </div>
 </template>
@@ -38,5 +36,9 @@
 <style lang="scss" scoped>
   input {
     text-align: center;
+  }
+  span {
+    border: 1px solid gray;
+    padding: 0 1rem;
   }
 </style>
