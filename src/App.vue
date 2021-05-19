@@ -1,12 +1,14 @@
 <template lang="pug">
   #App
+    Synth
     NoteInfo
-    Home
+    //- Home
   //-
 </template>
 
 <script>
   import NoteInfo from '@/views/Note/Choose';
+  import Synth from '@/views/Synth/Main';
   import Home from '@/views/Home';
 
   export default {
@@ -14,6 +16,7 @@
     components: {
       Home,
       NoteInfo,
+      Synth,
     },
   };
 </script>
