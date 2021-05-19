@@ -12,20 +12,21 @@
   import makeNote from '@/guitar/makeNote.js';
 
   export default {
-    props: ['arg'],
-    data() {
-      return {};
-    },
-    methods: {
-      process() {
-        this.note = makeNote(this.arg);
-        // this.arg = this.note.midi; // keep in bounds
+    props: {
+      arg: {
+        type: Number,
       },
     },
-    mounted() {},
     computed: {
       note() {
-        return makeNote(this.arg);
+        const note = makeNote(this.arg);
+
+        if (this.arg !== note.midi) {
+          this.$emit('limit', note.midi); // keep in bounds
+          return { name: this.arg + ' out of bounds' };
+        }
+
+        return note;
       },
     },
   };

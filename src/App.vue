@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import NoteInfo from '@/views/Note/Chooser';
+  import NoteInfo from '@/views/Note/Choose';
   import Home from '@/views/Home';
 
   export default {
