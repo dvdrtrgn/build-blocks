@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 const C = console;
-const Key = 'store';
+const Key = 'build-blocks';
 
 Vue.use(Vuex);
 
@@ -24,9 +24,11 @@ const store = new Vuex.Store({
       C.log(`time = ${(state.duration = num)}`);
     },
     initStore(state) {
-      let str = localStorage.getItem(Key) || '{}';
-      let obj = JSON.parse(str);
-      this.replaceState(Object.assign({ _key_: Key }, state, obj)); // Object.assign(state, obj)
+      const str = localStorage.getItem(Key) || '{}';
+      const obj = JSON.parse(str);
+
+      this.replaceState(Object.assign({ _key_: Key }, state, obj));
+
       C.log('initStore', str, [store]);
     },
   },

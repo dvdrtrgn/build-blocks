@@ -4,12 +4,12 @@
     h1 {{msg}}
 
     p Voice 1:
-      button(@click='playTone1' data-pitch='C5') Synth C note
-      button(@click='playTone1' data-pitch='G5') Synth G note
+      Button(pitch='C5')
+      Button(pitch='G5')
 
     p Voice 2:
-      button(@click='playTone2' data-pitch='C5') Synth C note
-      button(@click='playTone2' data-pitch='G5') Synth G note
+      Button(pitch='C5')
+      Button(pitch='G5')
 
     label Duration:
       select(@change='markTime' v-model='duration')
@@ -24,38 +24,30 @@
 <script>
   /* eslint-disable no-console */
   import Store from '@/store';
+  import Button from './Button';
   import * as Tone from 'tone';
 
-  var data = {
-    duration: Store.getters.getTime,
-  };
-  var synth1 = new Tone.Synth().toDestination();
-  var synth2 = new Tone.Synth().toDestination();
-
-  function updateTime() {
-    console.log(Store);
-    Store.commit('setTime', data.duration);
-  }
-
-  function markTime() {
-    synth1.triggerAttackRelease('C4', data.duration);
-    updateTime();
-  }
-
   export default {
-    data: () => data,
+    data() {
+      return {
+        alert: new Tone.Synth().toDestination(),
+        duration: Store.getters.getTime,
+      };
+    },
+    components: {
+      Button,
+    },
     props: {
       msg: String,
     },
     methods: {
-      markTime,
-      playTone1: function(evt) {
-        let dats = evt.target.dataset;
-        synth1.triggerAttackRelease(dats.pitch, data.duration);
+      updateTime() {
+        console.log(Store);
+        Store.commit('setTime', this.data.duration);
       },
-      playTone2: function(evt) {
-        let dats = evt.target.dataset;
-        synth2.triggerAttackRelease(dats.pitch, data.duration);
+      markTime() {
+        this.alert.triggerAttackRelease('C6', 0.1);
+        this.updateTime();
       },
     },
   };
