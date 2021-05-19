@@ -1,15 +1,15 @@
 <template>
   <span>
-    <span>name: {{ note.name }}</span>
-    <span>octave: {{ note.octave }}</span>
-    <span>frequency: {{ note.frequency }}</span>
-    <span>midi: {{ note.midi }}</span>
+    <span v-show="note.name">Note name: {{ note.name }}</span>
+    <span v-show="note.octave">octave: {{ note.octave }}</span>
+    <span v-show="note.frequency">frequency: {{ note.frequency }}</span>
+    <span v-show="note.midi">midi: {{ note.midi }}</span>
   </span>
 </template>
 
 <script>
   /* eslint-disable no-console */
-  import makeNote from '@/guitar/makeNote.js';
+  import makeNote from './makeNote.js';
 
   export default {
     props: {
@@ -23,7 +23,9 @@
 
         if (this.arg !== note.midi) {
           this.$emit('limit', note.midi); // keep in bounds
-          return { name: this.arg + ' out of bounds' };
+          return {
+            name: `"${this.arg}" is out of bounds, "${note.midi}" is the limit!`,
+          };
         }
 
         return note;

@@ -30,9 +30,13 @@ function asFlat(str) {
 
 function normalize(num) {
   let norm = num;
-  if (num < MIN) norm = MIN;
-  else if (num > MAX) norm = MAX;
-  if (norm !== num) console.warn(`Normalizing ${num} to ${norm}`);
+  if (num < MIN) {
+    norm = MIN;
+  } else if (num > MAX) {
+    norm = MAX;
+  }
+  // if (norm !== num) console.warn(`Normalizing ${num} to ${norm}`);
+
   return Math.round(norm);
 }
 
