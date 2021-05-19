@@ -30,8 +30,8 @@
   export default {
     data() {
       return {
-        alert: new Tone.Synth().toDestination(),
-        duration: Store.getters.getTime,
+        voice: new Tone.Synth().toDestination(),
+        duration: Store.getters.getTime, // initial value
       };
     },
     components: {
@@ -41,13 +41,15 @@
       msg: String,
     },
     methods: {
+      beep() {
+        this.voice.triggerAttackRelease('C2', 0.01);
+      },
       updateTime() {
-        console.log(Store);
-        Store.commit('setTime', this.data.duration);
+        Store.commit('setTime', this.duration);
       },
       markTime() {
-        this.alert.triggerAttackRelease('C6', 0.1);
         this.updateTime();
+        this.beep();
       },
     },
   };

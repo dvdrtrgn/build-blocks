@@ -1,6 +1,7 @@
 <template lang="pug">
   span
-    button(@click='playTone' :class="{playing: playing}") <slot>Synth {{ pitch }}</slot>
+    button(@click='playTone' :class="{playing: playing}")
+      slot Synth {{ pitch }}
 </template>
 
 <script>
@@ -9,35 +10,45 @@
   import * as Tone from 'tone';
 
   export default {
-    data() {
-      return {
-        duration: Store.getters.getTime,
-        synth: false,
-        playing: false,
-      };
-    },
     props: {
-      msg: String,
       pitch: {
         type: String,
-        default: 'C4',
-      },
-      singular: {
-        type: Boolean,
-        default: false,
+        default: 'C2',
       },
     },
+    data() {
+      return {
+        synth: false,
+        playing: false,
+        schedule: null,
+      };
+    },
     methods: {
-      getVoice() {
+      newVoice() {
+        console.log('newVoice');
         this.synth = new Tone.Synth().toDestination();
       },
+      stopTone() {
+        clearTimeout(this.schedule);
+        this.synth.triggerRelease();
+        this.playing = false;
+      },
       playTone() {
-        if (!this.singular || !this.synth) this.getVoice();
+        if (!this.synth) this.newVoice();
+        if (this.playing) this.stopTone();
 
         this.synth.triggerAttackRelease(this.pitch, this.duration);
         this.playing = true;
 
-        setTimeout(() => (this.playing = false), this.duration * 1000);
+        this.timer(() => (this.playing = false));
+      },
+      timer(fn) {
+        this.schedule = setTimeout(fn, this.duration * 1000);
+      },
+    },
+    computed: {
+      duration() {
+        return Number(Store.getters.getTime);
       },
     },
   };
@@ -46,6 +57,7 @@
 <style lang="scss" scoped>
   button {
     border: 1px solid silver;
+
     &.playing {
       color: red;
     }
