@@ -28,7 +28,8 @@ function asFlat(str) {
 
 function normalize(num) {
   var norm = num;
-  if (num < 21) norm = 21; else if (num > 128) norm = 128;
+  if (num < 21) norm = 21;
+  else if (num > 128) norm = 128;
   if (norm !== num) console.warn(`Nomalizing ${num} to ${norm}`);
   return norm;
 }

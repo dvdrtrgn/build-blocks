@@ -18,24 +18,23 @@ const store = new Vuex.Store({
   },
   mutations: {
     bumpLoads(state) {
-      C.log(`load # ${state.loads += 1}`)
+      C.log(`load # ${(state.loads += 1)}`);
     },
     setTime(state, num) {
-      C.log(`time = ${state.duration = num}`)
+      C.log(`time = ${(state.duration = num)}`);
     },
     initStore(state) {
       let str = localStorage.getItem(Key) || '{}';
       let obj = JSON.parse(str);
-      this.replaceState(Object.assign({ '_key_': Key }, state, obj)); // Object.assign(state, obj)
+      this.replaceState(Object.assign({ _key_: Key }, state, obj)); // Object.assign(state, obj)
       C.log('initStore', str, [store]);
     },
   },
-  actions: {
-
-  },
+  actions: {},
 });
 
-store.subscribe((mutation, state) => { // called after every mutation{type,payload}
+store.subscribe((mutation, state) => {
+  // called after every mutation{type,payload}
   localStorage.setItem(Key, JSON.stringify(state));
 });
 

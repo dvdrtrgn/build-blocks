@@ -1,17 +1,17 @@
 const NOTES = 'C C# D D# E F F# G G# A A# B'.split(' ');
 
 export default {
-  sciNoteFromMidiNum: function (num) {
+  sciNoteFromMidiNum: function(num) {
     var mid = Number(num);
     var oct = -1;
 
     if (mid < 12) throw 'too low';
     else if (mid > 119) throw 'too high';
-    else while (mid > 11) oct += 1, mid -= 12;
+    else while (mid > 11) (oct += 1), (mid -= 12);
 
     return NOTES[mid] + oct;
   },
-  midiNumFromSciNote: function (str) {
+  midiNumFromSciNote: function(str) {
     var sci = String(str);
     var nom = sci.slice(0, -1);
     var oct = Number(sci.slice(-1));
@@ -23,7 +23,7 @@ export default {
 
     return mid;
   },
-  detab: function (str) {
+  detab: function(str) {
     var sci = str;
     var arr = sci.split('+');
     var off = 0;
