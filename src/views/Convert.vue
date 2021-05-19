@@ -1,8 +1,13 @@
 <template>
   <div>
-    <form action="" @submit.prevent="onSubmit">
-      <input type="text" v-model="arg" />
+    <form action="" @submit.prevent="">
       <p>REPRESENT NOTE</p>
+      <input type="number" v-model="arg" @change="process" />
+
+      <div>name {{ note.name }}</div>
+      <div>octave {{ note.octave }}</div>
+      <div>frequency {{ note.frequency }}</div>
+      <div>midi {{ note.midi }}</div>
     </form>
   </div>
 </template>
@@ -15,14 +20,23 @@
     data() {
       return {
         arg: '69',
+        note: {},
       };
     },
     methods: {
-      onSubmit() {
-        console.log(makeNote(this.arg));
+      process() {
+        this.note = makeNote(this.arg);
+        this.arg = this.note.midi; // keep in bounds
       },
+    },
+    mounted() {
+      this.process();
     },
   };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  input {
+    text-align: center;
+  }
+</style>
