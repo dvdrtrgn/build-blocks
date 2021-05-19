@@ -1,13 +1,13 @@
 <template lang="pug">
   span
-    button(@click='playTone' :class="{playing: playing}")
+    button(@click='playTone' :class="{playing: playing, toggle: toggle}")
       slot Synth {{ pitch }}
 </template>
 
 <script>
   /* eslint-disable no-console */
   import Store from '@/store';
-  import * as Tone from 'tone';
+  import synth from './synth.js';
 
   export default {
     props: {
@@ -15,40 +15,27 @@
         type: String,
         default: 'C2',
       },
+      toggle: {
+        type: Boolean,
+        default: false,
+      },
     },
     data() {
       return {
-        synth: false,
-        playing: false,
-        schedule: null,
+        voice: synth(),
       };
     },
     methods: {
-      newVoice() {
-        console.log('newVoice');
-        this.synth = new Tone.Synth().toDestination();
-      },
-      stopTone() {
-        clearTimeout(this.schedule);
-        this.synth.triggerRelease();
-        this.playing = false;
-      },
       playTone() {
-        if (!this.synth) this.newVoice();
-        if (this.playing) this.stopTone();
+        if (this.playing && this.toggle) return this.voice.stop();
 
-        this.synth.triggerAttackRelease(this.pitch, this.duration);
-        this.playing = true;
-
-        this.timer(() => (this.playing = false));
-      },
-      timer(fn) {
-        this.schedule = setTimeout(fn, this.duration * 1000);
+        this.voice.start(this.pitch, this.duration);
       },
     },
     computed: {
-      duration() {
-        return Number(Store.getters.getTime);
+      duration: () => Number(Store.getters.getTime),
+      playing() {
+        return this.voice.playing;
       },
     },
   };
@@ -60,6 +47,9 @@
 
     &.playing {
       color: red;
+    }
+    &.toggle {
+      font-weight: bold;
     }
   }
 </style>

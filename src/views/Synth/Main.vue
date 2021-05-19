@@ -4,8 +4,8 @@
     h1 {{msg}}
 
     p Voice 1:
-      Button(pitch='C5')
-      Button(pitch='G5')
+      Button(pitch='C5' toggle)
+      Button(pitch='G5' toggle)
 
     p Voice 2:
       Button(pitch='C5')
@@ -25,13 +25,13 @@
   /* eslint-disable no-console */
   import Store from '@/store';
   import Button from './Button';
-  import * as Tone from 'tone';
+  import synth from './synth.js';
 
   export default {
     data() {
       return {
-        voice: new Tone.Synth().toDestination(),
         duration: Store.getters.getTime, // initial value
+        voice: synth(),
       };
     },
     components: {
@@ -42,7 +42,7 @@
     },
     methods: {
       beep() {
-        this.voice.triggerAttackRelease('C2', 0.01);
+        this.voice.start('C2', 0.01);
       },
       updateTime() {
         Store.commit('setTime', this.duration);
