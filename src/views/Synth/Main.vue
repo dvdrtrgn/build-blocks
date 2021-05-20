@@ -1,23 +1,15 @@
 <template lang="pug">
   section.num1: .wrap
 
-    h1 {{msg}}
+    p Key of C
+      Button(
+        v-for='pitch in scale'
+        :pitch='pitch' :key='pitch'
+      ) {{ pitch }}
 
-    p Voice 1:
-      Button(pitch='C5' toggle)
-      Button(pitch='G5' toggle)
-
-    p Voice 2:
-      Button(pitch='C5')
-      Button(pitch='G5')
-
-    label Duration:
-      select(@change='markTime' v-model='duration')
-        option 0.5
-        option 1.0
-        option 1.5
-        option 2.0
-        option 3
+      label Duration
+        select(@change='markTime' v-model='duration')
+          option(v-for='opt in seconds') {{ opt }}
   //-
 </template>
 
@@ -28,21 +20,23 @@
   import synth from './synth.js';
 
   export default {
-    data() {
-      return {
-        duration: Store.getters.getTime, // initial value
-        voice: synth(),
-      };
-    },
     components: {
       Button,
     },
     props: {
       msg: String,
     },
+    data() {
+      return {
+        duration: Store.getters.getTime, // initial value
+        synth: synth.make(),
+        scale: 'C4 D4 E4 F4 G4 A4 B4 C5'.split(' '),
+        seconds: [1, 2, 3, 4, 5],
+      };
+    },
     methods: {
       beep() {
-        this.voice.start('C2', 0.01);
+        this.synth.start('C2', 0.01);
       },
       updateTime() {
         Store.commit('setTime', this.duration);

@@ -1,8 +1,25 @@
 import * as Tone from 'tone';
 
+const voices = {};
+
+function getVoice(voicename) {
+  let voice = new Tone.Synth().toDestination();
+
+  if (voicename) {
+    if (voices[voicename]) {
+      voice = voices[voicename];
+    } else {
+      voices[voicename] = voice;
+      console.log('new synth wrapper', voicename, voice);
+    }
+  }
+
+  return voice;
+}
+
 class Wrapper {
-  constructor() {
-    this.voice = new Tone.Synth().toDestination();
+  constructor(voice) {
+    this.voice = voice;
     this.schedule = null;
     this.playing = false;
     this.pitch = 'C4';
@@ -31,10 +48,11 @@ class Wrapper {
   }
 }
 
-function synth() {
-  const self = new Wrapper();
-  // console.log('new synth wrapper', self);
+function make(voicename) {
+  let voice = getVoice(voicename);
+  let self = new Wrapper(voice);
+
   return self;
 }
 
-export default synth;
+export default { make, voices };

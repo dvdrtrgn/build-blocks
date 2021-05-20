@@ -1,6 +1,10 @@
 <template lang="pug">
   span
-    button(@click='playTone' :class="{playing: playing, toggle: toggle}")
+    button(
+      @mousedown='playTone'
+      @mouseout='stopTone'
+      :class="{playing: playing, toggle: toggle}"
+    )
       slot Synth {{ pitch }}
 </template>
 
@@ -13,7 +17,7 @@
     props: {
       pitch: {
         type: String,
-        default: 'C2',
+        default: 'C4',
       },
       toggle: {
         type: Boolean,
@@ -22,20 +26,23 @@
     },
     data() {
       return {
-        voice: synth(),
+        synth: synth.make(),
       };
     },
     methods: {
       playTone() {
-        if (this.playing && this.toggle) return this.voice.stop();
+        if (this.playing && this.toggle) return this.synth.stop();
 
-        this.voice.start(this.pitch, this.duration);
+        this.synth.start(this.pitch, this.duration);
+      },
+      stopTone() {
+        if (this.playing) this.synth.stop();
       },
     },
     computed: {
       duration: () => Number(Store.getters.getTime),
       playing() {
-        return this.voice.playing;
+        return this.synth.playing;
       },
     },
   };
