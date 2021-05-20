@@ -21,7 +21,7 @@ function getVoice(voicename) {
 class Wrapper {
   constructor(voice) {
     this.voice = voice;
-    this.schedule = null;
+    this.timeout = null;
     this.playing = false;
   }
 
@@ -29,20 +29,27 @@ class Wrapper {
     return Tone;
   }
 
-  timer(fn, sec) {
-    this.schedule = setTimeout(fn, sec * 1000);
+  timer(cb, sec) {
+    this.timeout = setTimeout(cb, sec * 1000);
   }
 
   stop() {
-    clearTimeout(this.schedule);
+    clearTimeout(this.timeout);
 
     this.voice.triggerRelease();
     this.playing = false;
     this.note.cutShort();
   }
 
-  play(note) {
+  play(note, cb) {
     this.voice.triggerAttackRelease(...note.params);
+
+    this.playing = true;
+
+    this.timer(() => {
+      this.playing = false;
+      if (cb) cb();
+    }, note.duration);
   }
 
   start(pitch, duration) {
@@ -51,9 +58,6 @@ class Wrapper {
     if (this.playing) this.stop();
 
     this.play(this.note);
-    this.playing = true;
-
-    this.timer(() => (this.playing = false), this.note.duration);
   }
 }
 

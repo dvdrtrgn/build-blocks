@@ -14,6 +14,14 @@ class Note {
     if (time < this.end) this.end = time;
   }
 
+  export() {
+    let { pitch, duration } = this;
+
+    duration = parseFloat(duration.toPrecision(3));
+
+    return { pitch, duration };
+  }
+
   get params() {
     return [this.pitch, this.duration, this.delay];
   }

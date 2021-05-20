@@ -1,5 +1,8 @@
 <template>
   <div>
+    <button @click="dump">export</button>
+    <button @click="clear">clear</button>
+    <hr />
     <span
       v-for="note in notes"
       :key="note.start"
@@ -24,7 +27,21 @@
     },
     methods: {
       play(arg) {
-        this.synth.play(arg);
+        function gotoNext() {
+          console.log('gotoNext!');
+        }
+        this.synth.play(arg, gotoNext);
+      },
+      clear() {
+        this.notes.length = 0;
+        this.notes.pop(); // trigger the update
+      },
+      dump() {
+        let dump = this.notes.map(e => e.export());
+
+        dump = JSON.stringify(dump);
+
+        console.log(dump);
       },
     },
   };
