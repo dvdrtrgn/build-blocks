@@ -1,11 +1,21 @@
 <template>
-  <div>
+  <div id="ShowNotes">
     <button @click="dump">dump</button>
     <button @click="clear">clear</button>
+
     <button @click="save('s1')">save</button>
     <button @click="load('s1')">load</button>
+
+    <br />
+
+    <label
+      >autoplay
+      <input type="checkbox" v-model="autoplay" @change="checkbox" />
+    </label>
+
     <hr />
-    <div tabindex="0">
+
+    <div class="notes" tabindex="0">
       <ShowNote
         @play="play"
         tabindex="0"
@@ -35,11 +45,12 @@
       return {
         synth: makeSynth(),
         songs: Store.getters.getSongs,
+        autoplay: Store.getters.getAutoplay,
       };
     },
     methods: {
       play(arg) {
-        this.synth.play(arg, focusNext());
+        this.synth.play(arg, this.autoplay ? focusNext() : '');
       },
       clear() {
         this.notes.length = 0;
@@ -63,6 +74,9 @@
       dump() {
         console.log(this.json);
       },
+      checkbox() {
+        Store.commit('setAutoplay', this.autoplay);
+      },
     },
     computed: {
       json() {
@@ -71,12 +85,18 @@
         return JSON.stringify(dump);
       },
     },
+    mounted() {
+      this.load('s1');
+    },
   };
 </script>
 
-<style lang="scss" scoped>
-  div {
+<style lang="scss">
+  #ShowNotes {
+    background-color: silver;
     columns: 1;
-    background-color: pink;
+    .notes {
+      background-color: rgba(white, 0.5);
+    }
   }
 </style>

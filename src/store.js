@@ -16,6 +16,9 @@ const store = new Vuex.Store({
     getTime(state) {
       return state.duration;
     },
+    getAutoplay(state) {
+      return state.autoplay;
+    },
     getSongs(state) {
       return state.songs;
     },
@@ -27,6 +30,9 @@ const store = new Vuex.Store({
     setTime(state, num) {
       C.log(`time = ${(state.duration = num)}`);
     },
+    setAutoplay(state, bool) {
+      C.log(`autoplay = ${(state.autoplay = bool)}`);
+    },
     saveSong(state, obj) {
       C.log(`state.songs <- ${obj.name} = ${obj.json}`);
       state.songs[obj.name] = obj.json;
@@ -37,7 +43,7 @@ const store = new Vuex.Store({
 
       this.replaceState(Object.assign({ _key_: Key }, state, obj));
 
-      C.log('initStore', [str, store]);
+      C.log('initStore', obj);
     },
   },
   actions: {},
