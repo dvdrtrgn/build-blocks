@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div tabindex="0">
     <button @click="dump">export</button>
     <button @click="clear">clear</button>
     <hr />
@@ -27,8 +27,16 @@
     },
     methods: {
       play(arg) {
+        let self = document.activeElement;
+        let next = self.nextElementSibling;
+
         function gotoNext() {
-          console.log('gotoNext!');
+          if (next) {
+            console.log('going to next', next);
+            next.focus();
+          } else {
+            self.parentElement.focus();
+          }
         }
         this.synth.play(arg, gotoNext);
       },
