@@ -34,7 +34,7 @@ class Note {
 }
 
 function make(pitch, duration) {
-  let self = new Note(pitch, duration);
+  let self = new Note(pitch, parseFloat(duration));
 
   return self;
 }

@@ -17,18 +17,7 @@
     },
     methods: {
       play(arg) {
-        let self = document.activeElement;
-
-        function gotoNext() {
-          let next = self.nextElementSibling;
-          if (next) {
-            console.log('going to next', next);
-            next.focus();
-          } else {
-            self.parentElement.focus();
-          }
-        }
-        this.synth.play(arg, gotoNext);
+        this.$emit('play', arg);
       },
     },
   };

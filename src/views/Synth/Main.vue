@@ -7,9 +7,10 @@
         @playing='addNote'
       ) {{ pitch }}
 
-      label 1s + Sustain
+      label Sustain
         select(@change='markTime' v-model='duration')
           option(v-for='opt in seconds') {{ opt }}
+        | + 1s decay
     p
       ShowNotes(:notes='notes')
   //-
@@ -19,6 +20,7 @@
   import Store from '@/store';
   import Button from './Button';
   import ShowNotes from './ShowNotes';
+
   import makeSynth from './make-synth.js';
 
   export default {

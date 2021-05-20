@@ -1,24 +1,30 @@
 <template>
-  <div tabindex="0">
+  <div>
     <button @click="dump">dump</button>
     <button @click="clear">clear</button>
-    <button @click="save('s1')">save 1</button>
-    <button @click="load('s1')">load 1</button>
+    <button @click="save('s1')">save</button>
+    <button @click="load('s1')">load</button>
     <hr />
-    <ShowNote
-      tabindex="0"
-      v-for="note in notes"
-      :key="note.start"
-      :note="note"
-      @focus="play(note)"
-    />
+    <div tabindex="0">
+      <ShowNote
+        @play="play"
+        tabindex="0"
+        v-for="note in notes"
+        :key="note.vitals()"
+        :note="note"
+        @focus="play(note)"
+      />
+    </div>
   </div>
 </template>
 
 <script>
   import Store from '@/store';
-  import makeSynth from './make-synth.js';
   import ShowNote from './ShowNote';
+
+  import makeSynth from './make-synth.js';
+  import makeNote from './make-note.js';
+  import focusNext from './focus-next.js';
 
   export default {
     props: ['notes'],
@@ -32,14 +38,21 @@
       };
     },
     methods: {
+      play(arg) {
+        this.synth.play(arg, focusNext());
+      },
       clear() {
         this.notes.length = 0;
         this.notes.pop(); // trigger the update
       },
       load(name) {
-        let song = this.songs[name];
-        song = JSON.parse(song);
-        console.log(999, song);
+        let song = JSON.parse(this.songs[name]);
+        this.clear();
+
+        song.forEach(e => {
+          let note = makeNote(...e.split(' '));
+          this.notes.push(note);
+        });
       },
       save(name) {
         Store.commit('saveSong', {
@@ -64,5 +77,6 @@
 <style lang="scss" scoped>
   div {
     columns: 1;
+    background-color: pink;
   }
 </style>

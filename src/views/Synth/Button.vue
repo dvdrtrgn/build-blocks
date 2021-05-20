@@ -11,6 +11,7 @@
 <script>
   /* eslint-disable no-console */
   import Store from '@/store';
+
   import makeSynth from './make-synth.js';
 
   export default {
