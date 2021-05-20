@@ -51,8 +51,9 @@
     }
     .editable {
       padding: $small/2 $small;
+
       &:hover {
-        background-color: black;
+        background-color: darkgreen;
       }
     }
     .pitch {

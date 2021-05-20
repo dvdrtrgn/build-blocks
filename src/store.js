@@ -10,7 +10,9 @@ const store = new Vuex.Store({
   state: {
     loads: 0,
     sustain: 0,
-    songs: {},
+    songs: {
+      s1: '["C4 0.441","D4 0.215","F4 0.25"]',
+    },
   },
   getters: {
     getTime(state) {
@@ -25,16 +27,16 @@ const store = new Vuex.Store({
   },
   mutations: {
     bumpLoads(state) {
-      C.log(`load # ${(state.loads += 1)}`);
+      C.log('bumpLoads', (state.loads += 1));
     },
     setTime(state, num) {
-      C.log(`time = ${(state.sustain = num)}`);
+      C.log('setTime', (state.sustain = num));
     },
     setAutoplay(state, bool) {
-      C.log(`autoplay = ${(state.autoplay = bool)}`);
+      C.log('setAutoplay', (state.autoplay = bool));
     },
     saveSong(state, obj) {
-      C.log(`state.songs <- ${obj.name} = ${obj.json}`);
+      C.log('saveSong', obj);
       state.songs[obj.name] = obj.json;
     },
     initStore(state) {

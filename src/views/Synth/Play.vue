@@ -1,21 +1,29 @@
-<template lang="pug">
-  section
+<template>
+  <section id="Play">
+    <h1>👌🏿</h1>
+    <p>Key of C</p>
 
-    p Key of C
-      PlayButton(
-        v-for='pitch in scale'
-        :pitch='pitch'
-        :key='pitch'
-        @playing='addNote'
-      ) {{ pitch }}
+    <div id="PlayButtons">
+      <PlayButton
+        v-for="pitch in scale"
+        :pitch="pitch"
+        :key="pitch"
+        @playing="addNote"
+      >
+        {{ pitch }}
+      </PlayButton>
+    </div>
 
-      label Sustain
-        select(@change='markTime' v-model='duration')
-          option(v-for='opt in seconds') {{ opt }}
-        | + 1s decay
-    p
-      ShowNotes(:notes='notes')
-  //-
+    <label>
+      Sustain
+      <select @change="markTime" v-model.number="sustain">
+        <option v-for="opt in seconds" :key="opt"> {{ opt }} </option>
+      </select>
+      + 1s decay
+    </label>
+
+    <p><ShowNotes :notes="notes"></ShowNotes></p>
+  </section>
 </template>
 
 <script>
@@ -32,7 +40,7 @@
     },
     data() {
       return {
-        duration: Store.getters.getTime, // initial value
+        sustain: Store.getters.getTime, // initial value
         synth: makeSynth(),
         scale: 'C4 D4 E4 F4 G4 A4 B4 C5'.split(' '),
         seconds: [0, 1, 2, 3, 4],
@@ -41,10 +49,10 @@
     },
     methods: {
       beep() {
-        this.synth.start('C2', this.duration / 2);
+        this.synth.start('C2', this.sustain / 2);
       },
       updateTime() {
-        Store.commit('setTime', this.duration);
+        Store.commit('setTime', this.sustain);
       },
       markTime() {
         this.updateTime();
@@ -58,14 +66,16 @@
 </script>
 
 <style lang="scss">
-  @import '@/scss/vars.scss';
-
-  section.num1 {
-    background: $color4;
-  }
-  section {
+  // @import '@/scss/vars.scss';
+  #Play {
     line-height: 2;
+    text-align: center;
 
+    h1 {
+      font-size: 9rem;
+      line-height: 1.2;
+      position: absolute;
+    }
     button {
       border: 2px outset gray;
       cursor: pointer;

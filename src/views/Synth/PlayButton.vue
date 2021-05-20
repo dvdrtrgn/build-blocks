@@ -1,14 +1,15 @@
-<template lang="pug">
-  button(
-    :class="{playing: playing, toggle: toggle}"
-    @mousedown='playTone'
-    @mouseout='stopTone'
-  )
-    slot Synth {{ pitch }}
+<template>
+  <button
+    class="playbutton"
+    :class="{ playing: playing, toggle: toggle }"
+    @mousedown="playTone()"
+    @mouseout="stopTone()"
+  >
+    <slot> Synth {{ pitch }} </slot>
+  </button>
 </template>
 
 <script>
-  /* eslint-disable no-console */
   import Store from '@/store';
 
   import makeSynth from './make-synth.js';
@@ -50,8 +51,8 @@
   };
 </script>
 
-<style lang="scss" scoped>
-  button {
+<style lang="scss">
+  .playbutton {
     background-color: white;
     border-width: 1px;
     height: 10rem;
