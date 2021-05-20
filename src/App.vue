@@ -1,19 +1,22 @@
 <template lang="pug">
   #App
-    Convert
-    Home
+    Play
+    //- NoteInfo
+    //- Home
   //-
 </template>
 
 <script>
-  import Convert from '@/views/Convert';
+  import NoteInfo from '@/views/Note/Choose';
+  import Play from '@/views/Synth/Play';
   import Home from '@/views/Home';
 
   export default {
     name: 'app',
     components: {
       Home,
-      Convert,
+      NoteInfo,
+      Play,
     },
   };
 </script>

@@ -2,40 +2,57 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 const C = console;
-const Key = 'store';
+const Key = 'build-blocks';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
     loads: 0,
-    duration: 2,
+    sustain: 0,
+    songs: {
+      s1: '["C4 0.441","D4 0.215","F4 0.25"]',
+    },
   },
   getters: {
     getTime(state) {
-      return state.duration;
+      return state.sustain;
+    },
+    getAutoplay(state) {
+      return state.autoplay;
+    },
+    getSongs(state) {
+      return state.songs;
     },
   },
   mutations: {
     bumpLoads(state) {
-      C.log(`load # ${state.loads += 1}`)
+      C.log('bumpLoads', (state.loads += 1));
     },
     setTime(state, num) {
-      C.log(`time = ${state.duration = num}`)
+      C.log('setTime', (state.sustain = num));
+    },
+    setAutoplay(state, bool) {
+      C.log('setAutoplay', (state.autoplay = bool));
+    },
+    saveSong(state, obj) {
+      C.log('saveSong', obj);
+      state.songs[obj.name] = obj.json;
     },
     initStore(state) {
-      let str = localStorage.getItem(Key) || '{}';
-      let obj = JSON.parse(str);
-      this.replaceState(Object.assign({ '_key_': Key }, state, obj)); // Object.assign(state, obj)
-      C.log('initStore', str, [store]);
+      const str = localStorage.getItem(Key) || '{}';
+      const obj = JSON.parse(str);
+
+      this.replaceState(Object.assign(state, obj));
+
+      C.log('initStore', obj);
     },
   },
-  actions: {
-
-  },
+  actions: {},
 });
 
-store.subscribe((mutation, state) => { // called after every mutation{type,payload}
+store.subscribe((mutation, state) => {
+  // called after every mutation{type,payload}
   localStorage.setItem(Key, JSON.stringify(state));
 });
 
