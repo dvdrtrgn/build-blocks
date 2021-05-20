@@ -11,7 +11,7 @@
 <script>
   /* eslint-disable no-console */
   import Store from '@/store';
-  import synth from './synth.js';
+  import makeSynth from './make-synth.js';
 
   export default {
     props: {
@@ -26,7 +26,7 @@
     },
     data() {
       return {
-        synth: synth.make(),
+        synth: makeSynth(),
       };
     },
     methods: {

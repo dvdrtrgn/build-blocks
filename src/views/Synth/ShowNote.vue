@@ -6,13 +6,13 @@
 </template>
 
 <script>
-  import synth from './synth.js';
+  import makeSynth from './make-synth.js';
 
   export default {
     props: ['note'],
     data() {
       return {
-        synth: synth.make(),
+        synth: makeSynth(),
       };
     },
     methods: {

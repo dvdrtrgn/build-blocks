@@ -33,4 +33,10 @@ class Note {
   }
 }
 
-export default Note;
+function make(pitch, duration) {
+  let self = new Note(pitch, duration);
+
+  return self;
+}
+
+export default make;

@@ -19,7 +19,7 @@
   import Store from '@/store';
   import Button from './Button';
   import ShowNotes from './ShowNotes';
-  import synth from './synth.js';
+  import makeSynth from './make-synth.js';
 
   export default {
     components: {
@@ -32,7 +32,7 @@
     data() {
       return {
         duration: Store.getters.getTime, // initial value
-        synth: synth.make(),
+        synth: makeSynth(),
         scale: 'C4 D4 E4 F4 G4 A4 B4 C5'.split(' '),
         seconds: [0, 1, 2, 3, 4],
         notes: [],

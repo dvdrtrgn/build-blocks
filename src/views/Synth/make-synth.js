@@ -1,24 +1,24 @@
 import * as Tone from 'tone';
-import Note from './Note.js';
+import makeNote from './make-note.js';
 
 const voices = {};
 
-function getVoice(voicename) {
+function getVoice(name) {
   let voice = new Tone.Synth().toDestination();
 
-  if (voicename) {
-    if (voices[voicename]) {
-      voice = voices[voicename];
+  if (name) {
+    if (voices[name]) {
+      voice = voices[name];
     } else {
-      voices[voicename] = voice;
-      console.log('new synth wrapper', voicename, voice);
+      voices[name] = voice;
+      console.log('new synth wrapper', name, voice);
     }
   }
 
   return voice;
 }
 
-class Wrapper {
+class SynthWrapper {
   constructor(voice) {
     this.voice = voice;
     this.timeout = null;
@@ -53,7 +53,7 @@ class Wrapper {
   }
 
   start(pitch, duration) {
-    this.note = new Note(pitch, duration || 0.1);
+    this.note = makeNote(pitch, duration || 0.1);
 
     if (this.playing) this.stop();
 
@@ -63,9 +63,9 @@ class Wrapper {
 
 function make(voicename) {
   let voice = getVoice(voicename);
-  let self = new Wrapper(voice);
+  let self = new SynthWrapper(voice);
 
   return self;
 }
 
-export default { make, voices };
+export default make;

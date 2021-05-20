@@ -9,7 +9,7 @@
 
 <script>
   /* eslint-disable no-console */
-  import makeNote from './makeNote.js';
+  import modelNote from './model-note.js';
 
   export default {
     props: {
@@ -19,7 +19,7 @@
     },
     computed: {
       note() {
-        const note = makeNote(this.arg);
+        const note = modelNote(this.arg);
 
         if (this.arg !== note.midi) {
           this.$emit('limit', note.midi); // keep in bounds

@@ -40,12 +40,12 @@ function normalize(num) {
   return Math.round(norm);
 }
 
-function makeNote(num) {
+function modelNote(num) {
   const midi = normalize(num);
   const name = nameFromMidi(midi);
 
   return {
-    name: makeNote.flat ? asFlat(name) : asSharp(name),
+    name: modelNote.flat ? asFlat(name) : asSharp(name),
     octave: octaveFromMidi(midi),
     frequency: freqFromMidi(midi),
     midi,
@@ -54,12 +54,12 @@ function makeNote(num) {
   };
 }
 
-makeNote.min = MIN;
-makeNote.max = MAX;
-makeNote.flat = FLAT;
-makeNote.symbol = SYMBOL;
+modelNote.min = MIN;
+modelNote.max = MAX;
+modelNote.flat = FLAT;
+modelNote.symbol = SYMBOL;
 
-export default makeNote;
+export default modelNote;
 
 /*
 

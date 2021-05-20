@@ -17,7 +17,7 @@
 
 <script>
   import Store from '@/store';
-  import synth from './synth.js';
+  import makeSynth from './make-synth.js';
   import ShowNote from './ShowNote';
 
   export default {
@@ -27,7 +27,7 @@
     },
     data() {
       return {
-        synth: synth.make(),
+        synth: makeSynth(),
         songs: Store.getters.getSongs,
       };
     },
