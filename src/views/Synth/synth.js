@@ -26,6 +26,9 @@ class Wrapper {
     this.duration = 1;
   }
 
+  getMaster() {
+    return Tone;
+  }
   timer(fn) {
     this.schedule = setTimeout(fn, this.duration * 1000);
   }
@@ -35,13 +38,13 @@ class Wrapper {
     this.voice.triggerRelease();
     this.playing = false;
   }
-  start(pitch, duration) {
+  start(pitch, duration, off) {
     if (this.playing) this.stop();
 
     this.pitch = pitch || this.pitch;
     this.duration = duration || this.duration;
 
-    this.voice.triggerAttackRelease(this.pitch, this.duration);
+    this.voice.triggerAttackRelease(this.pitch, this.duration, off);
     this.playing = true;
 
     this.timer(() => (this.playing = false));

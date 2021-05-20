@@ -34,6 +34,7 @@
         if (this.playing && this.toggle) return this.synth.stop();
 
         this.synth.start(this.pitch, this.duration);
+        // console.log(this.synth);
       },
       stopTone() {
         if (this.playing) this.synth.stop();

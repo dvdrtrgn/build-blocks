@@ -7,7 +7,7 @@
         :pitch='pitch' :key='pitch'
       ) {{ pitch }}
 
-      label Duration
+      label Sustain
         select(@change='markTime' v-model='duration')
           option(v-for='opt in seconds') {{ opt }}
   //-
@@ -31,12 +31,12 @@
         duration: Store.getters.getTime, // initial value
         synth: synth.make(),
         scale: 'C4 D4 E4 F4 G4 A4 B4 C5'.split(' '),
-        seconds: [1, 2, 3, 4, 5],
+        seconds: [0, 1, 2, 3, 4],
       };
     },
     methods: {
       beep() {
-        this.synth.start('C2', 0.01);
+        this.synth.start('C2', this.duration / 2);
       },
       updateTime() {
         Store.commit('setTime', this.duration);
