@@ -16,7 +16,6 @@
 </template>
 
 <script>
-  /* eslint-disable no-console */
   import Store from '@/store';
   import Button from './Button';
   import ShowNotes from './ShowNotes';

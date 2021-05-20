@@ -1,55 +1,61 @@
 <template>
   <div tabindex="0">
-    <button @click="dump">export</button>
+    <button @click="dump">dump</button>
     <button @click="clear">clear</button>
+    <button @click="save('s1')">save 1</button>
+    <button @click="load('s1')">load 1</button>
     <hr />
-    <span
+    <ShowNote
+      tabindex="0"
       v-for="note in notes"
       :key="note.start"
+      :note="note"
       @focus="play(note)"
-      tabindex="0"
-    >
-      {{ note.pitch }}
-      <small>{{ note.duration.toFixed(1) }}s</small>
-    </span>
+    />
   </div>
 </template>
 
 <script>
+  import Store from '@/store';
   import synth from './synth.js';
+  import ShowNote from './ShowNote';
 
   export default {
     props: ['notes'],
+    components: {
+      ShowNote,
+    },
     data() {
       return {
         synth: synth.make(),
+        songs: Store.getters.getSongs,
       };
     },
     methods: {
-      play(arg) {
-        let self = document.activeElement;
-        let next = self.nextElementSibling;
-
-        function gotoNext() {
-          if (next) {
-            console.log('going to next', next);
-            next.focus();
-          } else {
-            self.parentElement.focus();
-          }
-        }
-        this.synth.play(arg, gotoNext);
-      },
       clear() {
         this.notes.length = 0;
         this.notes.pop(); // trigger the update
       },
+      load(name) {
+        let song = this.songs[name];
+        song = JSON.parse(song);
+        console.log(999, song);
+      },
+      save(name) {
+        Store.commit('saveSong', {
+          name: name,
+          json: this.json,
+        });
+      },
       dump() {
-        let dump = this.notes.map(e => e.export());
+        console.log(this.json);
+      },
+    },
+    computed: {
+      json() {
+        let dump = this.notes.map(e => e.vitals());
 
-        dump = JSON.stringify(dump);
-
-        console.log(dump);
+        return JSON.stringify(dump);
       },
     },
   };
@@ -58,20 +64,5 @@
 <style lang="scss" scoped>
   div {
     columns: 1;
-  }
-  span {
-    border: 3px outset purple;
-    cursor: pointer;
-    display: inline-block;
-    line-height: 1;
-    padding: 0.2rem;
-    white-space: nowrap;
-
-    &:focus {
-      border-color: red;
-    }
-    small {
-      font-size: 66%;
-    }
   }
 </style>

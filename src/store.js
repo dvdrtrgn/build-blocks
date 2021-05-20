@@ -10,10 +10,14 @@ const store = new Vuex.Store({
   state: {
     loads: 0,
     duration: 2,
+    songs: {},
   },
   getters: {
     getTime(state) {
       return state.duration;
+    },
+    getSongs(state) {
+      return state.songs;
     },
   },
   mutations: {
@@ -23,13 +27,17 @@ const store = new Vuex.Store({
     setTime(state, num) {
       C.log(`time = ${(state.duration = num)}`);
     },
+    saveSong(state, obj) {
+      C.log(`state.songs <- ${obj.name} = ${obj.json}`);
+      state.songs[obj.name] = obj.json;
+    },
     initStore(state) {
       const str = localStorage.getItem(Key) || '{}';
       const obj = JSON.parse(str);
 
       this.replaceState(Object.assign({ _key_: Key }, state, obj));
 
-      C.log('initStore', str, [store]);
+      C.log('initStore', [str, store]);
     },
   },
   actions: {},

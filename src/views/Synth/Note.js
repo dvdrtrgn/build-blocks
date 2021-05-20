@@ -14,12 +14,12 @@ class Note {
     if (time < this.end) this.end = time;
   }
 
-  export() {
+  vitals() {
     let { pitch, duration } = this;
 
     duration = parseFloat(duration.toPrecision(3));
 
-    return { pitch, duration };
+    return [pitch, duration].join(' ');
   }
 
   get params() {
