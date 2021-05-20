@@ -36,15 +36,15 @@
 <style lang="scss">
   .songnote {
     $small: 0.3rem;
+
     display: inline-block;
     font-size: 120%;
     line-height: 1;
     padding: $small;
     white-space: nowrap;
 
-    .pitch {
-      font-size: 96%;
-      margin-top: 1rem;
+    .icon {
+      margin: -$small;
     }
     .duration {
       font-size: 66%;
@@ -55,8 +55,9 @@
         background-color: black;
       }
     }
-    .icon {
-      margin-left: -0.5rem;
+    .pitch {
+      font-size: 96%;
+      margin-top: 1rem;
     }
   }
 </style>

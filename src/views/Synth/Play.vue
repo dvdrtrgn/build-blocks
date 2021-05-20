@@ -1,9 +1,11 @@
 <template lang="pug">
-  section.num1: .wrap
+  section
 
     p Key of C
       PlayButton(
-        v-for='pitch in scale' :pitch='pitch' :key='pitch'
+        v-for='pitch in scale'
+        :pitch='pitch'
+        :key='pitch'
         @playing='addNote'
       ) {{ pitch }}
 

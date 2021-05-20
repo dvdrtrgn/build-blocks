@@ -1,7 +1,7 @@
 <template lang="pug">
   #App
     Play
-    NoteInfo
+    //- NoteInfo
     //- Home
   //-
 </template>

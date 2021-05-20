@@ -1,17 +1,5 @@
 <template>
   <div id="Song1">
-    <button @click="dump">dump</button>
-    <button @click="clear">clear</button>
-
-    <button @click="save" :class="{ dirty: !saved }">save</button>
-    <button @click="load">load</button>
-
-    <label>
-      <input type="checkbox" v-model="autoplay" @change="checkbox" /> autoplay
-    </label>
-
-    <hr />
-
     <div class="notes" tabindex="0">
       <SongNote
         v-for="(note, i) in notes"
@@ -21,6 +9,16 @@
         @play="play"
         @focus="play(note)"
       />
+    </div>
+
+    <div class="controls">
+      <button @click="checkbox" :class="{ active: autoplay }">autoplay</button>
+      |
+      <button @click="dump">dump</button>
+      <button @click="clear">clear</button>
+      |
+      <button @click="save" :class="{ active: !saved }">save</button>
+      <button @click="load">load</button>
     </div>
   </div>
 </template>
@@ -73,6 +71,7 @@
         console.log(this.json);
       },
       checkbox() {
+        this.autoplay = !this.autoplay;
         Store.commit('setAutoplay', this.autoplay);
       },
     },
@@ -95,14 +94,22 @@
 
 <style lang="scss">
   #Song1 {
-    background-color: silver;
     columns: 1;
+    margin: 1rem 0;
+    text-align: center;
 
-    .notes {
+    > div {
       background-color: rgba(white, 0.5);
+      border: 1px solid silver;
+      border-radius: 1rem;
     }
-    .dirty {
-      font-weight: bold;
+    .notes {
+      padding: 1rem;
+      text-align: left;
+    }
+    .active {
+      background-color: gray;
+      color: white;
     }
   }
 </style>
