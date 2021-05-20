@@ -1,5 +1,5 @@
 <template>
-  <div id="ShowNotes">
+  <div id="Song1">
     <button @click="dump">dump</button>
     <button @click="clear">clear</button>
 
@@ -13,7 +13,7 @@
     <hr />
 
     <div class="notes" tabindex="0">
-      <ShowNote
+      <SongNote
         v-for="(note, i) in notes"
         tabindex="0"
         :key="i"
@@ -27,7 +27,7 @@
 
 <script>
   import Store from '@/store';
-  import ShowNote from '@/views/Synth/ShowNote';
+  import SongNote from '@/views/Synth/SongNote';
 
   import makeSynth from './make-synth.js';
   import makeNote from './make-note.js';
@@ -36,7 +36,7 @@
   export default {
     props: ['notes'],
     components: {
-      ShowNote,
+      SongNote,
     },
     data() {
       return {
@@ -94,7 +94,7 @@
 </script>
 
 <style lang="scss">
-  #ShowNotes {
+  #Song1 {
     background-color: silver;
     columns: 1;
 

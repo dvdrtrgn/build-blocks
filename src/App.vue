@@ -1,6 +1,6 @@
 <template lang="pug">
   #App
-    Synth
+    Play
     NoteInfo
     //- Home
   //-
@@ -8,7 +8,7 @@
 
 <script>
   import NoteInfo from '@/views/Note/Choose';
-  import Synth from '@/views/Synth/Main';
+  import Play from '@/views/Synth/Play';
   import Home from '@/views/Home';
 
   export default {
@@ -16,7 +16,7 @@
     components: {
       Home,
       NoteInfo,
-      Synth,
+      Play,
     },
   };
 </script>

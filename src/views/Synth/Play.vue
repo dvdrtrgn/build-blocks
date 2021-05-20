@@ -2,7 +2,7 @@
   section.num1: .wrap
 
     p Key of C
-      Button(
+      PlayButton(
         v-for='pitch in scale' :pitch='pitch' :key='pitch'
         @playing='addNote'
       ) {{ pitch }}
@@ -18,14 +18,14 @@
 
 <script>
   import Store from '@/store';
-  import Button from '@/views/Synth/Button';
+  import PlayButton from '@/views/Synth/PlayButton';
   import ShowNotes from '@/views/Synth/Song';
 
   import makeSynth from './make-synth.js';
 
   export default {
     components: {
-      Button,
+      PlayButton,
       ShowNotes,
     },
     data() {

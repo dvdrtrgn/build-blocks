@@ -23,17 +23,15 @@
   };
 </script>
 
-<style lang="scss">
-  #ShowNotes {
-    button {
-      display: inline-block;
-      font-size: 120%;
-      padding: 0 0.4rem;
-      white-space: nowrap;
+<style lang="scss" scoped>
+  button {
+    display: inline-block;
+    font-size: 120%;
+    padding: 0 0.4rem;
+    white-space: nowrap;
 
-      small {
-        font-size: 66%;
-      }
+    small {
+      font-size: 66%;
     }
   }
 </style>
