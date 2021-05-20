@@ -28,6 +28,9 @@ class Note {
   get duration() {
     return this.end - this.start;
   }
+  set duration(val) {
+    this.end = this.start + Number(val);
+  }
   get delay() {
     return Tone.now();
   }

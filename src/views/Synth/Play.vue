@@ -65,12 +65,12 @@
     line-height: 2;
 
     button {
-      border: 2px solid gray;
+      border: 2px outset gray;
       cursor: pointer;
       margin: 2px;
 
       &:hover {
-        background-color: gray;
+        background-color: silver;
         color: white;
       }
       &:focus {

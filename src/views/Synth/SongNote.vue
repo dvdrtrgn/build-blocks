@@ -1,7 +1,12 @@
 <template>
-  <button @focus="play(note)">
-    {{ note.pitch
-    }}<small>({{ note.duration.toFixed(1).replace('0.', '.') }}s)</small>
+  <button class="songnote" @focus="play(note)">
+    <span class="icon">♩</span>
+    <span class="editable pitch" @click="edit(note, 'pitch')">{{
+      note.pitch
+    }}</span>
+    <span class="editable duration" @click="edit(note, 'duration')"
+      >{{ note.duration.toFixed(1).replace('0.', '.') }}s</span
+    >
   </button>
 </template>
 
@@ -16,22 +21,42 @@
       };
     },
     methods: {
-      play(arg) {
-        this.$emit('play', arg);
+      play(note) {
+        this.$emit('play', note);
+      },
+      edit(note, prop) {
+        let val = note[prop];
+        let out = prompt('Edit ' + prop, val);
+        if (out && val != out) note[prop] = out;
       },
     },
   };
 </script>
 
-<style lang="scss" scoped>
-  button {
+<style lang="scss">
+  .songnote {
+    $small: 0.3rem;
     display: inline-block;
     font-size: 120%;
-    padding: 0 0.4rem;
+    line-height: 1;
+    padding: $small;
     white-space: nowrap;
 
-    small {
+    .pitch {
+      font-size: 96%;
+      margin-top: 1rem;
+    }
+    .duration {
       font-size: 66%;
+    }
+    .editable {
+      padding: $small/2 $small;
+      &:hover {
+        background-color: black;
+      }
+    }
+    .icon {
+      margin-left: -0.5rem;
     }
   }
 </style>

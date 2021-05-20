@@ -53,6 +53,7 @@
 <style lang="scss" scoped>
   button {
     background-color: white;
+    border-width: 1px;
     height: 10rem;
 
     &.playing {
