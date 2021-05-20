@@ -35,6 +35,7 @@
 
         this.synth.start(this.pitch, this.duration);
         // console.log(this.synth);
+        this.$emit('playing', this.synth.note);
       },
       stopTone() {
         if (this.playing) this.synth.stop();
@@ -51,10 +52,15 @@
 
 <style lang="scss" scoped>
   button {
+    background-color: white;
     border: 1px solid silver;
+    height: 10rem;
 
+    &:hover {
+      background-color: gray;
+    }
     &.playing {
-      color: red;
+      border-color: red;
     }
     &.toggle {
       font-weight: bold;

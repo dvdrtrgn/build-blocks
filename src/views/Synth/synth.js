@@ -1,4 +1,5 @@
 import * as Tone from 'tone';
+import Note from './Note.js';
 
 const voices = {};
 
@@ -29,22 +30,25 @@ class Wrapper {
   getMaster() {
     return Tone;
   }
+
   timer(fn) {
     this.schedule = setTimeout(fn, this.duration * 1000);
   }
+
   stop() {
     clearTimeout(this.schedule);
 
     this.voice.triggerRelease();
     this.playing = false;
+    this.note.cutShort();
   }
-  start(pitch, duration, off) {
+
+  start(pitch, duration) {
+    this.note = new Note(pitch, duration);
+
     if (this.playing) this.stop();
 
-    this.pitch = pitch || this.pitch;
-    this.duration = duration || this.duration;
-
-    this.voice.triggerAttackRelease(this.pitch, this.duration, off);
+    this.voice.triggerAttackRelease(...this.note.params);
     this.playing = true;
 
     this.timer(() => (this.playing = false));

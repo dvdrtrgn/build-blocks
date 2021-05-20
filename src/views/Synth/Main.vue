@@ -3,11 +3,11 @@
 
     p Key of C
       Button(
-        v-for='pitch in scale'
-        :pitch='pitch' :key='pitch'
+        v-for='pitch in scale' :pitch='pitch' :key='pitch'
+        @playing='addNote'
       ) {{ pitch }}
 
-      label Sustain
+      label 1s + Sustain
         select(@change='markTime' v-model='duration')
           option(v-for='opt in seconds') {{ opt }}
   //-
@@ -32,6 +32,7 @@
         synth: synth.make(),
         scale: 'C4 D4 E4 F4 G4 A4 B4 C5'.split(' '),
         seconds: [0, 1, 2, 3, 4],
+        notes: [],
       };
     },
     methods: {
@@ -44,6 +45,9 @@
       markTime() {
         this.updateTime();
         this.beep();
+      },
+      addNote(note) {
+        this.notes.push(note);
       },
     },
   };
