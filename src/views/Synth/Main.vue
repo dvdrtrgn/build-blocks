@@ -18,8 +18,8 @@
 
 <script>
   import Store from '@/store';
-  import Button from './Button';
-  import ShowNotes from './ShowNotes';
+  import Button from '@/views/Synth/Button';
+  import ShowNotes from '@/views/Synth/Song';
 
   import makeSynth from './make-synth.js';
 

@@ -27,7 +27,7 @@
 
 <script>
   import Store from '@/store';
-  import ShowNote from './ShowNote';
+  import ShowNote from '@/views/Synth/ShowNote';
 
   import makeSynth from './make-synth.js';
   import makeNote from './make-note.js';
