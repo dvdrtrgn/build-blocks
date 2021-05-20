@@ -9,12 +9,12 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     loads: 0,
-    duration: 2,
+    sustain: 0,
     songs: {},
   },
   getters: {
     getTime(state) {
-      return state.duration;
+      return state.sustain;
     },
     getAutoplay(state) {
       return state.autoplay;
@@ -28,7 +28,7 @@ const store = new Vuex.Store({
       C.log(`load # ${(state.loads += 1)}`);
     },
     setTime(state, num) {
-      C.log(`time = ${(state.duration = num)}`);
+      C.log(`time = ${(state.sustain = num)}`);
     },
     setAutoplay(state, bool) {
       C.log(`autoplay = ${(state.autoplay = bool)}`);
@@ -41,7 +41,7 @@ const store = new Vuex.Store({
       const str = localStorage.getItem(Key) || '{}';
       const obj = JSON.parse(str);
 
-      this.replaceState(Object.assign({ _key_: Key }, state, obj));
+      this.replaceState(Object.assign(state, obj));
 
       C.log('initStore', obj);
     },

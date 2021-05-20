@@ -28,9 +28,6 @@
       Button,
       ShowNotes,
     },
-    props: {
-      msg: String,
-    },
     data() {
       return {
         duration: Store.getters.getTime, // initial value
@@ -52,7 +49,7 @@
         this.beep();
       },
       addNote(note) {
-        if (note.duration > 0.009) this.notes.push(note);
+        if (note.duration >= 0.01) this.notes.push(note);
       },
     },
   };
@@ -68,13 +65,16 @@
     line-height: 2;
 
     button {
-      border: 1px solid gray;
+      border: 2px solid gray;
       cursor: pointer;
-      margin: 3px;
+      margin: 2px;
 
       &:hover {
-        background-color: black;
+        background-color: gray;
         color: white;
+      }
+      &:focus {
+        border-color: purple;
       }
     }
     select {

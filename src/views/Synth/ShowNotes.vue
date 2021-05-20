@@ -3,25 +3,22 @@
     <button @click="dump">dump</button>
     <button @click="clear">clear</button>
 
-    <button @click="save('s1')">save</button>
-    <button @click="load('s1')">load</button>
+    <button @click="save" :class="{ dirty: !saved }">save</button>
+    <button @click="load">load</button>
 
-    <br />
-
-    <label
-      >autoplay
-      <input type="checkbox" v-model="autoplay" @change="checkbox" />
+    <label>
+      <input type="checkbox" v-model="autoplay" @change="checkbox" /> autoplay
     </label>
 
     <hr />
 
     <div class="notes" tabindex="0">
       <ShowNote
-        @play="play"
+        v-for="(note, i) in notes"
         tabindex="0"
-        v-for="note in notes"
-        :key="note.vitals()"
+        :key="i"
         :note="note"
+        @play="play"
         @focus="play(note)"
       />
     </div>
@@ -44,8 +41,9 @@
     data() {
       return {
         synth: makeSynth(),
-        songs: Store.getters.getSongs,
         autoplay: Store.getters.getAutoplay,
+        saved: false,
+        songname: 's1',
       };
     },
     methods: {
@@ -56,8 +54,8 @@
         this.notes.length = 0;
         this.notes.pop(); // trigger the update
       },
-      load(name) {
-        let song = JSON.parse(this.songs[name]);
+      load() {
+        let song = JSON.parse(this.songs[this.songname]);
         this.clear();
 
         song.forEach(e => {
@@ -65,9 +63,9 @@
           this.notes.push(note);
         });
       },
-      save(name) {
+      save() {
         Store.commit('saveSong', {
-          name: name,
+          name: this.songname,
           json: this.json,
         });
       },
@@ -84,9 +82,13 @@
 
         return JSON.stringify(dump);
       },
+      songs() {
+        return Store.getters.getSongs;
+      },
     },
     mounted() {
-      this.load('s1');
+      this.load();
+      this.dump();
     },
   };
 </script>
@@ -95,8 +97,12 @@
   #ShowNotes {
     background-color: silver;
     columns: 1;
+
     .notes {
       background-color: rgba(white, 0.5);
+    }
+    .dirty {
+      font-weight: bold;
     }
   }
 </style>
