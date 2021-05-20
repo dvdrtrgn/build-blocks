@@ -5,9 +5,8 @@ class Note {
     let now = Tone.now();
 
     this.pitch = pitch || 'C4';
-    this.duration = duration || 0.01;
     this.start = now;
-    this.end = now + this.duration;
+    this.end = now + (duration || 0.01);
   }
 
   cutShort(time) {
@@ -18,7 +17,7 @@ class Note {
   get params() {
     return [this.pitch, this.duration, this.delay];
   }
-  get length() {
+  get duration() {
     return this.end - this.start;
   }
   get delay() {

@@ -23,16 +23,14 @@ class Wrapper {
     this.voice = voice;
     this.schedule = null;
     this.playing = false;
-    this.pitch = 'C4';
-    this.duration = 1;
   }
 
   getMaster() {
     return Tone;
   }
 
-  timer(fn) {
-    this.schedule = setTimeout(fn, this.duration * 1000);
+  timer(fn, sec) {
+    this.schedule = setTimeout(fn, sec * 1000);
   }
 
   stop() {
@@ -43,15 +41,19 @@ class Wrapper {
     this.note.cutShort();
   }
 
+  play(note) {
+    this.voice.triggerAttackRelease(...note.params);
+  }
+
   start(pitch, duration) {
-    this.note = new Note(pitch, duration);
+    this.note = new Note(pitch, duration || 0.1);
 
     if (this.playing) this.stop();
 
-    this.voice.triggerAttackRelease(...this.note.params);
+    this.play(this.note);
     this.playing = true;
 
-    this.timer(() => (this.playing = false));
+    this.timer(() => (this.playing = false), this.note.duration);
   }
 }
 

@@ -10,6 +10,8 @@
       label 1s + Sustain
         select(@change='markTime' v-model='duration')
           option(v-for='opt in seconds') {{ opt }}
+    p
+      ShowNotes(:notes='notes')
   //-
 </template>
 
@@ -17,11 +19,13 @@
   /* eslint-disable no-console */
   import Store from '@/store';
   import Button from './Button';
+  import ShowNotes from './ShowNotes';
   import synth from './synth.js';
 
   export default {
     components: {
       Button,
+      ShowNotes,
     },
     props: {
       msg: String,
@@ -47,7 +51,7 @@
         this.beep();
       },
       addNote(note) {
-        this.notes.push(note);
+        if (note.duration > 0.009) this.notes.push(note);
       },
     },
   };
