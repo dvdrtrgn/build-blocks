@@ -1,18 +1,20 @@
 <template>
   <section id="Keyboard">
-    <h1>ShowKeyboard</h1>
-
-    <div id="KeyboardButtons">
-      <KeyboardButton v-for="pitch in scale" :pitch="pitch" :key="pitch" />
-    </div>
+    <h1>Keyboard</h1>
 
     <label>
       Max Sustain
       <select @change="markTime" v-model.number="sustain">
-        <option v-for="opt in seconds" :key="opt"> {{ opt }} </option>
+        <option v-for="opt in seconds" :key="opt" :value="opt">
+          {{ opt }}s
+        </option>
       </select>
-      + 1s decay
+      <small> (w/1s decay)</small>
     </label>
+
+    <div id="KeyboardButtons">
+      <KeyboardButton v-for="pitch in scale" :pitch="pitch" :key="pitch" />
+    </div>
   </section>
 </template>
 
@@ -58,25 +60,8 @@
 </script>
 
 <style lang="scss">
-  // @import '@/scss/vars.scss';
   #Keyboard {
     line-height: 2;
     text-align: center;
-
-    button {
-      border: 2px outset gray;
-      cursor: pointer;
-
-      &:hover {
-        background-color: silver;
-        color: white;
-      }
-      &:focus {
-        border-color: purple;
-      }
-    }
-    select {
-      -webkit-appearance: menulist;
-    }
   }
 </style>

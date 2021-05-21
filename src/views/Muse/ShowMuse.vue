@@ -1,11 +1,7 @@
 <template lang="pug">
-  section#ShowMuse
-    h1 ShowMuse
-
+  section#Muse
     Keyboard
-
     Song(:notes='notes')
-
 </template>
 
 <script>
@@ -41,8 +37,7 @@
 </script>
 
 <style lang="scss">
-  // @import '@/scss/vars.scss';
-  #ShowMuse {
+  #Muse {
     line-height: 2;
     text-align: center;
 
@@ -55,6 +50,12 @@
       &:focus {
         border-color: cyan;
       }
+    }
+    big {
+      font-size: 120%;
+    }
+    small {
+      font-size: 80%;
     }
     select {
       -webkit-appearance: menulist;

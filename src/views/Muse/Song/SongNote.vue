@@ -1,11 +1,13 @@
 <template>
   <button class="songnote" @focus="play(note)">
     <span class="icon">♩</span>
+
     <span class="editable pitch" @click="edit(note, 'pitch')">{{
       note.pitch
     }}</span>
-    <span class="editable duration" @click="edit(note, 'duration')"
-      >{{ note.duration.toFixed(1).replace('0.', '.') }}s</span
+
+    <small class="editable duration" @click="edit(note, 'duration')"
+      >{{ note.duration.toFixed(1).replace('0.', '.') }}s</small
     >
   </button>
 </template>
@@ -34,31 +36,30 @@
 </script>
 
 <style lang="scss">
+  $root: 1.4rem;
+
   .songnote {
-    $small: 0.3rem;
+    $quart: $root / 4;
 
     display: inline-block;
-    font-size: 120%;
+    font-size: $root;
     line-height: 1;
-    padding: $small;
+    padding: $quart;
     white-space: nowrap;
 
     .icon {
-      margin: -$small;
+      margin: -$quart;
     }
     .duration {
       font-size: 66%;
     }
     .editable {
-      margin: $small/2 $small;
+      cursor: pointer;
+      margin: $quart/2 $quart;
 
       &:hover {
         background-color: lime;
       }
-    }
-    .pitch {
-      font-size: 96%;
-      margin-top: 1rem;
     }
   }
 </style>

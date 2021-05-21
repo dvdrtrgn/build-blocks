@@ -1,13 +1,13 @@
 <template lang="pug">
-  main#Main
-    span.hand 👌🏿
+  main
+    h1.hand 👌🏿
 
     ShowMuse
 
 </template>
 
 <script>
-  import ShowMuse from './Muse/_';
+  import ShowMuse from './Muse/ShowMuse';
 
   export default {
     components: {
@@ -17,10 +17,11 @@
 </script>
 
 <style lang="scss">
+  $root: 1.2rem;
+
   .hand {
-    font-size: 9rem;
+    font-size: 9 * $root;
     left: 0;
-    line-height: 1.2;
     position: absolute;
     top: 0;
   }

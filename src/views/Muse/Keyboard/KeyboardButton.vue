@@ -3,7 +3,7 @@
     class="playbutton"
     :class="{ playing: playing, toggle: toggle, flat: flat }"
     @mousedown="playTone()"
-    @keydown="playTone()"
+    @keypress="playTone()"
     @mouseup="stopTone()"
     @keyeup="stopTone()"
   >
@@ -66,16 +66,19 @@
 </script>
 
 <style lang="scss">
+  $root: 1.2rem;
+
   .playbutton {
-    $base: 1rem;
-    $tall: $base * 12;
-    $short: $base * 7;
-    $wide: $base * 3;
-    $thin: $base * 2.2;
+    $tall: $root * 12;
+    $short: $root * 7;
+    $wide: $root * 2.3;
+    $thin: $root * 1.7;
 
     background-color: white;
+    border-radius: 3px;
     border-width: 1px;
     color: black;
+    font-size: $root;
     height: $tall;
     line-height: 1;
     margin: 0;
