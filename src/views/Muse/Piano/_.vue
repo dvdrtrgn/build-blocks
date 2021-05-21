@@ -1,6 +1,6 @@
 <template>
-  <section id="Keyboard">
-    <h1>Keyboard</h1>
+  <section id="Piano">
+    <h1>Piano</h1>
 
     <label>
       Max Sustain
@@ -12,8 +12,8 @@
       <small> (w/1s decay)</small>
     </label>
 
-    <div id="KeyboardButtons">
-      <KeyboardButton v-for="pitch in scale" :pitch="pitch" :key="pitch" />
+    <div class="keylist">
+      <PianoKey v-for="pitch in scale" :pitch="pitch" :key="pitch" />
     </div>
   </section>
 </template>
@@ -21,13 +21,13 @@
 <script>
   import Store from '@/store';
   import Bus from '@/bus';
-  import KeyboardButton from './KeyboardButton';
+  import PianoKey from './PianoKey';
 
   import makeSynth from '@/libs/make-synth.js';
 
   export default {
     components: {
-      KeyboardButton,
+      PianoKey,
     },
     data() {
       return {
@@ -60,7 +60,7 @@
 </script>
 
 <style lang="scss">
-  #Keyboard {
+  #Piano {
     line-height: 2;
     text-align: center;
   }

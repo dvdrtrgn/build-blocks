@@ -1,6 +1,6 @@
 <template>
   <button
-    class="playbutton"
+    class="pianokey"
     :class="[bias, { playing: playing, toggle: toggle, ebony: ebony }]"
     @mousedown="playTone()"
     @keypress="playTone()"
@@ -73,11 +73,11 @@
 <style lang="scss">
   $root: 1.2rem;
 
-  .playbutton {
+  .pianokey {
     $tall: $root * 12;
     $short: $root * 7.5;
     $wide: $root * 2.3;
-    $thin: $root * 1.7;
+    $thin: $root * 1.6;
 
     background-color: white;
     border-radius: 3px;
@@ -90,7 +90,11 @@
     position: relative;
     vertical-align: top;
     width: $wide;
-    z-index: 1;
+    z-index: 0;
+
+    &:hover {
+      z-index: 1;
+    }
 
     .label {
       bottom: 0.5rem;
@@ -113,10 +117,10 @@
       width: $thin;
       z-index: 2;
       &.left {
-        left: -0.2rem;
+        left: $thin / -7;
       }
       &.right {
-        left: 0.2rem;
+        left: $thin / 7;
       }
     }
   }

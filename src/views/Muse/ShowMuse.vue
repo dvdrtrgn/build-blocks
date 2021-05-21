@@ -1,19 +1,19 @@
 <template lang="pug">
   section#Muse
-    Keyboard
+    Piano
     Song(:notes='notes')
 </template>
 
 <script>
   import Bus from '@/bus';
-  import Keyboard from './Keyboard/_';
+  import Piano from './Piano/_';
   import Song from './Song/_';
 
   import makeSynth from '@/libs/make-synth.js';
 
   export default {
     components: {
-      Keyboard,
+      Piano,
       Song,
     },
     data() {
@@ -42,7 +42,7 @@
     text-align: center;
 
     button {
-      border: 2px outset gray;
+      border: 2px outset silver;
 
       &:hover {
         border-color: yellow;

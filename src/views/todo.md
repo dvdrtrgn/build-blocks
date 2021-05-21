@@ -6,15 +6,15 @@
       --allow storage and retrieval
       --offer modes?
 
-      synth (Synth)
+      synth (ShowMuse)
         --switch mode?
-        keyboard (Keyboard)
+        keyboard (Piano)
           --sustain
           --set tonic?
-          keys (KeyboardButton)
+          pianokeys (PianoKey)
             --take pitch
             --determine shape based on pitch
-        song (ShowSong)
+        song (Song)
           --show controls
           songnotes (SongNote)
             --represent note
@@ -43,7 +43,7 @@ Piano Model
 
 
 
-# Keyboard
+# Piano
 make octave
 add keys to keyboard
 choose scale from menu (to highlight keys in that scale)

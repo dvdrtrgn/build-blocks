@@ -2,9 +2,11 @@
   <button class="songnote" @focus="play(note)">
     <span class="icon">♩</span>
 
-    <span class="editable pitch" @click="edit(note, 'pitch')">{{
-      note.pitch
-    }}</span>
+    <span
+      class="editable pitch"
+      @click="edit(note, 'pitch')"
+      v-html="label"
+    ></span>
 
     <small class="editable duration" @click="edit(note, 'duration')"
       >{{ note.duration.toFixed(1).replace('0.', '.') }}s</small
@@ -30,6 +32,13 @@
         let val = note[prop];
         let out = prompt('Edit ' + prop, val);
         if (out && val != out) note[prop] = out;
+      },
+    },
+    computed: {
+      label() {
+        let html = this.note.pitch.toString().replace('#', '<sup>♯</sup>');
+
+        return html;
       },
     },
   };
@@ -60,6 +69,10 @@
       &:hover {
         background-color: lime;
       }
+    }
+    sup {
+      font-size: 66%;
+      vertical-align: top;
     }
   }
 </style>
