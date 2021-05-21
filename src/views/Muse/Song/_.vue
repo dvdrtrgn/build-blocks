@@ -1,38 +1,41 @@
 <template>
-  <div id="Song1">
-    <div class="notes" tabindex="0">
-      <SongNote
-        v-for="(note, i) in notes"
-        tabindex="0"
-        :key="i"
-        :note="note"
-        @play="play"
-        @focus="play(note)"
-      />
+  <div id="Song">
+    <h1>Output</h1>
+
+    <div class="notelist bezel" tabindex="0">
+      <SongNote v-for="(note, i) in notes" :key="i" :note="note" @play="play" />
     </div>
 
-    <div class="controls">
+    <div class="controls bezel">
       <button @click="checkbox" :class="{ active: autoplay }">autoplay</button>
-      |
-      <button @click="dump">dump</button>
+      —
       <button @click="clear">clear</button>
-      |
+      —
       <button @click="save" :class="{ active: !saved }">save</button>
+      -
       <button @click="load">load</button>
+      -
+      <button @click="dump" class="dev">console</button>
     </div>
   </div>
 </template>
 
 <script>
   import Store from '@/store';
-  import SongNote from '@/views/Synth/SongNote';
+  import SongNote from './SongNote';
 
-  import makeSynth from './make-synth.js';
-  import makeNote from './make-note.js';
-  import focusNext from './focus-next.js';
+  import makeSynth from '@/libs/make-synth.js';
+  import makeNote from '@/libs/make-note.js';
+  import focusNext from '@/libs/focus-next.js';
 
   export default {
-    props: ['notes'],
+    props: {
+      notes: Array,
+      songname: {
+        type: String,
+        default: 's1',
+      },
+    },
     components: {
       SongNote,
     },
@@ -41,7 +44,6 @@
         synth: makeSynth(),
         autoplay: Store.getters.getAutoplay,
         saved: false,
-        songname: 's1',
       };
     },
     methods: {
@@ -93,21 +95,17 @@
 </script>
 
 <style lang="scss">
-  #Song1 {
+  #Song {
     columns: 1;
     margin: 1rem 0;
     text-align: center;
 
-    > div {
-      background-color: rgba(white, 0.5);
-      border: 1px solid silver;
-      border-radius: 1rem;
-    }
-    .notes {
+    .notelist {
       padding: 1rem;
       text-align: left;
     }
     .active {
+      // for control buttons
       background-color: gray;
       color: white;
     }
