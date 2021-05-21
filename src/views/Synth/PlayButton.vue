@@ -11,6 +11,7 @@
 
 <script>
   import Store from '@/store';
+  import Bus from '@/bus';
 
   import makeSynth from './make-synth.js';
 
@@ -36,7 +37,7 @@
 
         this.synth.start(this.pitch, this.duration);
         // console.log(this.synth);
-        this.$emit('playing', this.synth.note);
+        Bus.$emit('playing', this.synth.note);
       },
       stopTone() {
         if (this.playing) this.synth.stop();

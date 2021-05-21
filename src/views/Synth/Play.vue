@@ -4,12 +4,7 @@
     <p>Key of C</p>
 
     <div id="PlayButtons">
-      <PlayButton
-        v-for="pitch in scale"
-        :pitch="pitch"
-        :key="pitch"
-        @playing="addNote"
-      >
+      <PlayButton v-for="pitch in scale" :pitch="pitch" :key="pitch">
         {{ pitch }}
       </PlayButton>
     </div>
@@ -28,6 +23,7 @@
 
 <script>
   import Store from '@/store';
+  import Bus from '@/bus';
   import PlayButton from '@/views/Synth/PlayButton';
   import ShowNotes from '@/views/Synth/Song';
 
@@ -61,6 +57,9 @@
       addNote(note) {
         if (note.duration >= 0.01) this.notes.push(note);
       },
+    },
+    mounted() {
+      Bus.$on('playing', this.addNote);
     },
   };
 </script>
