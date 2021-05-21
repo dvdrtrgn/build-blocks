@@ -1,12 +1,12 @@
 <template>
-  <section id="Play">
-    <h1>👌🏿</h1>
+  <section id="Keyboard">
+    <h1>Keyboard</h1>
     <p>Key of C</p>
 
-    <div id="PlayButtons">
-      <PlayButton v-for="pitch in scale" :pitch="pitch" :key="pitch">
+    <div id="KeyboardButtons">
+      <KeyboardButton v-for="pitch in scale" :pitch="pitch" :key="pitch">
         {{ pitch }}
-      </PlayButton>
+      </KeyboardButton>
     </div>
 
     <label>
@@ -16,23 +16,19 @@
       </select>
       + 1s decay
     </label>
-
-    <p><ShowNotes :notes="notes"></ShowNotes></p>
   </section>
 </template>
 
 <script>
   import Store from '@/store';
   import Bus from '@/bus';
-  import PlayButton from '@/views/Synth/PlayButton';
-  import ShowNotes from '@/views/Synth/Song';
+  import KeyboardButton from './KeyboardButton';
 
-  import makeSynth from './make-synth.js';
+  import makeSynth from '../make-synth.js';
 
   export default {
     components: {
-      PlayButton,
-      ShowNotes,
+      KeyboardButton,
     },
     data() {
       return {
@@ -66,15 +62,10 @@
 
 <style lang="scss">
   // @import '@/scss/vars.scss';
-  #Play {
+  #Keyboard {
     line-height: 2;
     text-align: center;
 
-    h1 {
-      font-size: 9rem;
-      line-height: 1.2;
-      position: absolute;
-    }
     button {
       border: 2px outset gray;
       cursor: pointer;

@@ -1,22 +1,17 @@
 <template lang="pug">
   #App
-    Play
-    //- NoteInfo
-    //- Home
-  //-
+
+    Main
+
 </template>
 
 <script>
-  import NoteInfo from '@/views/Note/Choose';
-  import Play from '@/views/Synth/Play';
-  import Home from '@/views/Home';
+  import Main from '@/views/Main';
 
   export default {
     name: 'app',
     components: {
-      Home,
-      NoteInfo,
-      Play,
+      Main,
     },
   };
 </script>
@@ -26,14 +21,8 @@
 
   body {
     background: silver;
-    margin: 0;
   }
   #App {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    text-align: center;
-  }
-  section {
-    text-align: left;
-    min-height: 20vh;
   }
 </style>

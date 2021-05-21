@@ -1,5 +1,6 @@
 <template>
   <div id="Song1">
+    <h1>Song1</h1>
     <div class="notes" tabindex="0">
       <SongNote
         v-for="(note, i) in notes"
@@ -25,11 +26,11 @@
 
 <script>
   import Store from '@/store';
-  import SongNote from '@/views/Synth/SongNote';
+  import SongNote from './SongNote';
 
-  import makeSynth from './make-synth.js';
-  import makeNote from './make-note.js';
-  import focusNext from './focus-next.js';
+  import makeSynth from '../make-synth.js';
+  import makeNote from '../make-note.js';
+  import focusNext from '../focus-next.js';
 
   export default {
     props: ['notes'],
