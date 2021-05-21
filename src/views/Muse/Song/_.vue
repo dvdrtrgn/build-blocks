@@ -7,12 +7,14 @@
 
     <div class="controls">
       <button @click="checkbox" :class="{ active: autoplay }">autoplay</button>
-      |
-      <button @click="dump">dump</button>
+      —
       <button @click="clear">clear</button>
-      |
+      —
       <button @click="save" :class="{ active: !saved }">save</button>
+      -
       <button @click="load">load</button>
+      -
+      <button @click="dump" class="dev">console</button>
     </div>
   </div>
 </template>

@@ -47,7 +47,7 @@
 <style lang="scss">
   $root: 1.4rem;
 
-  .songnote {
+  #Song .songnote {
     $quart: $root / 4;
 
     display: inline-block;
@@ -64,10 +64,13 @@
     }
     .editable {
       cursor: pointer;
-      margin: $quart/2 $quart;
+      margin: 0 $quart / 2;
 
       &:hover {
-        background-color: lime;
+        outline-color: red;
+        outline-offset: 1px;
+        outline-style: solid;
+        outline-width: 1px;
       }
     }
     sup {

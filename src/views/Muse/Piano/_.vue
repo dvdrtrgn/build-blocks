@@ -3,18 +3,27 @@
     <h1>Piano</h1>
 
     <label>
-      Max Sustain
-      <select @change="markTime" v-model.number="sustain">
-        <option v-for="opt in seconds" :key="opt" :value="opt">
-          {{ opt }}s
+      Octave
+      <select v-model.number="octave_num">
+        <option v-for="num in octaves" :key="num">
+          {{ num }}
         </option>
       </select>
-      <small> (w/1s decay)</small>
     </label>
 
     <div class="keylist">
-      <PianoKey v-for="pitch in scale" :pitch="pitch" :key="pitch" />
+      <PianoKey v-for="pitch in octave" :pitch="pitch" :key="pitch" />
     </div>
+
+    <label>
+      Max Sustain
+      <select @change="updateSustain" v-model.number="sustain">
+        <option v-for="num in sustains" :key="num" :value="num">
+          {{ num }}s
+        </option>
+      </select>
+      <small> (w/1s decay) </small>
+    </label>
   </section>
 </template>
 
@@ -24,6 +33,7 @@
   import PianoKey from './PianoKey';
 
   import makeSynth from '@/libs/make-synth.js';
+  import Octave from '@/libs/octave-model.js';
 
   export default {
     components: {
@@ -33,8 +43,9 @@
       return {
         sustain: Store.getters.getTime, // initial value
         synth: makeSynth(),
-        scale: 'C4 C#4 D4 D#4 E4 F4 F#4 G4 G#4 A4 A#4 B4'.split(' '),
-        seconds: [0, 1, 2, 3, 4],
+        octaves: Octave.list,
+        sustains: [0, 1, 2, 3, 4],
+        octave_num: 4,
         notes: [],
       };
     },
@@ -42,15 +53,20 @@
       beep() {
         this.synth.start('C2', this.sustain / 4);
       },
-      updateTime() {
+      storeSustain() {
         Store.commit('setTime', this.sustain);
       },
-      markTime() {
-        this.updateTime();
+      updateSustain() {
+        this.storeSustain();
         this.beep();
       },
       addNote(note) {
         if (note.duration >= 0.01) this.notes.push(note);
+      },
+    },
+    computed: {
+      octave() {
+        return Octave.make(this.octave_num);
       },
     },
     mounted() {

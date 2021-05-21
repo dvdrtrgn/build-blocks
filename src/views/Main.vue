@@ -19,6 +19,11 @@
 <style lang="scss">
   $root: 1.2rem;
 
+  .dev {
+    color: steelblue;
+    opacity: 0.8;
+  }
+
   .hand {
     font-size: 9 * $root;
     left: 0;

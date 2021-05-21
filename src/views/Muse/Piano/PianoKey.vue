@@ -1,10 +1,10 @@
 <template>
   <button
     class="pianokey"
-    :class="[bias, { playing: playing, toggle: toggle, ebony: ebony }]"
+    :class="[bias, classObj]"
     @mousedown="playTone()"
-    @keypress="playTone()"
     @mouseup="stopTone()"
+    @keypress="playTone()"
     @keyeup="stopTone()"
   >
     <span class="label" v-html="label"></span>
@@ -66,22 +66,29 @@
         if (letter === 'D' || letter === 'A') return 'right';
         return '';
       },
+      classObj() {
+        return {
+          playing: this.playing,
+          toggle: this.toggle,
+          ebony: this.ebony,
+        };
+      },
     },
   };
 </script>
 
 <style lang="scss">
   $root: 1.2rem;
+  $tall: $root * 12;
+  $wide: $root * 2.2;
 
-  .pianokey {
-    $tall: $root * 12;
-    $short: $root * 7.5;
-    $wide: $root * 2.3;
-    $thin: $root * 1.6;
+  #Piano .pianokey {
+    $short: $tall / 1.6;
+    $thin: $wide / 1.5;
 
     background-color: white;
     border-radius: 3px;
-    border-width: 1px;
+    border-top: 0;
     color: black;
     font-size: $root;
     height: $tall;
@@ -92,7 +99,9 @@
     width: $wide;
     z-index: 0;
 
-    &:hover {
+    &:hover,
+    &:focus {
+      border-style: solid;
       z-index: 1;
     }
 
