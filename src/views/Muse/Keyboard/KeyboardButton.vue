@@ -1,11 +1,13 @@
 <template>
   <button
     class="playbutton"
-    :class="{ playing: playing, toggle: toggle }"
+    :class="{ playing: playing, toggle: toggle, flat: flat }"
     @mousedown="playTone()"
-    @mouseout="stopTone()"
+    @keydown="playTone()"
+    @mouseup="stopTone()"
+    @keyeup="stopTone()"
   >
-    <slot> Synth {{ pitch }} </slot>
+    <span class="label" v-html="label"></span>
   </button>
 </template>
 
@@ -48,21 +50,60 @@
       playing() {
         return this.synth.playing;
       },
+      flat() {
+        return this.pitch.includes('#');
+      },
+      label() {
+        let text = this.pitch.toString();
+
+        text = text.replace('#', '');
+        let html = text.replace(/(\d)/, '<br>$1');
+
+        return html;
+      },
     },
   };
 </script>
 
 <style lang="scss">
   .playbutton {
+    $base: 1rem;
+    $tall: $base * 12;
+    $short: $base * 7;
+    $wide: $base * 3;
+    $thin: $base * 2.2;
+
     background-color: white;
     border-width: 1px;
-    height: 10rem;
+    color: black;
+    height: $tall;
+    line-height: 1;
+    margin: 0;
+    position: relative;
+    vertical-align: top;
+    width: $wide;
+    z-index: 1;
 
+    .label {
+      bottom: 0.5rem;
+      left: 0;
+      overflow-wrap: break-word;
+      position: absolute;
+      width: 100%;
+    }
     &.playing {
-      border-color: red;
+      border-color: red !important;
     }
     &.toggle {
       font-weight: bold;
+    }
+    &.flat {
+      background-color: black;
+      color: white;
+      height: $short;
+      margin: 0 $thin / -2;
+      width: $thin;
+      z-index: 2;
     }
   }
 </style>

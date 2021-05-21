@@ -22,6 +22,25 @@
             --playbacks
             --interpret intervals (to show)
 
+# Wishes
+
+dropdown to pick a tonic, scale
+
+listener to always show the played notes
+
+toggle for showing pitch name or interval relative to global tonic
+
+dropdown to choose global mode
+  --- keys to respond by tinting notes of that mode
+
+
+interpreter that takes tonic and pitch and describes key shape
+
+Piano Model
+  keyshape lookup
+
+  Piano Key Model
+
 
 
 # Keyboard

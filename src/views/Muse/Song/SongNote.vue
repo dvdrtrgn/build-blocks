@@ -50,10 +50,10 @@
       font-size: 66%;
     }
     .editable {
-      padding: $small/2 $small;
+      margin: $small/2 $small;
 
       &:hover {
-        background-color: darkgreen;
+        background-color: lime;
       }
     }
     .pitch {

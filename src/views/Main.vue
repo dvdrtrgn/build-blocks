@@ -10,7 +10,6 @@
   import ShowMuse from './Muse/ShowMuse';
 
   export default {
-    name: 'app',
     components: {
       ShowMuse,
     },

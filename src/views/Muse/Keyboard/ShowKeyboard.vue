@@ -1,16 +1,13 @@
 <template>
   <section id="Keyboard">
-    <h1>Keyboard</h1>
-    <p>Key of C</p>
+    <h1>ShowKeyboard</h1>
 
     <div id="KeyboardButtons">
-      <KeyboardButton v-for="pitch in scale" :pitch="pitch" :key="pitch">
-        {{ pitch }}
-      </KeyboardButton>
+      <KeyboardButton v-for="pitch in scale" :pitch="pitch" :key="pitch" />
     </div>
 
     <label>
-      Sustain
+      Max Sustain
       <select @change="markTime" v-model.number="sustain">
         <option v-for="opt in seconds" :key="opt"> {{ opt }} </option>
       </select>
@@ -34,14 +31,14 @@
       return {
         sustain: Store.getters.getTime, // initial value
         synth: makeSynth(),
-        scale: 'C4 D4 E4 F4 G4 A4 B4 C5'.split(' '),
+        scale: 'C4 C#4 D4 D#4 E4 F4 F#4 G4 G#4 A4 A#4 B4'.split(' '),
         seconds: [0, 1, 2, 3, 4],
         notes: [],
       };
     },
     methods: {
       beep() {
-        this.synth.start('C2', this.sustain / 2);
+        this.synth.start('C2', this.sustain / 4);
       },
       updateTime() {
         Store.commit('setTime', this.sustain);
@@ -69,7 +66,6 @@
     button {
       border: 2px outset gray;
       cursor: pointer;
-      margin: 2px;
 
       &:hover {
         background-color: silver;

@@ -48,15 +48,12 @@
 
     button {
       border: 2px outset gray;
-      cursor: pointer;
-      margin: 2px;
 
       &:hover {
-        background-color: silver;
-        color: white;
+        border-color: yellow;
       }
       &:focus {
-        border-color: purple;
+        border-color: cyan;
       }
     }
     select {
