@@ -1,8 +1,8 @@
 <template>
   <section id="Piano">
-    <h1>Piano</h1>
+    <h1>Input</h1>
 
-    <label>
+    <label class="bezel">
       Octave
       <select v-model.number="octave_num">
         <option v-for="num in 5" :key="num">
@@ -11,13 +11,13 @@
       </select>
     </label>
 
-    <div class="pianolist">
+    <div class="pianolist bezel">
       <PianoOctave :octave="octave1" />
       <PianoOctave :octave="octave2" />
       <PianoOctave :octave="octave3" />
     </div>
 
-    <label>
+    <label class="bezel">
       Max Sustain
       <select @change="updateSustain" v-model.number="sustain">
         <option v-for="num in sustains" :key="num" :value="num">

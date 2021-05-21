@@ -1,11 +1,12 @@
 <template>
   <div id="Song">
-    <h1>Song</h1>
-    <div class="notelist" tabindex="0">
+    <h1>Output</h1>
+
+    <div class="notelist bezel" tabindex="0">
       <SongNote v-for="(note, i) in notes" :key="i" :note="note" @play="play" />
     </div>
 
-    <div class="controls">
+    <div class="controls bezel">
       <button @click="checkbox" :class="{ active: autoplay }">autoplay</button>
       —
       <button @click="clear">clear</button>
@@ -99,12 +100,6 @@
     margin: 1rem 0;
     text-align: center;
 
-    > div {
-      // rounded wrappers
-      background-color: rgba(white, 0.5);
-      border: 1px solid silver;
-      border-radius: 1rem;
-    }
     .notelist {
       padding: 1rem;
       text-align: left;

@@ -5,7 +5,6 @@
     @mousedown="playTone()"
     @mouseup="stopTone()"
     @keypress="playTone()"
-    @keyeup="stopTone()"
   >
     <span class="label" v-html="label"></span>
   </button>
@@ -54,10 +53,12 @@
         return this.pitch.includes('#');
       },
       label() {
-        let text = this.pitch.toString().replace('#', '');
-        let html = text.replace(/(\d)/, '<br>$1');
+        let text = this.pitch.toString();
 
-        return html;
+        if (this.ebony) {
+          text = text.replace('#', '').replace(/(\d)/, '<br>$1');
+        }
+        return text;
       },
       bias() {
         let letter = this.pitch.slice(0, 1);

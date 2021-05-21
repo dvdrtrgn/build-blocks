@@ -1,13 +1,10 @@
 <template>
   <button class="songnote" @focus="play(note)">
-    <span class="icon">♩</span>
-
     <span
       class="editable pitch"
       @click="edit(note, 'pitch')"
       v-html="label"
     ></span>
-
     <small class="editable duration" @click="edit(note, 'duration')"
       >{{ note.duration.toFixed(1).replace('0.', '.') }}s</small
     >
@@ -36,7 +33,10 @@
     },
     computed: {
       label() {
-        let html = this.note.pitch.toString().replace('#', '<sup>♯</sup>');
+        let text = this.note.pitch.toString();
+        let html = text.replace('#', '<sup>♯</sup>');
+
+        html = html.replace(/(\d)/, '<sub>$1</sub>');
 
         return html;
       },
@@ -52,26 +52,35 @@
 
     display: inline-block;
     font-size: $root;
-    line-height: 1;
-    padding: $quart;
+    line-height: 0.5;
+    padding: $root / 2;
+    padding-left: 0;
     white-space: nowrap;
 
-    .icon {
-      margin: -$quart;
+    &:before {
+      content: '♩';
+      position: relative;
     }
+
     .duration {
       font-size: 66%;
     }
     .editable {
+      background-color: white;
+      border-radius: 20%;
+      padding: 0 $quart / 2;
       cursor: pointer;
-      margin: 0 $quart / 2;
 
       &:hover {
         outline-color: red;
-        outline-offset: 1px;
+        outline-offset: -1px;
         outline-style: solid;
         outline-width: 1px;
       }
+    }
+    sub {
+      font-size: 66%;
+      vertical-align: bottom;
     }
     sup {
       font-size: 66%;
