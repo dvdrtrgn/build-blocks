@@ -1,7 +1,7 @@
 <template>
   <button
     class="playbutton"
-    :class="{ playing: playing, toggle: toggle, flat: flat }"
+    :class="[bias, { playing: playing, toggle: toggle, ebony: ebony }]"
     @mousedown="playTone()"
     @keypress="playTone()"
     @mouseup="stopTone()"
@@ -50,16 +50,21 @@
       playing() {
         return this.synth.playing;
       },
-      flat() {
+      ebony() {
         return this.pitch.includes('#');
       },
       label() {
-        let text = this.pitch.toString();
-
-        text = text.replace('#', '');
+        let text = this.pitch.toString().replace('#', '');
         let html = text.replace(/(\d)/, '<br>$1');
 
         return html;
+      },
+      bias() {
+        let letter = this.pitch.slice(0, 1);
+
+        if (letter === 'C' || letter === 'F') return 'left';
+        if (letter === 'D' || letter === 'A') return 'right';
+        return '';
       },
     },
   };
@@ -70,7 +75,7 @@
 
   .playbutton {
     $tall: $root * 12;
-    $short: $root * 7;
+    $short: $root * 7.5;
     $wide: $root * 2.3;
     $thin: $root * 1.7;
 
@@ -81,7 +86,7 @@
     font-size: $root;
     height: $tall;
     line-height: 1;
-    margin: 0;
+    margin: -0.5px;
     position: relative;
     vertical-align: top;
     width: $wide;
@@ -100,13 +105,19 @@
     &.toggle {
       font-weight: bold;
     }
-    &.flat {
+    &.ebony {
       background-color: black;
       color: white;
       height: $short;
       margin: 0 $thin / -2;
       width: $thin;
       z-index: 2;
+      &.left {
+        left: -0.2rem;
+      }
+      &.right {
+        left: 0.2rem;
+      }
     }
   }
 </style>
