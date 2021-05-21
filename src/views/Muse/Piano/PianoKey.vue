@@ -38,7 +38,7 @@
         if (this.playing && this.toggle) return this.synth.stop();
 
         this.synth.start(this.pitch, this.duration);
-        // console.log(this.synth);
+
         Bus.$emit('playing', this.synth.note);
       },
       stopTone() {
@@ -120,11 +120,12 @@
     }
     &.ebony {
       background-color: black;
-      color: white;
+      // color: white;
       height: $short;
       margin: 0 $thin / -2;
       width: $thin;
       z-index: 2;
+
       &.left {
         left: $thin / -7;
       }

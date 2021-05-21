@@ -5,14 +5,16 @@
     <label>
       Octave
       <select v-model.number="octave_num">
-        <option v-for="num in octaves" :key="num">
+        <option v-for="num in 5" :key="num">
           {{ num }}
         </option>
       </select>
     </label>
 
-    <div class="keylist">
-      <PianoKey v-for="pitch in octave" :pitch="pitch" :key="pitch" />
+    <div class="pianolist">
+      <PianoOctave :octave="octave1" />
+      <PianoOctave :octave="octave2" />
+      <PianoOctave :octave="octave3" />
     </div>
 
     <label>
@@ -30,22 +32,21 @@
 <script>
   import Store from '@/store';
   import Bus from '@/bus';
-  import PianoKey from './PianoKey';
+  import PianoOctave from './PianoOctave';
 
   import makeSynth from '@/libs/make-synth.js';
   import Octave from '@/libs/octave-model.js';
 
   export default {
     components: {
-      PianoKey,
+      PianoOctave,
     },
     data() {
       return {
         sustain: Store.getters.getTime, // initial value
         synth: makeSynth(),
-        octaves: Octave.list,
         sustains: [0, 1, 2, 3, 4],
-        octave_num: 4,
+        octave_num: 3,
         notes: [],
       };
     },
@@ -65,8 +66,14 @@
       },
     },
     computed: {
-      octave() {
-        return Octave.make(this.octave_num);
+      octave1() {
+        return Octave.make(this.octave_num + 0);
+      },
+      octave2() {
+        return Octave.make(this.octave_num + 1);
+      },
+      octave3() {
+        return Octave.make(this.octave_num + 2);
       },
     },
     mounted() {
