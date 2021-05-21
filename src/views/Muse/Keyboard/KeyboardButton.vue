@@ -15,7 +15,7 @@
   import Store from '@/store';
   import Bus from '@/bus';
 
-  import makeSynth from '../make-synth.js';
+  import makeSynth from '@/libs/make-synth.js';
 
   export default {
     props: {

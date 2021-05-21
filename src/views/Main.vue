@@ -1,5 +1,5 @@
 <template lang="pug">
-  #Main
+  main#Main
     span.hand 👌🏿
 
     ShowMuse
@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import ShowMuse from './Muse/ShowMuse';
+  import ShowMuse from './Muse/_';
 
   export default {
     components: {

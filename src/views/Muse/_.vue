@@ -4,21 +4,21 @@
 
     Keyboard
 
-    ShowSong(:notes='notes')
+    Song(:notes='notes')
 
 </template>
 
 <script>
   import Bus from '@/bus';
-  import Keyboard from './Keyboard/ShowKeyboard';
-  import ShowSong from './Song/ShowSong';
+  import Keyboard from './Keyboard/_';
+  import Song from './Song/_';
 
-  import makeSynth from './make-synth.js';
+  import makeSynth from '@/libs/make-synth.js';
 
   export default {
     components: {
       Keyboard,
-      ShowSong,
+      Song,
     },
     data() {
       return {

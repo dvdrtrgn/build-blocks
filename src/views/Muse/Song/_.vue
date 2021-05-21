@@ -28,9 +28,9 @@
   import Store from '@/store';
   import SongNote from './SongNote';
 
-  import makeSynth from '../make-synth.js';
-  import makeNote from '../make-note.js';
-  import focusNext from '../focus-next.js';
+  import makeSynth from '@/libs/make-synth.js';
+  import makeNote from '@/libs/make-note.js';
+  import focusNext from '@/libs/focus-next.js';
 
   export default {
     props: ['notes'],

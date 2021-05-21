@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import makeSynth from '../make-synth.js';
+  import makeSynth from '@/libs/make-synth.js';
 
   export default {
     props: ['note'],

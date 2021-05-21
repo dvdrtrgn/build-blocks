@@ -21,7 +21,7 @@
   import Bus from '@/bus';
   import KeyboardButton from './KeyboardButton';
 
-  import makeSynth from '../make-synth.js';
+  import makeSynth from '@/libs/make-synth.js';
 
   export default {
     components: {
