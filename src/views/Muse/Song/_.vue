@@ -7,13 +7,15 @@
     </div>
 
     <div class="controls bezel">
-      <button @click="checkbox" :class="{ active: autoplay }">autoplay</button>
+      <button @click="checkbox" :class="{ active: autoplay }">Autoplay</button>
+      -
+      <button @click="addRest">Add Rest</button>
       —
-      <button @click="clear">clear</button>
-      —
-      <button @click="save" :class="{ active: !saved }">save</button>
+      <button @click="save">save</button>
       -
       <button @click="load">load</button>
+      —
+      <button @click="clear">clear</button>
       -
       <button @click="dump" class="dev">console</button>
     </div>
@@ -47,6 +49,10 @@
       };
     },
     methods: {
+      addRest() {
+        let rest = makeNote(0, 1);
+        this.notes.push(rest);
+      },
       play(arg) {
         this.synth.play(arg, this.autoplay ? focusNext() : '');
       },
@@ -79,7 +85,7 @@
     },
     computed: {
       json() {
-        let dump = this.notes.map(e => e.vitals());
+        let dump = this.notes.filter(e => e.time).map(e => e.vitals());
 
         return JSON.stringify(dump);
       },

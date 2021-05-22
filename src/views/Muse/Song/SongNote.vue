@@ -1,16 +1,16 @@
 <template>
-  <button class="songnote" @focus="play(note)">
+  <button v-if="note.time" class="songnote" @focus="play(note)">
     <span
-      class="editable pitch"
+      class="pitch editable"
       :title="editmsg"
       @click.alt="editPitch(note)"
       v-html="label"
     ></span>
     <small
-      class="editable duration"
+      class="duration editable"
       @click.alt="editDuration(note)"
       :title="editmsg"
-      >{{ note.duration.toFixed(2).replace('0.', '.') }}s</small
+      >{{ note.duration.toFixed(1) }}s</small
     >
   </button>
 </template>
@@ -31,7 +31,7 @@
         this.$emit('play', note);
       },
       editDuration(note) {
-        let val = note.aprox;
+        let val = note.time;
         let out = prompt('Edit duration', val);
 
         if (out && val != out) note.duration = out;
@@ -40,12 +40,15 @@
         let val = note.pitch;
         let out = prompt('Edit pitch', val);
 
-        if (out && val != out) note.pitch = out;
+        if (out && val != out) {
+          if (out == '0') out = 0;
+          note.pitch = out;
+        }
       },
     },
     computed: {
       label() {
-        let text = this.note.pitch.toString();
+        let text = (this.note.pitch || 'R').toString();
         let html = text.replace('#', '<sup>♯</sup>');
 
         html = html.replace(/(\d)/, '<sub>$1</sub>');

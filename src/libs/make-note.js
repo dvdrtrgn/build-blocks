@@ -1,28 +1,28 @@
 import * as Tone from 'tone';
 
 function aprox(num) {
-  return Math.round((Number(num) + Number.EPSILON) * 100) / 100;
+  return Math.round((Number(num) + Number.EPSILON) * 10) / 10;
 }
 
 class Note {
   constructor(pitch, duration) {
     let now = Tone.now();
 
-    this.pitch = pitch || 'C4';
+    this.time = 0;
+    this.pitch = pitch;
     this.start = now;
     this.end = now;
-    this.duration = duration || 0.01;
+    this.duration = duration;
   }
 
-  cutShort(time) {
-    time = time || Tone.now();
-    if (time < this.end) this.end = time;
+  cutShort() {
+    this.end = Tone.now();
   }
 
   vitals() {
-    let { pitch, aprox } = this;
+    let { pitch, time } = this;
 
-    return [pitch, aprox].join(' ');
+    return [pitch, time].join(' ');
   }
 
   get params() {
@@ -30,11 +30,12 @@ class Note {
   }
   get duration() {
     let val = this.end - this.start;
-    this.aprox = aprox(val); // for quick read
+    this.time = aprox(val); // for quick read
     return val;
   }
   set duration(val) {
     this.end = this.start + Number(val);
+    this.time = aprox(this.duration); // for quick read
   }
   get delay() {
     return Tone.now();

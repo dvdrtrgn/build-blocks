@@ -42,7 +42,9 @@ class SynthWrapper {
   }
 
   play(note, cb) {
-    this.voice.triggerAttackRelease(...note.params);
+    if (note.pitch) {
+      this.voice.triggerAttackRelease(...note.params);
+    }
 
     this.playing = true;
 
