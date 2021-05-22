@@ -11,7 +11,7 @@
       </select>
     </label>
 
-    <div class="pianolist bezel">
+    <div class="pianolist bezel" tabindex="0">
       <PianoOctave :octave="octave1" />
       <PianoOctave :octave="octave2" />
       <PianoOctave :octave="octave3" />

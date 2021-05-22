@@ -68,3 +68,8 @@ play
 
 Make App the main and the view into components
 (worry about mulitpage later)
+
+
+// note stack
+if time 0 ... remove
+if note 0 ... rest

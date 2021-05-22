@@ -84,13 +84,15 @@
   $wide: $root * 2.2;
 
   #Piano .pianokey {
-    $short: $tall / 1.6;
-    $thin: $wide / 1.5;
+    $short: $tall/1.6;
+    $thin: $wide/1.5;
+    $frac: $thin/7;
 
     background-color: white;
     border-radius: 3px;
     border-top: 0;
     color: black;
+    cursor: pointer;
     font-size: $root;
     height: $tall;
     line-height: 1;
@@ -121,17 +123,19 @@
     }
     &.ebony {
       background-color: black;
+      background-image: linear-gradient(182deg, black, #333);
+      box-shadow: 0 $frac $frac rgba(grey, 0.5);
       // color: white;
       height: $short;
-      margin: 0 $thin / -2;
+      margin: 0 $thin/-2;
       width: $thin;
       z-index: 2;
 
       &.left {
-        left: $thin / -7;
+        left: -$frac;
       }
       &.right {
-        left: $thin / 7;
+        left: $frac;
       }
     }
   }

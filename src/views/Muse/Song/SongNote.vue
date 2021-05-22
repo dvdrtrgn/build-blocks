@@ -2,10 +2,14 @@
   <button class="songnote" @focus="play(note)">
     <span
       class="editable pitch"
-      @click="edit(note, 'pitch')"
+      :title="editmsg"
+      @click.alt="edit(note, 'pitch')"
       v-html="label"
     ></span>
-    <small class="editable duration" @click="edit(note, 'duration')"
+    <small
+      class="editable duration"
+      @click.alt="edit(note, 'duration')"
+      :title="editmsg"
       >{{ note.duration.toFixed(1).replace('0.', '.') }}s</small
     >
   </button>
@@ -19,16 +23,28 @@
     data() {
       return {
         synth: makeSynth(),
+        editmsg: 'Hold alt to edit',
+        editing: null,
       };
     },
     methods: {
       play(note) {
-        this.$emit('play', note);
+        if (!this.editing) {
+          this.$emit('play', note);
+        }
       },
       edit(note, prop) {
+        this.editing = note;
+
         let val = note[prop];
         let out = prompt('Edit ' + prop, val);
-        if (out && val != out) note[prop] = out;
+
+        this.editing = null;
+
+        if (out && val != out) {
+          note[prop] = out;
+          this.play(note);
+        }
       },
     },
     computed: {
@@ -72,7 +88,7 @@
       cursor: pointer;
 
       &:hover {
-        outline-color: red;
+        outline-color: silver;
         outline-offset: -1px;
         outline-style: solid;
         outline-width: 1px;
