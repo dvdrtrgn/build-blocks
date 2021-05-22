@@ -1,12 +1,17 @@
 import * as Tone from 'tone';
 
+function aprox(num) {
+  return Math.round((Number(num) + Number.EPSILON) * 100) / 100;
+}
+
 class Note {
   constructor(pitch, duration) {
     let now = Tone.now();
 
     this.pitch = pitch || 'C4';
     this.start = now;
-    this.end = now + (duration || 0.01);
+    this.end = now;
+    this.duration = duration || 0.01;
   }
 
   cutShort(time) {
@@ -15,18 +20,18 @@ class Note {
   }
 
   vitals() {
-    let { pitch, duration } = this;
+    let { pitch, aprox } = this;
 
-    duration = parseFloat(duration.toPrecision(3));
-
-    return [pitch, duration].join(' ');
+    return [pitch, aprox].join(' ');
   }
 
   get params() {
     return [this.pitch, this.duration, this.delay];
   }
   get duration() {
-    return this.end - this.start;
+    let val = this.end - this.start;
+    this.aprox = aprox(val); // for quick read
+    return val;
   }
   set duration(val) {
     this.end = this.start + Number(val);

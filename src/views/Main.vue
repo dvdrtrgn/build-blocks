@@ -14,6 +14,13 @@
       ShowMuse,
     },
   };
+
+  window.yelp = function(arg, clr) {
+    let c = 'background: black; color: yellow; font-size: 200%;';
+    if (clr) console.clear();
+    if (arg === 0) debugger;
+    else console.log('%cYELP', c, arg);
+  };
 </script>
 
 <style lang="scss">

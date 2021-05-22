@@ -3,14 +3,14 @@
     <span
       class="editable pitch"
       :title="editmsg"
-      @click.alt="edit(note, 'pitch')"
+      @click.alt="editPitch(note)"
       v-html="label"
     ></span>
     <small
       class="editable duration"
-      @click.alt="edit(note, 'duration')"
+      @click.alt="editDuration(note)"
       :title="editmsg"
-      >{{ note.duration.toFixed(1).replace('0.', '.') }}s</small
+      >{{ note.duration.toFixed(2).replace('0.', '.') }}s</small
     >
   </button>
 </template>
@@ -24,27 +24,23 @@
       return {
         synth: makeSynth(),
         editmsg: 'Hold alt to edit',
-        editing: null,
       };
     },
     methods: {
       play(note) {
-        if (!this.editing) {
-          this.$emit('play', note);
-        }
+        this.$emit('play', note);
       },
-      edit(note, prop) {
-        this.editing = note;
+      editDuration(note) {
+        let val = note.aprox;
+        let out = prompt('Edit duration', val);
 
-        let val = note[prop];
-        let out = prompt('Edit ' + prop, val);
+        if (out && val != out) note.duration = out;
+      },
+      editPitch(note) {
+        let val = note.pitch;
+        let out = prompt('Edit pitch', val);
 
-        this.editing = null;
-
-        if (out && val != out) {
-          note[prop] = out;
-          this.play(note);
-        }
+        if (out && val != out) note.pitch = out;
       },
     },
     computed: {
