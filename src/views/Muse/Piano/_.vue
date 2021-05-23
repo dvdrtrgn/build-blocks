@@ -31,7 +31,6 @@
 
 <script>
   import Store from '@/store';
-  import Bus from '@/bus';
   import PianoOctave from './PianoOctave';
 
   import makeSynth from '@/libs/make-synth.js';
@@ -47,7 +46,6 @@
         synth: makeSynth(),
         sustains: [0, 1, 2, 3, 4],
         octave_num: 3,
-        notes: [],
       };
     },
     methods: {
@@ -61,9 +59,6 @@
         this.storeSustain();
         this.beep();
       },
-      addNote(note) {
-        if (note.duration >= 0.01) this.notes.push(note);
-      },
     },
     computed: {
       octave1() {
@@ -75,9 +70,6 @@
       octave3() {
         return Octave.make(this.octave_num + 2);
       },
-    },
-    mounted() {
-      Bus.$on('playing', this.addNote);
     },
   };
 </script>

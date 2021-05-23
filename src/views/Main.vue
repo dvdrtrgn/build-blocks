@@ -2,16 +2,16 @@
   main
     h1.hand 👌🏿
 
-    ShowMuse
+    Muse
 
 </template>
 
 <script>
-  import ShowMuse from './Muse/ShowMuse';
+  import Muse from './Muse/Muse';
 
   export default {
     components: {
-      ShowMuse,
+      Muse,
     },
   };
 
@@ -25,6 +25,14 @@
 
 <style lang="scss">
   $root: 1.2rem;
+
+  @font-face {
+    font-family: 'Bravura';
+    src: url('../assets/Bravura.woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+  }
 
   .dev {
     color: steelblue;

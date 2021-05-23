@@ -1,5 +1,10 @@
 <template>
-  <button v-if="note.time" class="songnote" @focus="play(note)">
+  <button
+    v-if="note.time"
+    class="songnote"
+    :class="{ rest: rest }"
+    @focus="play(note)"
+  >
     <span
       class="pitch editable"
       :title="editmsg"
@@ -48,12 +53,15 @@
     },
     computed: {
       label() {
-        let text = (this.note.pitch || 'R').toString();
+        let text = this.rest ? 'R' : this.note.pitch;
         let html = text.replace('#', '<sup>♯</sup>');
 
         html = html.replace(/(\d)/, '<sub>$1</sub>');
 
         return html;
+      },
+      rest() {
+        return this.note.pitch == '0';
       },
     },
   };
@@ -63,27 +71,21 @@
   $root: 1.4rem;
 
   #Song .songnote {
-    $quart: $root / 4;
+    $quart: $root/4;
 
     display: inline-block;
     font-size: $root;
     line-height: 0.5;
-    padding: $root / 2;
-    padding-left: 0;
+    padding: $root/2;
     white-space: nowrap;
-
-    &:before {
-      content: '♩';
-      position: relative;
-    }
 
     .duration {
       font-size: 66%;
     }
     .editable {
       background-color: white;
-      border-radius: 20%;
-      padding: 0 $quart / 2;
+      border-radius: $quart;
+      padding: 0 $quart/2;
       cursor: pointer;
 
       &:hover {
