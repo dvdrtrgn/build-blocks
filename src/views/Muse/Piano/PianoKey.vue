@@ -11,8 +11,8 @@
 </template>
 
 <script>
-  import Store from '@/store';
   import Bus from '@/bus';
+  import Store from '@/store';
 
   import makeSynth from '@/libs/make-synth.js';
 

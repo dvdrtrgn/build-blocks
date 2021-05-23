@@ -22,13 +22,11 @@
 
 <script>
   import Bus from '@/bus';
-  import makeSynth from '@/libs/make-synth.js';
 
   export default {
     props: ['note'],
     data() {
       return {
-        synth: makeSynth(),
         editmsg: 'Hold alt to edit',
       };
     },
@@ -95,6 +93,9 @@
         outline-style: solid;
         outline-width: 1px;
       }
+    }
+    &.rest {
+      background-color: silver;
     }
     sub {
       font-size: 66%;
