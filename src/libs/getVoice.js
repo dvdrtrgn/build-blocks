@@ -6,13 +6,11 @@ const allVoices = {};
 function findVoice(name) {
   let voice = new Tone.Synth().toDestination();
 
-  if (name) {
-    if (allVoices[name]) {
-      voice = allVoices[name];
-    } else {
-      allVoices[name] = voice;
-      console.log('new synth wrapper', name, voice);
-    }
+  if (allVoices[name]) {
+    voice = allVoices[name];
+  } else {
+    allVoices[name] = voice;
+    console.log('new synth wrapper', name, allVoices);
   }
 
   return voice;
@@ -70,3 +68,8 @@ function get(voicename) {
 }
 
 export default get;
+
+window.addEventListener('load', function() {
+  window.Tone = Tone;
+  get().start(33);
+});
