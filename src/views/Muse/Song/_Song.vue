@@ -80,7 +80,7 @@
         return Store.getters.getAutoplay;
       },
       json() {
-        let dump = this.notes.filter(e => e.duration).map(e => e.vitals());
+        let dump = this.notes.filter(e => e.duration).map(e => e.toString());
 
         return JSON.stringify(dump);
       },

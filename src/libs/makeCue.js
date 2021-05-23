@@ -24,7 +24,7 @@ class Cue {
     delete this.cutShort; // one use only
   }
 
-  vitals() {
+  toString() {
     return [this.name, this.duration].join(' ');
   }
 
@@ -58,10 +58,12 @@ class Cue {
   }
 }
 
-function make(name, duration) {
+function makeCue(name, duration) {
   let self = new Cue(name, parseFloat(duration));
-  console.log(self);
+
+  console.log('make', self);
+
   return self;
 }
 
-export default make;
+export default makeCue;

@@ -48,15 +48,12 @@
       };
     },
     methods: {
-      beep() {
-        Bus.$emit('beep');
-      },
       storeSustain() {
         Store.commit('setTime', this.sustain);
       },
       updateSustain() {
         this.storeSustain();
-        this.beep();
+        Bus.$emit('beep');
       },
     },
     computed: {

@@ -26,20 +26,20 @@
       };
     },
     methods: {
-      play(arg) {
-        this.synth.play(arg, this.autoplay ? focusNext() : '');
-      },
       beep() {
         this.synth.start('C2', 0);
       },
-      addNote(note) {
+      pushCue(note) {
         if (note.duration >= 0.01) this.notes.push(note);
+      },
+      playNote(arg) {
+        this.synth.play(arg, this.autoplay ? focusNext() : '');
       },
     },
     mounted() {
       Bus.$on('beep', this.beep);
-      Bus.$on('playing', this.addNote);
-      Bus.$on('playNote', this.play);
+      Bus.$on('pushCue', this.pushCue);
+      Bus.$on('playNote', this.playNote);
 
       window._Store = Store;
     },

@@ -3,19 +3,6 @@ import makeCue from './makeCue.js';
 
 const allVoices = {};
 
-function findVoice(name) {
-  let voice = new Tone.Synth().toDestination();
-
-  if (allVoices[name]) {
-    voice = allVoices[name];
-  } else {
-    allVoices[name] = voice;
-    console.log('new synth wrapper', name, allVoices);
-  }
-
-  return voice;
-}
-
 class Voice {
   _parent = Tone;
 
@@ -60,16 +47,30 @@ class Voice {
   }
 }
 
-function get(voicename) {
-  let voice = findVoice(voicename);
+function findVoice(name) {
+  let voice;
+
+  if (allVoices[name]) {
+    voice = allVoices[name];
+  } else {
+    voice = new Tone.Synth().toDestination();
+    allVoices[name] = voice;
+    console.log('new synth wrapper', name, allVoices);
+  }
+
+  return voice;
+}
+
+function getVoice(name) {
+  let voice = findVoice(name || 'default');
   let self = new Voice(voice);
 
   return self;
 }
 
-export default get;
+export default getVoice;
 
 window.addEventListener('load', function() {
   window.Tone = Tone;
-  get().start(33);
+  getVoice().start(33);
 });

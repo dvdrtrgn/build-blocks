@@ -20,7 +20,7 @@
     props: {
       pitch: {
         type: String,
-        default: 'C4',
+        default: 'R',
       },
       toggle: {
         type: Boolean,
@@ -38,7 +38,7 @@
 
         this.synth.start(this.pitch, this.duration);
 
-        Bus.$emit('playing', this.synth.cue);
+        Bus.$emit('pushCue', this.synth.cue);
       },
       stopTone() {
         if (this.playing) this.synth.stop();
