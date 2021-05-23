@@ -1,16 +1,16 @@
 import * as Tone from 'tone';
 import makeCue from './makeCue.js';
 
-const voices = {};
+const allVoices = {};
 
 function findVoice(name) {
   let voice = new Tone.Synth().toDestination();
 
   if (name) {
-    if (voices[name]) {
-      voice = voices[name];
+    if (allVoices[name]) {
+      voice = allVoices[name];
     } else {
-      voices[name] = voice;
+      allVoices[name] = voice;
       console.log('new synth wrapper', name, voice);
     }
   }
@@ -18,15 +18,13 @@ function findVoice(name) {
   return voice;
 }
 
-class SynthWrapper {
+class Voice {
+  _parent = Tone;
+
   constructor(voice) {
     this.voice = voice;
     this.timeout = null;
     this.playing = false;
-  }
-
-  getMaster() {
-    return Tone;
   }
 
   timer(cb, sec) {
@@ -55,6 +53,7 @@ class SynthWrapper {
   }
 
   start(pitch, duration) {
+    // why remake? just expect a cue?
     this.cue = makeCue(pitch, duration || 0.1);
 
     if (this.playing) this.stop();
@@ -63,11 +62,11 @@ class SynthWrapper {
   }
 }
 
-function make(voicename) {
+function get(voicename) {
   let voice = findVoice(voicename);
-  let self = new SynthWrapper(voice);
+  let self = new Voice(voice);
 
   return self;
 }
 
-export default make;
+export default get;
