@@ -6,13 +6,13 @@ function aprox(num) {
 
 class Cue {
   name = '';
-  _start = 0;
+  #start = 0;
   _end = 0;
 
   constructor(name, duration) {
     let now = Tone.now();
 
-    this._start = now;
+    this.#start = now;
     this._end = now;
 
     this.name = name;
@@ -21,6 +21,7 @@ class Cue {
 
   cutShort() {
     this._end = Tone.now();
+    delete this.cutShort; // one use only
   }
 
   vitals() {
@@ -37,11 +38,10 @@ class Cue {
   }
 
   get duration() {
-    let val = this._end - this._start;
-    return aprox(val);
+    return aprox(this._end - this.#start);
   }
   set duration(val) {
-    this._end = this._start + Number(val);
+    this._end = this.#start + Number(val);
   }
 
   get delay() {
@@ -60,7 +60,7 @@ class Cue {
 
 function make(name, duration) {
   let self = new Cue(name, parseFloat(duration));
-
+  console.log(self);
   return self;
 }
 
