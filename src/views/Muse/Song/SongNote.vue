@@ -2,7 +2,7 @@
   <button
     v-if="note.duration"
     class="songnote"
-    :class="{ rest: note.rest }"
+    :class="{ rest: note.isRest }"
     @focus="play(note)"
   >
     <span
@@ -41,15 +41,15 @@
         if (out && val != out) note.duration = out;
       },
       editPitch(note) {
-        let val = note.name;
+        let val = note.label;
         let out = prompt('Edit pitch', val);
 
-        if (out && val != out) note.pitch = out;
+        if (out && val != out) note.name = out;
       },
     },
     computed: {
       label() {
-        let text = this.note.name;
+        let text = this.note.label;
         let html = text.replace('#', '<sup>♯</sup>');
 
         return html.replace(/(\d)/, '<sub>$1</sub>');

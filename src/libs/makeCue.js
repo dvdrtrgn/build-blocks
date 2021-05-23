@@ -5,17 +5,17 @@ function aprox(num) {
 }
 
 class Cue {
-  #pitch = '';
+  name = '';
   _start = 0;
   _end = 0;
 
-  constructor(pitch, duration) {
+  constructor(name, duration) {
     let now = Tone.now();
 
     this._start = now;
     this._end = now;
 
-    this.pitch = pitch;
+    this.name = name;
     this.duration = duration;
   }
 
@@ -24,19 +24,16 @@ class Cue {
   }
 
   vitals() {
-    return [this.pitch, this.duration].join(' ');
+    return [this.name, this.duration].join(' ');
   }
 
   get params() {
-    return [this.pitch, this.duration, this.delay];
+    return [this.name, this.duration, this.delay];
   }
 
-  get pitch() {
-    return this.#pitch;
-  }
-  set pitch(val) {
+  set name(val) {
     if (val == 0 || val == 'R') val = '0'; // Hack for rests
-    this.#pitch = val;
+    this.name = val;
   }
 
   get duration() {
@@ -50,16 +47,19 @@ class Cue {
   get delay() {
     return Tone.now();
   }
-  get name() {
-    return this.rest ? 'R' : this.pitch;
+  get label() {
+    return this.isRest ? 'R' : this.name;
   }
-  get rest() {
-    return this.pitch == '0';
+  get isNote() {
+    return this.name != '0';
+  }
+  get isRest() {
+    return this.name == '0';
   }
 }
 
-function make(pitch, duration) {
-  let self = new Cue(pitch, parseFloat(duration));
+function make(name, duration) {
+  let self = new Cue(name, parseFloat(duration));
 
   return self;
 }

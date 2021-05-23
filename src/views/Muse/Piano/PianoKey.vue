@@ -38,7 +38,7 @@
 
         this.synth.start(this.pitch, this.duration);
 
-        Bus.$emit('playing', this.synth.note);
+        Bus.$emit('playing', this.synth.cue);
       },
       stopTone() {
         if (this.playing) this.synth.stop();

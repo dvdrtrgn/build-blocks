@@ -38,12 +38,12 @@ class SynthWrapper {
 
     this.voice.triggerRelease();
     this.playing = false;
-    this.note.cutShort();
+    this.cue.cutShort();
   }
 
-  play(note, cb) {
-    if (note.pitch) {
-      this.voice.triggerAttackRelease(...note.params);
+  play(cue, cb) {
+    if (cue.isNote) {
+      this.voice.triggerAttackRelease(...cue.params);
     }
 
     this.playing = true;
@@ -51,15 +51,15 @@ class SynthWrapper {
     this.timer(() => {
       this.playing = false;
       if (cb) cb();
-    }, note.duration);
+    }, cue.duration);
   }
 
   start(pitch, duration) {
-    this.note = makeCue(pitch, duration || 0.1);
+    this.cue = makeCue(pitch, duration || 0.1);
 
     if (this.playing) this.stop();
 
-    this.play(this.note);
+    this.play(this.cue);
   }
 }
 
