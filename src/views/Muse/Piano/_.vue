@@ -30,10 +30,10 @@
 </template>
 
 <script>
+  import Bus from '@/bus';
   import Store from '@/store';
   import PianoOctave from './PianoOctave';
 
-  import makeSynth from '@/libs/make-synth.js';
   import Octave from '@/libs/octave-model.js';
 
   export default {
@@ -43,14 +43,13 @@
     data() {
       return {
         sustain: Store.getters.getTime, // initial value
-        synth: makeSynth(),
         sustains: [0, 1, 2, 3, 4],
         octave_num: 3,
       };
     },
     methods: {
       beep() {
-        this.synth.start('C2', this.sustain / 4);
+        Bus.$emit('beep');
       },
       storeSustain() {
         Store.commit('setTime', this.sustain);

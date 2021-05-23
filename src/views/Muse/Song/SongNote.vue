@@ -21,6 +21,7 @@
 </template>
 
 <script>
+  import Bus from '@/bus';
   import makeSynth from '@/libs/make-synth.js';
 
   export default {
@@ -33,7 +34,7 @@
     },
     methods: {
       play(note) {
-        this.$emit('play', note);
+        Bus.$emit('playNote', note);
       },
       editDuration(note) {
         let val = note.time;

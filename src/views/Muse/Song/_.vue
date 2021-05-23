@@ -3,7 +3,7 @@
     <h1>Output</h1>
 
     <div class="notelist bezel" tabindex="0">
-      <SongNote v-for="(note, i) in notes" :key="i" :note="note" @play="play" />
+      <SongNote v-for="(note, i) in notes" :key="i" :note="note" />
     </div>
 
     <div class="controls bezel">
@@ -26,9 +26,7 @@
   import Store from '@/store';
   import SongNote from './SongNote';
 
-  import makeSynth from '@/libs/make-synth.js';
   import makeNote from '@/libs/make-note.js';
-  import focusNext from '@/libs/focus-next.js';
 
   export default {
     props: {
@@ -43,8 +41,6 @@
     },
     data() {
       return {
-        synth: makeSynth(),
-        autoplay: Store.getters.getAutoplay,
         saved: false,
       };
     },
@@ -52,9 +48,6 @@
       addRest() {
         let rest = makeNote(0, 1);
         this.notes.push(rest);
-      },
-      play(arg) {
-        this.synth.play(arg, this.autoplay ? focusNext() : '');
       },
       clear() {
         this.notes.length = 0;
@@ -79,11 +72,13 @@
         console.log(this.json);
       },
       checkbox() {
-        this.autoplay = !this.autoplay;
-        Store.commit('setAutoplay', this.autoplay);
+        Store.commit('setAutoplay', !this.autoplay);
       },
     },
     computed: {
+      autoplay() {
+        return Store.getters.getAutoplay;
+      },
       json() {
         let dump = this.notes.filter(e => e.time).map(e => e.vitals());
 

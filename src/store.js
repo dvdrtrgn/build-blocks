@@ -8,6 +8,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
+    autoplay: 0,
     loads: 0,
     sustain: 0,
     songs: {
