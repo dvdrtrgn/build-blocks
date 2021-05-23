@@ -6,14 +6,16 @@ function aprox(num) {
 
 class Cue {
   #pitch = '';
+  _start = 0;
+  _end = 0;
 
   constructor(pitch, duration) {
     let now = Tone.now();
 
-    this.time = 0;
-    this.pitch = pitch;
     this._start = now;
     this._end = now;
+
+    this.pitch = pitch;
     this.duration = duration;
   }
 
@@ -22,7 +24,7 @@ class Cue {
   }
 
   vitals() {
-    return [this.pitch, this.time].join(' ');
+    return [this.pitch, this.duration].join(' ');
   }
 
   get params() {
@@ -33,18 +35,16 @@ class Cue {
     return this.#pitch;
   }
   set pitch(val) {
-    if (val == '0' || val == 'R') val = 0;
+    if (val == 0 || val == 'R') val = '0'; // Hack for rests
     this.#pitch = val;
   }
 
   get duration() {
     let val = this._end - this._start;
-    this.time = aprox(val); // for quick read
-    return val;
+    return aprox(val);
   }
   set duration(val) {
     this._end = this._start + Number(val);
-    this.time = aprox(this.duration); // for quick read
   }
 
   get delay() {

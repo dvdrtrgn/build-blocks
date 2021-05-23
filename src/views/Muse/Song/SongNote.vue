@@ -1,6 +1,6 @@
 <template>
   <button
-    v-if="note.time"
+    v-if="note.duration"
     class="songnote"
     :class="{ rest: note.rest }"
     @focus="play(note)"
@@ -35,7 +35,7 @@
         Bus.$emit('playNote', note);
       },
       editDuration(note) {
-        let val = note.time;
+        let val = note.duration;
         let out = prompt('Edit duration', val);
 
         if (out && val != out) note.duration = out;
