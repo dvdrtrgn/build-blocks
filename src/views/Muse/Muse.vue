@@ -8,8 +8,8 @@
   import Bus from '@/bus';
   import Store from '@/store';
 
-  import Piano from './Piano/_';
-  import Song from './Song/_';
+  import Piano from './Piano/_Piano';
+  import Song from './Song/_Song';
 
   import getVoice from '@/libs/getVoice.js';
   import focusNext from '@/libs/focus-next.js';
@@ -21,7 +21,6 @@
     },
     data() {
       return {
-        autoplay: Store.getters.getAutoplay,
         notes: [],
         synth: getVoice(),
       };
@@ -43,6 +42,11 @@
       Bus.$on('playNote', this.play);
 
       window._Store = Store;
+    },
+    computed: {
+      autoplay() {
+        return Store.getters.getAutoplay;
+      },
     },
   };
 </script>
