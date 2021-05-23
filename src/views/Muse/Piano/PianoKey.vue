@@ -14,7 +14,7 @@
   import Bus from '@/bus';
   import Store from '@/store';
 
-  import makeSynth from '@/libs/make-synth.js';
+  import getVoice from '@/libs/getVoice.js';
 
   export default {
     props: {
@@ -29,7 +29,7 @@
     },
     data() {
       return {
-        synth: makeSynth(),
+        synth: getVoice(),
       };
     },
     methods: {

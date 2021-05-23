@@ -26,7 +26,7 @@
   import Store from '@/store';
   import SongNote from './SongNote';
 
-  import makeNote from '@/libs/make-note.js';
+  import makeCue from '@/libs/makeCue.js';
 
   export default {
     props: {
@@ -46,7 +46,7 @@
     },
     methods: {
       addRest() {
-        let rest = makeNote(0, 1);
+        let rest = makeCue(0, 1);
         this.notes.push(rest);
       },
       clear() {
@@ -58,7 +58,7 @@
         this.clear();
 
         song.forEach(e => {
-          let note = makeNote(...e.split(' '));
+          let note = makeCue(...e.split(' '));
           this.notes.push(note);
         });
       },

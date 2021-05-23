@@ -11,7 +11,7 @@
   import Piano from './Piano/_';
   import Song from './Song/_';
 
-  import makeSynth from '@/libs/make-synth.js';
+  import getVoice from '@/libs/getVoice.js';
   import focusNext from '@/libs/focus-next.js';
 
   export default {
@@ -23,7 +23,7 @@
       return {
         autoplay: Store.getters.getAutoplay,
         notes: [],
-        synth: makeSynth(),
+        synth: getVoice(),
       };
     },
     methods: {

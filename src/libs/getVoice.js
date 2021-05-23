@@ -1,9 +1,9 @@
 import * as Tone from 'tone';
-import makeNote from './make-note.js';
+import makeCue from './makeCue.js';
 
 const voices = {};
 
-function getVoice(name) {
+function findVoice(name) {
   let voice = new Tone.Synth().toDestination();
 
   if (name) {
@@ -55,7 +55,7 @@ class SynthWrapper {
   }
 
   start(pitch, duration) {
-    this.note = makeNote(pitch, duration || 0.1);
+    this.note = makeCue(pitch, duration || 0.1);
 
     if (this.playing) this.stop();
 
@@ -64,7 +64,7 @@ class SynthWrapper {
 }
 
 function make(voicename) {
-  let voice = getVoice(voicename);
+  let voice = findVoice(voicename);
   let self = new SynthWrapper(voice);
 
   return self;
