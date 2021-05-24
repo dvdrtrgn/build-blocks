@@ -11,18 +11,29 @@
           Interval Mode
         </button>
       </div>
-      <button @click="addRest">Add Rest</button>
       <div class="group">
         <button @click="runSave">save</button>
         <button @click="clearCues">clear</button>
         <button @click="runLoad">load</button>
       </div>
-      <button @click="logCues" class="dev">console</button>
+      <button @click="logCues" class="dev" style="float: right;">
+        console.log
+      </button>
     </div>
 
-    <div class="notelist bezel" :class="mode" tabindex="0">
-      {{ songname }}
-      <SongNote v-for="(note, i) in notes" :key="i" :note="note" />
+    <div class="bezel" tabindex="0">
+      <!-- https://github.com/SortableJS/Vue.Draggable -->
+      <draggable :class="mode" class="cuelist" draggable=".songnote">
+        <div slot="header" style="float: left;">
+          {{ songname }}
+        </div>
+
+        <SongNote v-for="(note, i) in notes" :key="i" :note="note"></SongNote>
+
+        <div slot="footer" style="float: right;">
+          <button @click="addRest">Append Rest</button>
+        </div>
+      </draggable>
     </div>
   </div>
 </template>
@@ -32,6 +43,7 @@
   import makeCue from '@/libs/makeCue.js';
 
   import SongNote from './SongNote';
+  import draggable from 'vuedraggable';
 
   export default {
     props: {
@@ -43,6 +55,7 @@
     },
     components: {
       SongNote,
+      draggable,
     },
     data() {
       return {
@@ -129,10 +142,6 @@
         margin: $root/4;
         padding: $root/2;
       }
-    }
-    .notelist {
-      padding: $root;
-      text-align: left;
     }
   }
 </style>

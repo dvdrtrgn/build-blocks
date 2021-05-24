@@ -60,7 +60,7 @@
 
 <style lang="scss">
   $root: 1.4rem;
-  .notelist {
+  .cuelist {
     &.pitch .interval {
       display: none;
     }
@@ -71,15 +71,13 @@
   #Song .songnote {
     $quart: $root/4;
 
+    border-radius: $quart;
     display: inline-block;
     font-size: $root;
     line-height: 0.5;
     padding: $root/2 $root/4;
     white-space: nowrap;
 
-    button {
-      background-color: silver;
-    }
     .duration {
       font-size: 66%;
     }
