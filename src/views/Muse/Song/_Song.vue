@@ -8,13 +8,13 @@
           Autoplay
         </button>
         <button @click="togMode" :class="{ active: mode === 'interval' }">
-          Interval Mode
+          Show Intervals
         </button>
       </div>
       <div class="group">
-        <button @click="runSave">save</button>
-        <button @click="clearCues">clear</button>
-        <button @click="runLoad">load</button>
+        <button @click="runSave">Remember</button>
+        <button @click="clearCues">Clear</button>
+        <button @click="runLoad">Restore</button>
       </div>
       <button @click="logCues" class="dev" style="float: right;">
         console.log
@@ -24,14 +24,16 @@
     <div class="bezel" tabindex="0">
       <!-- https://github.com/SortableJS/Vue.Draggable -->
       <draggable :class="mode" class="cuelist" draggable=".songnote">
-        <div slot="header" style="float: left;">
-          {{ songname }}
-        </div>
+        <div slot="header" style="float: left;">“{{ songname }}”&nbsp;</div>
 
-        <SongNote v-for="(note, i) in notes" :key="i" :note="note"></SongNote>
+        <SongNote
+          v-for="(note, i) in notes"
+          :key="`k${i}`"
+          :note="note"
+        ></SongNote>
 
         <div slot="footer" style="float: right;">
-          <button @click="addRest">Append Rest</button>
+          <button @click="addRest">&lt; Append Rest</button>
         </div>
       </draggable>
     </div>
@@ -142,6 +144,9 @@
         margin: $root/4;
         padding: $root/2;
       }
+    }
+    .cuelist {
+      text-align: left;
     }
   }
 </style>

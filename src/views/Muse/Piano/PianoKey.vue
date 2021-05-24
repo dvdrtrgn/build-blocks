@@ -93,6 +93,9 @@
     vertical-align: top;
     width: $wide;
 
+    &:active {
+      background-image: linear-gradient(180deg, #ddd, #fff);
+    }
     &:hover,
     &:focus {
       border-style: solid;
@@ -104,7 +107,7 @@
     }
 
     &.ebony {
-      background-image: linear-gradient(182deg, black, #333);
+      background-image: linear-gradient(180deg, black, #333);
       border-top: 0;
       box-shadow: 0 $frac $frac rgba(grey, 0.5);
       height: $short;

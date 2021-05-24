@@ -1,20 +1,22 @@
 <template>
-  <button :class="classObj" v-if="note.duration" @focus="play(note)">
-    <span
-      class="note editable"
-      :title="editmsg"
-      @mousedown.alt="editNote(note)"
-    >
-      <span class="pitch" v-html="pitchLabel"></span>
-      <i class="interval" v-html="note.interval || 'Rest'"></i>
-    </span>
-    <small
-      class="duration editable"
-      @mousedown.alt="editDuration(note)"
-      :title="editmsg"
-      >{{ note.duration.toFixed(1) }}s</small
-    >
-  </button>
+  <transition name="fade" appear>
+    <button :class="classObj" v-if="note.duration" @focus="play(note)">
+      <span
+        class="note editable"
+        :title="editmsg"
+        @mousedown.alt="editNote(note)"
+      >
+        <span class="pitch" v-html="pitchLabel"></span>
+        <i class="interval" v-html="note.interval || 'Rest'"></i>
+      </span>
+      <small
+        class="duration editable"
+        @mousedown.alt="editDuration(note)"
+        :title="editmsg"
+        >{{ note.duration.toFixed(1) }}s</small
+      >
+    </button>
+  </transition>
 </template>
 
 <script>

@@ -36,6 +36,15 @@
     font-stretch: normal;
   }
 
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.5s;
+  }
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0;
+  }
+
   .dev {
     color: steelblue;
     opacity: 0.8;
