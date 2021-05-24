@@ -11,12 +11,6 @@
       </select>
     </label>
 
-    <div class="pianolist bezel" tabindex="0">
-      <PianoOctave :octave="octave1" />
-      <PianoOctave :octave="octave2" />
-      <PianoOctave :octave="octave3" />
-    </div>
-
     <label class="bezel">
       Max Sustain
       <select @change="updateSustain" v-model.number="sustain">
@@ -26,15 +20,23 @@
       </select>
       <small> (w/1s decay) </small>
     </label>
+
+    <div class="pianolist bezel" tabindex="0">
+      <PianoOctave :octave="octave1" />
+      <PianoOctave :octave="octave2" />
+      <PianoOctave :octave="octave3" />
+    </div>
   </section>
 </template>
 
 <script>
-  import Bus from '@/bus';
-  import Store from '@/store';
-  import PianoOctave from './PianoOctave';
+  import bus from '@/bus';
+  import store from '@/store';
+  import octave from '@/libs/octave-model.js';
 
-  import Octave from '@/libs/octave-model.js';
+  window.glob.assigns({ octave });
+
+  import PianoOctave from './PianoOctave';
 
   export default {
     components: {
@@ -42,29 +44,29 @@
     },
     data() {
       return {
-        sustain: Store.getters.getTime, // initial value
+        sustain: store.getters.getTime, // initial value
         sustains: [0, 1, 2, 3, 4],
         octave_num: 3,
       };
     },
     methods: {
       storeSustain() {
-        Store.commit('setTime', this.sustain);
+        store.commit('setTime', this.sustain);
       },
       updateSustain() {
         this.storeSustain();
-        Bus.$emit('beep');
+        bus.$emit('beep');
       },
     },
     computed: {
       octave1() {
-        return Octave.make(this.octave_num + 0);
+        return octave.make(this.octave_num + 0);
       },
       octave2() {
-        return Octave.make(this.octave_num + 1);
+        return octave.make(this.octave_num + 1);
       },
       octave3() {
-        return Octave.make(this.octave_num + 2);
+        return octave.make(this.octave_num + 2);
       },
     },
   };

@@ -1,32 +1,41 @@
 # Outline
-  app
-    --just a container for main
-    main (Main)
-      --master all purpose voices
-      --allow storage and retrieval
-      --offer modes?
 
-      synth (ShowMuse)
-        --switch mode?
-        keyboard (Piano)
-          --sustain
-          --set tonic?
-          pianokeys (PianoKey)
-            --take pitch
-            --determine shape based on pitch
-        song (Song)
-          --show controls
-          songnotes (SongNote)
-            --represent note
-            --edit notes
-            --playbacks
-            --interpret intervals (to show)
+Main
+- just a container
 
-# Wishes
+Muse
+- manage global voice / playback
 
-dropdown to pick a tonic, scale
+Piano
+- controls: sustain, start octave
 
-listener to always show the played notes
+  PianoKey
+    - take pitch name
+    - note: play /record
+
+  PianoOctave
+    - construct 12 key segments
+
+Song
+- show controls: autoplay, rest, load/save/clear
+
+  SongNote
+  - represent note
+  - play and option edit
+  - ? interpret intervals (to show by toggle?)
+
+
+
+# Piano
+choose scale from menu (to highlight keys in that scale)
+show intervals
+set tonic note
+for now make it reflect shape of keys on keyboard
+will abstract the model
+
+
+
+# RANDOM
 
 toggle for showing pitch name or interval relative to global tonic
 
@@ -34,53 +43,11 @@ dropdown to choose global mode
   --- keys to respond by tinting notes of that mode
 
 
-interpreter that takes tonic and pitch and describes key shape
+dropdown to pick a tonic, scale
 
-Piano Model
-  keyshape lookup
-
-  Piano Key Model
-
-
-
-# Piano
-make octave
-add keys to keyboard
-choose scale from menu (to highlight keys in that scale)
-show intervals
-set tonic note
-for now make it reflect shape of keys on keyboard
-will abstract the model
-
-key
-  -note to determine shape of key (c/f shape ) (b/e shape)
-  -shapes b/c/d whites and 1 black
-    -c notch right
-    -b notch left
-    -d double notch
-    -black double notch half width?
-
-play
-  .nextVoice()
-  .mainVoice()
-  .lastVoice()
-
-
-Make App the main and the view into components
-(worry about mulitpage later)
-
-
-// note stack
-if time 0 ... remove
-if note 0 ... rest
-
-Voice
-  synth is one voice
-  ask for a voice
-  return object that has events and properties
-  so the view can update
+last played note sets insertion index
 
 Work out note abstraction
   i want to be free of the Tone API
   but i don't want to reimplment everything.
-  can i extend???
+  can i use `extend`???

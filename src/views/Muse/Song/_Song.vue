@@ -23,10 +23,10 @@
 </template>
 
 <script>
-  import Store from '@/store';
-  import SongNote from './SongNote';
-
+  import store from '@/store';
   import makeCue from '@/libs/makeCue.js';
+
+  import SongNote from './SongNote';
 
   export default {
     props: {
@@ -63,7 +63,7 @@
         });
       },
       save() {
-        Store.commit('saveSong', {
+        store.commit('saveSong', {
           name: this.songname,
           json: this.json,
         });
@@ -72,12 +72,12 @@
         console.log(this.json);
       },
       checkbox() {
-        Store.commit('setAutoplay', !this.autoplay);
+        store.commit('setAutoplay', !this.autoplay);
       },
     },
     computed: {
       autoplay() {
-        return Store.getters.getAutoplay;
+        return store.getters.getAutoplay;
       },
       json() {
         let dump = this.notes.filter(e => e.duration).map(e => e.toString());
@@ -85,7 +85,7 @@
         return JSON.stringify(dump);
       },
       songs() {
-        return Store.getters.getSongs;
+        return store.getters.getSongs;
       },
     },
     mounted() {

@@ -62,7 +62,7 @@ class Cue {
 function makeCue(name, duration) {
   let self = new Cue(name, parseFloat(duration));
 
-  console.log('make', self);
+  // console.log('make', self);
 
   return self;
 }

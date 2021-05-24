@@ -5,14 +5,15 @@
 </template>
 
 <script>
-  import Bus from '@/bus';
-  import Store from '@/store';
+  import bus from '@/bus';
+  import store from '@/store';
+  import getVoice from '@/libs/getVoice.js';
+  import focusNext from '@/libs/focus-next.js';
+
+  window.glob.assigns({ store, bus, getVoice, focusNext });
 
   import Piano from './Piano/_Piano';
   import Song from './Song/_Song';
-
-  import getVoice from '@/libs/getVoice.js';
-  import focusNext from '@/libs/focus-next.js';
 
   export default {
     components: {
@@ -22,7 +23,7 @@
     data() {
       return {
         notes: [],
-        voice: getVoice('main'),
+        voice: getVoice('muse'),
       };
     },
     methods: {
@@ -37,15 +38,13 @@
       },
     },
     mounted() {
-      Bus.$on('beep', this.beep);
-      Bus.$on('pushCue', this.pushCue);
-      Bus.$on('playNote', this.playNote);
-
-      window._Store = Store;
+      bus.$on('beep', this.beep);
+      bus.$on('pushCue', this.pushCue);
+      bus.$on('playNote', this.playNote);
     },
     computed: {
       autoplay() {
-        return Store.getters.getAutoplay;
+        return store.getters.getAutoplay;
       },
     },
   };

@@ -1,8 +1,7 @@
 <template>
   <button
-    class="p-key"
-    :class="[classObj, getBias]"
-    @keypress="play()"
+    :class="classObj"
+    @keypress.enter="play()"
     @mousedown="play()"
     @mouseup="stop()"
   >
@@ -11,10 +10,11 @@
 </template>
 
 <script>
-  import Bus from '@/bus';
-  import Store from '@/store';
-
+  import bus from '@/bus';
+  import store from '@/store';
   import getVoice from '@/libs/getVoice.js';
+
+  window.glob.assigns({ bus, store, getVoice });
 
   export default {
     props: {
@@ -39,7 +39,7 @@
         }
       },
       record() {
-        Bus.$emit('pushCue', this.cue);
+        bus.$emit('pushCue', this.cue);
       },
       stop() {
         this.cue = {};
@@ -47,7 +47,7 @@
       },
     },
     computed: {
-      maxtime: () => Number(Store.getters.getTime),
+      maxtime: () => Number(store.getters.getTime),
       isEbony() {
         return this.pitch.includes('#');
       },
@@ -64,6 +64,7 @@
       },
       classObj() {
         return {
+          [this.getBias]: true,
           ebony: this.isEbony,
           playing: this.cue.playing,
         };
@@ -77,7 +78,7 @@
   $tall: $root * 12;
   $wide: $root * 2.2;
 
-  #Piano .p-key {
+  #Piano button {
     $short: $tall/1.6;
     $thin: $wide/1.5;
     $frac: $thin/7;

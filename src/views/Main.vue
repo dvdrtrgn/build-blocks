@@ -9,6 +9,8 @@
 <script>
   import Muse from './Muse/Muse';
 
+  window.glob.assigns({});
+
   export default {
     components: {
       Muse,
