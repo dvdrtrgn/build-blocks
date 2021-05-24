@@ -27,7 +27,7 @@
     },
     methods: {
       beep() {
-        this.voice.start('C2', 0);
+        this.voice.makeCue('C2', 0);
       },
       pushCue(note) {
         if (note.duration >= 0.01) this.notes.push(note);

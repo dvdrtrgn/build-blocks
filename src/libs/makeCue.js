@@ -6,8 +6,9 @@ function aprox(num) {
 
 class Cue {
   name = '';
-  #start = 0;
+  playing = false;
   _end = 0;
+  #start = 0;
 
   constructor(name, duration) {
     let now = Tone.now();

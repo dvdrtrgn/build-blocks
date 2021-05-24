@@ -22,32 +22,33 @@
         type: String,
         default: 'R',
       },
-      toggle: {
-        type: Boolean,
-        default: false,
-      },
     },
     data() {
       return {
-        voice: getVoice(),
+        voice: getVoice('piano'),
+        cue: {},
       };
     },
     methods: {
       playTone() {
-        if (this.playing && this.toggle) return this.voice.stop();
+        if (this.playing) return this.voice.stop();
 
-        this.voice.start(this.pitch, this.duration);
+        this.cue = this.voice.makeCue(this.pitch, this.maxtime);
 
-        Bus.$emit('pushCue', this.voice.cue);
+        this.saveTone(this.cue);
+      },
+      saveTone(cue) {
+        Bus.$emit('pushCue', cue);
       },
       stopTone() {
         if (this.playing) this.voice.stop();
+        this.cue = {};
       },
     },
     computed: {
-      duration: () => Number(Store.getters.getTime),
+      maxtime: () => Number(Store.getters.getTime),
       playing() {
-        return this.voice.playing;
+        return this.cue.playing;
       },
       ebony() {
         return this.pitch.includes('#');
@@ -70,7 +71,6 @@
       classObj() {
         return {
           playing: this.playing,
-          toggle: this.toggle,
           ebony: this.ebony,
         };
       },
@@ -117,9 +117,6 @@
     }
     &.playing {
       border-color: red !important;
-    }
-    &.toggle {
-      font-weight: bold;
     }
     &.ebony {
       background-color: black;

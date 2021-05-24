@@ -5,47 +5,54 @@ const allVoices = {};
 
 class Voice {
   // _parent = Tone;
-  playing = false;
-  timeout = null;
-  #voicebox = null;
+  running = false;
+  #cue;
+  #timeout;
+  #tone;
 
   constructor(name) {
     this.name = name;
-    this.#voicebox = new Tone.Synth().toDestination();
+    this.#tone = new Tone.Synth().toDestination();
   }
 
   timer(cb, sec) {
-    this.timeout = setTimeout(cb, sec * 1000);
+    this.#timeout = setTimeout(cb, sec * 1000);
   }
 
   stop() {
-    clearTimeout(this.timeout);
+    clearTimeout(this.#timeout);
 
-    this.#voicebox.triggerRelease();
-    this.playing = false;
-    this.cue.cutShort();
+    this.#tone.triggerRelease();
+    this.running = false;
+    this.#cue.playing = false;
+    this.#cue.cutShort();
   }
 
   play(cue, cb) {
     if (cue.isNote) {
-      this.#voicebox.triggerAttackRelease(...cue.params);
+      this.#tone.triggerAttackRelease(...cue.params);
+      cue.playing = true;
     }
 
-    this.playing = true;
+    this.running = true;
 
     this.timer(() => {
-      this.playing = false;
+      this.running = false;
+      cue.playing = false;
+
       if (cb) cb();
     }, cue.duration);
   }
 
-  start(pitch, duration) {
+  makeCue(pitch, duration) {
     // why remake? just expect a cue?
-    this.cue = makeCue(pitch, duration || 0.1);
+    this.#cue = makeCue(pitch, duration || 0.1);
 
-    if (this.playing) this.stop();
+    if (this.running) this.stop();
 
-    this.play(this.cue);
+    this.play(this.#cue);
+
+    return this.#cue;
   }
 }
 
@@ -66,5 +73,5 @@ export default getVoice;
 
 window.addEventListener('load', function() {
   window.Tone = Tone;
-  getVoice().start(33);
+  getVoice().makeCue(33);
 });
