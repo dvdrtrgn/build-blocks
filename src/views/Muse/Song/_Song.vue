@@ -22,8 +22,7 @@
     </div>
 
     <div class="bezel" tabindex="0">
-      <!-- https://github.com/SortableJS/Vue.Draggable -->
-      <draggable :class="mode" class="cuelist" draggable=".songnote">
+      <draggable :class="mode" class="cuelist" draggable="button">
         <div slot="header" style="float: left;">“{{ songname }}”&nbsp;</div>
 
         <SongNote
@@ -36,6 +35,9 @@
           <button @click="addRest">&lt; Append Rest</button>
         </div>
       </draggable>
+
+      <!-- https://github.com/SortableJS/Vue.Draggable -->
+      <small>Notes are draggable with “Autoplay&nbsp;off”</small>
     </div>
   </div>
 </template>

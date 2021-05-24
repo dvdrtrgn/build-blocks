@@ -68,6 +68,9 @@
     big {
       font-size: 120%;
     }
+    label {
+      white-space: nowrap;
+    }
     small {
       font-size: 80%;
     }
@@ -82,5 +85,6 @@
     border: 1px solid silver;
     border-radius: 1rem;
     padding: 0.5rem;
+    position: relative;
   }
 </style>

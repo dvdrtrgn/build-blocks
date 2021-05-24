@@ -2,6 +2,7 @@
   <transition name="fade" appear>
     <button :class="classObj" v-if="note.duration" @focus="play(note)">
       <span
+        v-show="note.label != 'R'"
         class="note editable"
         :title="editmsg"
         @mousedown.alt="editNote(note)"

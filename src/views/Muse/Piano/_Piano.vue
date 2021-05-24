@@ -73,8 +73,21 @@
 </script>
 
 <style lang="scss">
+  $root: 1.2rem;
+
   #Piano {
     line-height: 2;
     text-align: center;
+
+    .pianolist > :nth-child(3) {
+      @media (max-width: $root * 30) {
+        display: none;
+      }
+    }
+    .pianolist > :nth-child(2) {
+      @media (max-width: $root * 20) {
+        display: none;
+      }
+    }
   }
 </style>
