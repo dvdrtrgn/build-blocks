@@ -73,5 +73,5 @@ export default getVoice;
 
 window.addEventListener('load', function() {
   window.Tone = Tone;
-  getVoice().makeCue(33); // init voice
+  getVoice().makeCue(33); // init default voice
 });

@@ -1,19 +1,16 @@
 <template>
-  <button
-    v-if="note.duration"
-    class="songnote"
-    :class="{ rest: note.isRest }"
-    @focus="play(note)"
-  >
+  <button :class="classObj" v-if="note.duration" @focus="play(note)">
     <span
-      class="pitch editable"
+      class="note editable"
       :title="editmsg"
-      @click.alt="editPitch(note)"
-      v-html="label"
-    ></span>
+      @mousedown.alt="editNote(note)"
+    >
+      <span class="pitch" v-html="pitchLabel"></span>
+      <i class="interval" v-html="note.interval || 'Rest'"></i>
+    </span>
     <small
       class="duration editable"
-      @click.alt="editDuration(note)"
+      @mousedown.alt="editDuration(note)"
       :title="editmsg"
       >{{ note.duration.toFixed(1) }}s</small
     >
@@ -27,7 +24,7 @@
     props: ['note'],
     data() {
       return {
-        editmsg: 'Hold alt to edit',
+        editmsg: 'Edit [option-click]',
       };
     },
     methods: {
@@ -37,22 +34,25 @@
       editDuration(note) {
         let val = note.duration;
         let out = prompt('Edit duration', val);
-
         if (out && val != out) note.duration = out;
       },
-      editPitch(note) {
+      editNote(note) {
         let val = note.label;
-        let out = prompt('Edit pitch', val);
-
+        let out = prompt('Edit note', val);
         if (out && val != out) note.name = out;
       },
     },
     computed: {
-      label() {
+      pitchLabel() {
         let text = this.note.label;
         let html = text.replace('#', '<sup>♯</sup>');
-
         return html.replace(/(\d)/, '<sub>$1</sub>');
+      },
+      classObj() {
+        return {
+          songnote: true,
+          rest: this.note.isRest,
+        };
       },
     },
   };
@@ -60,26 +60,37 @@
 
 <style lang="scss">
   $root: 1.4rem;
-
+  .notelist {
+    &.pitch .interval {
+      display: none;
+    }
+    &.interval .pitch {
+      display: none;
+    }
+  }
   #Song .songnote {
     $quart: $root/4;
 
     display: inline-block;
     font-size: $root;
     line-height: 0.5;
-    padding: $root/2;
+    padding: $root/2 $root/4;
     white-space: nowrap;
 
+    button {
+      background-color: silver;
+    }
     .duration {
       font-size: 66%;
     }
     .editable {
-      background-color: white;
+      background-color: rgba(white, 0.5);
       border-radius: $quart;
       padding: 0 $quart/2;
       cursor: pointer;
 
       &:hover {
+        background-color: rgba(white, 1);
         outline-color: silver;
         outline-offset: -1px;
         outline-style: solid;
@@ -87,7 +98,7 @@
       }
     }
     &.rest {
-      background-color: silver;
+      background-color: white;
     }
     sub {
       font-size: 66%;

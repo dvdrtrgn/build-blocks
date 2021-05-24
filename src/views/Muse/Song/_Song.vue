@@ -2,22 +2,27 @@
   <div id="Song">
     <h1>Output</h1>
 
-    <div class="notelist bezel" tabindex="0">
-      <SongNote v-for="(note, i) in notes" :key="i" :note="note" />
+    <div class="controls bezel">
+      <div class="group">
+        <button @click="togAutoplay" :class="{ active: autoplay }">
+          Autoplay
+        </button>
+        <button @click="togMode" :class="{ active: mode === 'interval' }">
+          Interval Mode
+        </button>
+      </div>
+      <button @click="addRest">Add Rest</button>
+      <div class="group">
+        <button @click="runSave">save</button>
+        <button @click="clearCues">clear</button>
+        <button @click="runLoad">load</button>
+      </div>
+      <button @click="logCues" class="dev">console</button>
     </div>
 
-    <div class="controls bezel">
-      <button @click="checkbox" :class="{ active: autoplay }">Autoplay</button>
-      -
-      <button @click="addRest">Add Rest</button>
-      —
-      <button @click="save">save</button>
-      -
-      <button @click="load">load</button>
-      —
-      <button @click="clear">clear</button>
-      -
-      <button @click="dump" class="dev">console</button>
+    <div class="notelist bezel" :class="mode" tabindex="0">
+      {{ songname }}
+      <SongNote v-for="(note, i) in notes" :key="i" :note="note" />
     </div>
   </div>
 </template>
@@ -49,35 +54,41 @@
         let rest = makeCue(0, 1);
         this.notes.push(rest);
       },
-      clear() {
+      clearCues() {
         this.notes.length = 0;
         this.notes.pop(); // trigger the update
       },
-      load() {
+      runLoad() {
         let song = JSON.parse(this.songs[this.songname]);
-        this.clear();
+        this.clearCues();
 
         song.forEach(e => {
           let note = makeCue(...e.split(' '));
           this.notes.push(note);
         });
       },
-      save() {
+      togMode() {
+        store.commit('setMode', this.mode === 'pitch' ? 'interval' : 'pitch');
+      },
+      runSave() {
         store.commit('saveSong', {
           name: this.songname,
           json: this.json,
         });
       },
-      dump() {
+      logCues() {
         console.log(this.json);
       },
-      checkbox() {
+      togAutoplay() {
         store.commit('setAutoplay', !this.autoplay);
       },
     },
     computed: {
       autoplay() {
         return store.getters.getAutoplay;
+      },
+      mode() {
+        return store.getters.getMode;
       },
       json() {
         let dump = this.notes.filter(e => e.duration).map(e => e.toString());
@@ -89,26 +100,39 @@
       },
     },
     mounted() {
-      this.load();
-      this.dump();
+      this.runLoad();
+      this.logCues();
     },
   };
 </script>
 
 <style lang="scss">
+  $root: 1.2rem;
+
   #Song {
     columns: 1;
-    margin: 1rem 0;
+    margin: $root 0;
     text-align: center;
 
-    .notelist {
-      padding: 1rem;
-      text-align: left;
-    }
     .active {
       // for control buttons
       background-color: gray;
       color: white;
+    }
+    .controls {
+      .group {
+        background: silver;
+        display: inline-block;
+        margin: $root/2;
+      }
+      button {
+        margin: $root/4;
+        padding: $root/2;
+      }
+    }
+    .notelist {
+      padding: $root;
+      text-align: left;
     }
   }
 </style>

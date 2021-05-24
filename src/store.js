@@ -10,6 +10,7 @@ const store = new Vuex.Store({
   state: {
     autoplay: 0,
     loads: 0,
+    mode: 'pitch',
     sustain: 0,
     songs: {
       s1: '["C4 0.44","D4 0.22","F4 0.25"]',
@@ -21,6 +22,9 @@ const store = new Vuex.Store({
     },
     getAutoplay(state) {
       return state.autoplay;
+    },
+    getMode(state) {
+      return state.mode;
     },
     getSongs(state) {
       return state.songs;
@@ -35,6 +39,9 @@ const store = new Vuex.Store({
     },
     setAutoplay(state, bool) {
       C.log('setAutoplay', (state.autoplay = bool));
+    },
+    setMode(state, mode) {
+      C.log('setMode', (state.mode = mode));
     },
     saveSong(state, obj) {
       C.log('saveSong', obj);

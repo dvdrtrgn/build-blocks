@@ -1,4 +1,5 @@
 import * as Tone from 'tone';
+import interval from './interval';
 
 function aprox(num) {
   return Math.round((Number(num) + Number.EPSILON) * 10) / 10;
@@ -18,6 +19,8 @@ class Cue {
 
     this.name = name;
     this.duration = duration;
+
+    this.interval = interval.lookup(this.label);
   }
 
   cutShort() {
