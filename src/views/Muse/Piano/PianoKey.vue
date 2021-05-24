@@ -1,10 +1,10 @@
 <template>
   <button
     class="pianokey"
-    :class="[bias, classObj]"
-    @mousedown="playTone()"
-    @mouseup="stopTone()"
-    @keypress="playTone()"
+    :class="classObj"
+    @keypress="play()"
+    @mousedown="play()"
+    @mouseup="stop()"
   >
     <span class="label" v-html="label"></span>
   </button>
@@ -25,36 +25,32 @@
     },
     data() {
       return {
-        voice: getVoice('piano'),
         cue: {},
+        voice: getVoice('piano'),
       };
     },
     methods: {
-      playTone() {
-        if (this.playing) return this.voice.stop();
+      play() {
+        if (this.voice.running) return this.voice.stop();
 
         this.cue = this.voice.makeCue(this.pitch, this.maxtime);
-
-        this.saveTone(this.cue);
+        this.save();
       },
-      saveTone(cue) {
-        Bus.$emit('pushCue', cue);
+      save() {
+        Bus.$emit('pushCue', this.cue);
       },
-      stopTone() {
-        if (this.playing) this.voice.stop();
+      stop() {
+        if (this.voice.running) this.voice.stop();
         this.cue = {};
       },
     },
     computed: {
       maxtime: () => Number(Store.getters.getTime),
-      playing() {
-        return this.cue.playing;
-      },
       ebony() {
         return this.pitch.includes('#');
       },
       label() {
-        let text = this.pitch.toString();
+        let text = this.pitch;
 
         if (this.ebony) {
           text = text.replace('#', '').replace(/(\d)/, '<br>$1');
@@ -70,7 +66,8 @@
       },
       classObj() {
         return {
-          playing: this.playing,
+          bias: this.bias,
+          playing: this.cue.playing,
           ebony: this.ebony,
         };
       },
@@ -108,15 +105,9 @@
       z-index: 1;
     }
 
-    .label {
-      bottom: 0.5rem;
-      left: 0;
-      overflow-wrap: break-word;
-      position: absolute;
-      width: 100%;
-    }
     &.playing {
       border-color: red !important;
+      z-index: 1;
     }
     &.ebony {
       background-color: black;
@@ -134,6 +125,14 @@
       &.right {
         left: $frac;
       }
+    }
+
+    .label {
+      bottom: 0.5rem;
+      left: 0;
+      overflow-wrap: break-word;
+      position: absolute;
+      width: 100%;
     }
   }
 </style>
