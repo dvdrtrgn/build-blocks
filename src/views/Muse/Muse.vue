@@ -22,18 +22,18 @@
     data() {
       return {
         notes: [],
-        synth: getVoice(),
+        voice: getVoice('main'),
       };
     },
     methods: {
       beep() {
-        this.synth.start('C2', 0);
+        this.voice.start('C2', 0);
       },
       pushCue(note) {
         if (note.duration >= 0.01) this.notes.push(note);
       },
       playNote(arg) {
-        this.synth.play(arg, this.autoplay ? focusNext() : '');
+        this.voice.play(arg, this.autoplay ? focusNext() : '');
       },
     },
     mounted() {

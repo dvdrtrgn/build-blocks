@@ -29,25 +29,25 @@
     },
     data() {
       return {
-        synth: getVoice(),
+        voice: getVoice(),
       };
     },
     methods: {
       playTone() {
-        if (this.playing && this.toggle) return this.synth.stop();
+        if (this.playing && this.toggle) return this.voice.stop();
 
-        this.synth.start(this.pitch, this.duration);
+        this.voice.start(this.pitch, this.duration);
 
-        Bus.$emit('pushCue', this.synth.cue);
+        Bus.$emit('pushCue', this.voice.cue);
       },
       stopTone() {
-        if (this.playing) this.synth.stop();
+        if (this.playing) this.voice.stop();
       },
     },
     computed: {
       duration: () => Number(Store.getters.getTime),
       playing() {
-        return this.synth.playing;
+        return this.voice.playing;
       },
       ebony() {
         return this.pitch.includes('#');

@@ -4,12 +4,14 @@ import makeCue from './makeCue.js';
 const allVoices = {};
 
 class Voice {
-  _parent = Tone;
+  // _parent = Tone;
+  playing = false;
+  timeout = null;
+  #voicebox = null;
 
-  constructor(voice) {
-    this.voice = voice;
-    this.timeout = null;
-    this.playing = false;
+  constructor(name) {
+    this.name = name;
+    this.#voicebox = new Tone.Synth().toDestination();
   }
 
   timer(cb, sec) {
@@ -19,14 +21,14 @@ class Voice {
   stop() {
     clearTimeout(this.timeout);
 
-    this.voice.triggerRelease();
+    this.#voicebox.triggerRelease();
     this.playing = false;
     this.cue.cutShort();
   }
 
   play(cue, cb) {
     if (cue.isNote) {
-      this.voice.triggerAttackRelease(...cue.params);
+      this.#voicebox.triggerAttackRelease(...cue.params);
     }
 
     this.playing = true;
@@ -47,25 +49,17 @@ class Voice {
   }
 }
 
-function findVoice(name) {
-  let voice;
+function getVoice(name = 'default') {
+  let voice = allVoices[name];
 
-  if (allVoices[name]) {
-    voice = allVoices[name];
-  } else {
-    voice = new Tone.Synth().toDestination();
+  if (!voice) {
+    voice = new Voice(name);
     allVoices[name] = voice;
-    console.log('new synth wrapper', name, allVoices);
+
+    console.log('get', voice);
   }
 
   return voice;
-}
-
-function getVoice(name) {
-  let voice = findVoice(name || 'default');
-  let self = new Voice(voice);
-
-  return self;
 }
 
 export default getVoice;
