@@ -1,12 +1,12 @@
 <template>
   <button
-    class="pianokey"
-    :class="classObj"
+    class="p-key"
+    :class="[classObj, getBias]"
     @keypress="play()"
     @mousedown="play()"
     @mouseup="stop()"
   >
-    <span class="label" v-html="label"></span>
+    <span class="label" v-html="makeLabel"></span>
   </button>
 </template>
 
@@ -19,8 +19,8 @@
   export default {
     props: {
       pitch: {
-        type: String,
         default: 'R',
+        type: String,
       },
     },
     data() {
@@ -31,44 +31,41 @@
     },
     methods: {
       play() {
-        if (this.voice.running) return this.voice.stop();
-
-        this.cue = this.voice.makeCue(this.pitch, this.maxtime);
-        this.save();
+        if (this.voice.running) {
+          this.stop();
+        } else {
+          this.cue = this.voice.makeCue(this.pitch, this.maxtime);
+          this.record();
+        }
       },
-      save() {
+      record() {
         Bus.$emit('pushCue', this.cue);
       },
       stop() {
-        if (this.voice.running) this.voice.stop();
         this.cue = {};
+        this.voice.stop();
       },
     },
     computed: {
       maxtime: () => Number(Store.getters.getTime),
-      ebony() {
+      isEbony() {
         return this.pitch.includes('#');
       },
-      label() {
-        let text = this.pitch;
-
-        if (this.ebony) {
-          text = text.replace('#', '').replace(/(\d)/, '<br>$1');
-        }
-        return text;
+      makeLabel() {
+        if (!this.isEbony) return this.pitch;
+        return this.pitch.replace('#', '').replace(/(\d)/, '<br>$1');
       },
-      bias() {
+      getBias() {
+        if (!this.isEbony) return '';
         let letter = this.pitch.slice(0, 1);
-
-        if (letter === 'C' || letter === 'F') return 'left';
-        if (letter === 'D' || letter === 'A') return 'right';
-        return '';
+        if (letter === 'C' || letter === 'F') return '-l';
+        if (letter === 'D' || letter === 'A') return '-r';
+        return ''; // G key
       },
       classObj() {
         return {
-          bias: this.bias,
+          ebony: this.isEbony,
           playing: this.cue.playing,
-          ebony: this.ebony,
         };
       },
     },
@@ -80,49 +77,44 @@
   $tall: $root * 12;
   $wide: $root * 2.2;
 
-  #Piano .pianokey {
+  #Piano .p-key {
     $short: $tall/1.6;
     $thin: $wide/1.5;
     $frac: $thin/7;
 
     background-color: white;
     border-radius: 3px;
-    border-top: 0;
-    color: black;
     cursor: pointer;
     font-size: $root;
     height: $tall;
-    line-height: 1;
     margin: -0.5px;
     position: relative;
     vertical-align: top;
     width: $wide;
-    z-index: 0;
 
     &:hover,
     &:focus {
       border-style: solid;
       z-index: 1;
     }
-
     &.playing {
-      border-color: red !important;
+      border-color: red;
       z-index: 1;
     }
+
     &.ebony {
-      background-color: black;
       background-image: linear-gradient(182deg, black, #333);
+      border-top: 0;
       box-shadow: 0 $frac $frac rgba(grey, 0.5);
-      // color: white;
       height: $short;
       margin: 0 $thin/-2;
       width: $thin;
       z-index: 2;
 
-      &.left {
+      &.-l {
         left: -$frac;
       }
-      &.right {
+      &.-r {
         left: $frac;
       }
     }
