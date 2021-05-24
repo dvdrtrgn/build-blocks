@@ -2,22 +2,37 @@
   main
     h1.hand 👌🏿
 
-    ShowMuse
+    Muse
 
 </template>
 
 <script>
-  import ShowMuse from './Muse/ShowMuse';
+  import Muse from './Muse/Muse';
 
   export default {
     components: {
-      ShowMuse,
+      Muse,
     },
+  };
+
+  window.yelp = function(arg, clr) {
+    let c = 'background: black; color: yellow; font-size: 200%;';
+    if (clr) console.clear();
+    if (arg === 0) debugger;
+    else console.log('%cYELP', c, arg);
   };
 </script>
 
 <style lang="scss">
   $root: 1.2rem;
+
+  @font-face {
+    font-family: 'Bravura';
+    src: url('../assets/Bravura.woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+  }
 
   .dev {
     color: steelblue;

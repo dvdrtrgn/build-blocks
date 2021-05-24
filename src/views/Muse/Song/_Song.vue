@@ -3,17 +3,19 @@
     <h1>Output</h1>
 
     <div class="notelist bezel" tabindex="0">
-      <SongNote v-for="(note, i) in notes" :key="i" :note="note" @play="play" />
+      <SongNote v-for="(note, i) in notes" :key="i" :note="note" />
     </div>
 
     <div class="controls bezel">
-      <button @click="checkbox" :class="{ active: autoplay }">autoplay</button>
+      <button @click="checkbox" :class="{ active: autoplay }">Autoplay</button>
+      -
+      <button @click="addRest">Add Rest</button>
       —
-      <button @click="clear">clear</button>
-      —
-      <button @click="save" :class="{ active: !saved }">save</button>
+      <button @click="save">save</button>
       -
       <button @click="load">load</button>
+      —
+      <button @click="clear">clear</button>
       -
       <button @click="dump" class="dev">console</button>
     </div>
@@ -24,9 +26,7 @@
   import Store from '@/store';
   import SongNote from './SongNote';
 
-  import makeSynth from '@/libs/make-synth.js';
-  import makeNote from '@/libs/make-note.js';
-  import focusNext from '@/libs/focus-next.js';
+  import makeCue from '@/libs/makeCue.js';
 
   export default {
     props: {
@@ -41,14 +41,13 @@
     },
     data() {
       return {
-        synth: makeSynth(),
-        autoplay: Store.getters.getAutoplay,
         saved: false,
       };
     },
     methods: {
-      play(arg) {
-        this.synth.play(arg, this.autoplay ? focusNext() : '');
+      addRest() {
+        let rest = makeCue(0, 1);
+        this.notes.push(rest);
       },
       clear() {
         this.notes.length = 0;
@@ -59,7 +58,7 @@
         this.clear();
 
         song.forEach(e => {
-          let note = makeNote(...e.split(' '));
+          let note = makeCue(...e.split(' '));
           this.notes.push(note);
         });
       },
@@ -73,13 +72,15 @@
         console.log(this.json);
       },
       checkbox() {
-        this.autoplay = !this.autoplay;
-        Store.commit('setAutoplay', this.autoplay);
+        Store.commit('setAutoplay', !this.autoplay);
       },
     },
     computed: {
+      autoplay() {
+        return Store.getters.getAutoplay;
+      },
       json() {
-        let dump = this.notes.map(e => e.vitals());
+        let dump = this.notes.filter(e => e.duration).map(e => e.toString());
 
         return JSON.stringify(dump);
       },

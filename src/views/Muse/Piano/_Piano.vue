@@ -11,7 +11,7 @@
       </select>
     </label>
 
-    <div class="pianolist bezel">
+    <div class="pianolist bezel" tabindex="0">
       <PianoOctave :octave="octave1" />
       <PianoOctave :octave="octave2" />
       <PianoOctave :octave="octave3" />
@@ -30,11 +30,10 @@
 </template>
 
 <script>
-  import Store from '@/store';
   import Bus from '@/bus';
+  import Store from '@/store';
   import PianoOctave from './PianoOctave';
 
-  import makeSynth from '@/libs/make-synth.js';
   import Octave from '@/libs/octave-model.js';
 
   export default {
@@ -44,25 +43,17 @@
     data() {
       return {
         sustain: Store.getters.getTime, // initial value
-        synth: makeSynth(),
         sustains: [0, 1, 2, 3, 4],
         octave_num: 3,
-        notes: [],
       };
     },
     methods: {
-      beep() {
-        this.synth.start('C2', this.sustain / 4);
-      },
       storeSustain() {
         Store.commit('setTime', this.sustain);
       },
       updateSustain() {
         this.storeSustain();
-        this.beep();
-      },
-      addNote(note) {
-        if (note.duration >= 0.01) this.notes.push(note);
+        Bus.$emit('beep');
       },
     },
     computed: {
@@ -75,9 +66,6 @@
       octave3() {
         return Octave.make(this.octave_num + 2);
       },
-    },
-    mounted() {
-      Bus.$on('playing', this.addNote);
     },
   };
 </script>

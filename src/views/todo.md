@@ -68,3 +68,19 @@ play
 
 Make App the main and the view into components
 (worry about mulitpage later)
+
+
+// note stack
+if time 0 ... remove
+if note 0 ... rest
+
+Voice
+  synth is one voice
+  ask for a voice
+  return object that has events and properties
+  so the view can update
+
+Work out note abstraction
+  i want to be free of the Tone API
+  but i don't want to reimplment everything.
+  can i extend???

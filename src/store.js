@@ -8,10 +8,11 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
+    autoplay: 0,
     loads: 0,
     sustain: 0,
     songs: {
-      s1: '["C4 0.441","D4 0.215","F4 0.25"]',
+      s1: '["C4 0.44","D4 0.22","F4 0.25"]',
     },
   },
   getters: {

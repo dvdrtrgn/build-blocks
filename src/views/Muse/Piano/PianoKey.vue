@@ -1,59 +1,56 @@
 <template>
   <button
     class="pianokey"
-    :class="[bias, classObj]"
-    @mousedown="playTone()"
-    @mouseup="stopTone()"
-    @keypress="playTone()"
+    :class="classObj"
+    @keypress="play()"
+    @mousedown="play()"
+    @mouseup="stop()"
   >
     <span class="label" v-html="label"></span>
   </button>
 </template>
 
 <script>
-  import Store from '@/store';
   import Bus from '@/bus';
+  import Store from '@/store';
 
-  import makeSynth from '@/libs/make-synth.js';
+  import getVoice from '@/libs/getVoice.js';
 
   export default {
     props: {
       pitch: {
         type: String,
-        default: 'C4',
-      },
-      toggle: {
-        type: Boolean,
-        default: false,
+        default: 'R',
       },
     },
     data() {
       return {
-        synth: makeSynth(),
+        cue: {},
+        voice: getVoice('piano'),
       };
     },
     methods: {
-      playTone() {
-        if (this.playing && this.toggle) return this.synth.stop();
+      play() {
+        if (this.voice.running) return this.voice.stop();
 
-        this.synth.start(this.pitch, this.duration);
-
-        Bus.$emit('playing', this.synth.note);
+        this.cue = this.voice.makeCue(this.pitch, this.maxtime);
+        this.save();
       },
-      stopTone() {
-        if (this.playing) this.synth.stop();
+      save() {
+        Bus.$emit('pushCue', this.cue);
+      },
+      stop() {
+        if (this.voice.running) this.voice.stop();
+        this.cue = {};
       },
     },
     computed: {
-      duration: () => Number(Store.getters.getTime),
-      playing() {
-        return this.synth.playing;
-      },
+      maxtime: () => Number(Store.getters.getTime),
       ebony() {
         return this.pitch.includes('#');
       },
       label() {
-        let text = this.pitch.toString();
+        let text = this.pitch;
 
         if (this.ebony) {
           text = text.replace('#', '').replace(/(\d)/, '<br>$1');
@@ -69,8 +66,8 @@
       },
       classObj() {
         return {
-          playing: this.playing,
-          toggle: this.toggle,
+          bias: this.bias,
+          playing: this.cue.playing,
           ebony: this.ebony,
         };
       },
@@ -84,13 +81,15 @@
   $wide: $root * 2.2;
 
   #Piano .pianokey {
-    $short: $tall / 1.6;
-    $thin: $wide / 1.5;
+    $short: $tall/1.6;
+    $thin: $wide/1.5;
+    $frac: $thin/7;
 
     background-color: white;
     border-radius: 3px;
     border-top: 0;
     color: black;
+    cursor: pointer;
     font-size: $root;
     height: $tall;
     line-height: 1;
@@ -106,33 +105,34 @@
       z-index: 1;
     }
 
+    &.playing {
+      border-color: red !important;
+      z-index: 1;
+    }
+    &.ebony {
+      background-color: black;
+      background-image: linear-gradient(182deg, black, #333);
+      box-shadow: 0 $frac $frac rgba(grey, 0.5);
+      // color: white;
+      height: $short;
+      margin: 0 $thin/-2;
+      width: $thin;
+      z-index: 2;
+
+      &.left {
+        left: -$frac;
+      }
+      &.right {
+        left: $frac;
+      }
+    }
+
     .label {
       bottom: 0.5rem;
       left: 0;
       overflow-wrap: break-word;
       position: absolute;
       width: 100%;
-    }
-    &.playing {
-      border-color: red !important;
-    }
-    &.toggle {
-      font-weight: bold;
-    }
-    &.ebony {
-      background-color: black;
-      // color: white;
-      height: $short;
-      margin: 0 $thin / -2;
-      width: $thin;
-      z-index: 2;
-
-      &.left {
-        left: $thin / -7;
-      }
-      &.right {
-        left: $thin / 7;
-      }
     }
   }
 </style>

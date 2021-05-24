@@ -1,6 +1,6 @@
 <template>
   <span>
-    <span v-show="note.name">Note name: {{ note.name }}</span>
+    <span v-show="note.label">Note name: {{ note.label }}</span>
     <span v-show="note.octave">octave: {{ note.octave }}</span>
     <span v-show="note.frequency">frequency: {{ note.frequency }}</span>
     <span v-show="note.midi">midi: {{ note.midi }}</span>

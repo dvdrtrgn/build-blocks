@@ -6,10 +6,13 @@
 
 <script>
   import Bus from '@/bus';
-  import Piano from './Piano/_';
-  import Song from './Song/_';
+  import Store from '@/store';
 
-  import makeSynth from '@/libs/make-synth.js';
+  import Piano from './Piano/_Piano';
+  import Song from './Song/_Song';
+
+  import getVoice from '@/libs/getVoice.js';
+  import focusNext from '@/libs/focus-next.js';
 
   export default {
     components: {
@@ -18,20 +21,32 @@
     },
     data() {
       return {
-        synth: makeSynth(),
         notes: [],
+        voice: getVoice('main'),
       };
     },
     methods: {
       beep() {
-        this.synth.start('C2', this.sustain / 2);
+        this.voice.makeCue('C2', 0);
       },
-      addNote(note) {
+      pushCue(note) {
         if (note.duration >= 0.01) this.notes.push(note);
+      },
+      playNote(arg) {
+        this.voice.play(arg, this.autoplay ? focusNext() : '');
       },
     },
     mounted() {
-      Bus.$on('playing', this.addNote);
+      Bus.$on('beep', this.beep);
+      Bus.$on('pushCue', this.pushCue);
+      Bus.$on('playNote', this.playNote);
+
+      window._Store = Store;
+    },
+    computed: {
+      autoplay() {
+        return Store.getters.getAutoplay;
+      },
     },
   };
 </script>
