@@ -12,9 +12,9 @@
         </button>
       </div>
       <div class="group">
-        <button @click="runSave">Remember</button>
-        <button @click="clearCues">Clear</button>
+        <button @click="runSave">Store notes</button>
         <button @click="runLoad">Restore</button>
+        <button @click="clearCues">Clear</button>
       </div>
       <button @click="logCues" class="dev" style="float: right;">
         console.log

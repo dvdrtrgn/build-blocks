@@ -1,19 +1,20 @@
 <template>
   <transition name="fade" appear>
-    <button :class="classObj" v-if="note.duration" @focus="play(note)">
+    <button
+      :class="classObj"
+      v-if="note.duration"
+      @focus="play(note)"
+      :title="editmsg"
+    >
       <span
         v-show="note.label != 'R'"
-        class="note editable"
-        :title="editmsg"
+        class="pitch editable"
         @mousedown.alt="editNote(note)"
       >
         <span class="pitch" v-html="pitchLabel"></span>
         <i class="interval" v-html="note.interval || 'Rest'"></i>
       </span>
-      <small
-        class="duration editable"
-        @mousedown.alt="editDuration(note)"
-        :title="editmsg"
+      <small class="duration editable" @mousedown.alt="editDuration(note)"
         >{{ note.duration.toFixed(1) }}s</small
       >
     </button>
@@ -27,7 +28,7 @@
     props: ['note'],
     data() {
       return {
-        editmsg: 'Edit [option-click]',
+        editmsg: 'To Edit values\n<option-click>',
       };
     },
     methods: {
@@ -41,7 +42,7 @@
       },
       editNote(note) {
         let val = note.label;
-        let out = prompt('Edit note', val);
+        let out = prompt('Edit pitch', val);
         if (out && val != out) note.name = out;
       },
     },
@@ -75,10 +76,9 @@
     $quart: $root/4;
 
     border-radius: $quart;
+    cursor: pointer;
     display: inline-block;
     font-size: $root;
-    line-height: 0.5;
-    padding: $root/2 $root/4;
     white-space: nowrap;
 
     .duration {
@@ -87,15 +87,13 @@
     .editable {
       background-color: rgba(white, 0.5);
       border-radius: $quart;
+      display: inline-block;
       padding: 0 $quart/2;
-      cursor: pointer;
+      transition: transform 1s;
 
       &:hover {
-        background-color: rgba(white, 1);
-        outline-color: silver;
-        outline-offset: -1px;
-        outline-style: solid;
-        outline-width: 1px;
+        background-color: rgba(silver, 0.5);
+        transform: scale(1.2);
       }
     }
     &.rest {
