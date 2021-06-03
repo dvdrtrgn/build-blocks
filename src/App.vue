@@ -1,5 +1,5 @@
 <template lang="pug">
-  #App(:class="[orient, screen, avail, ppp, win]")
+  #App(:class="pixels.classArray")
 </template>
 
 <script>
@@ -13,30 +13,14 @@
         pixels,
       };
     },
-    computed: {
-      screen() {
-        return this.pixels.screen;
-      },
-      avail() {
-        return this.pixels.avail;
-      },
-      win() {
-        return this.pixels.win;
-      },
-      orient() {
-        return this.pixels.orient;
-      },
-      ppp() {
-        return this.pixels.ppp;
-      },
-    },
+    computed: {},
     mounted() {
-      let W = window;
-      let P = this.pixels;
-
-      W.glob.assigns({ pixels: P });
-      W.removeEventListener('resize', P.update.bind(P));
-      W.addEventListener('resize', P.update.bind(P));
+      window.glob.assigns({ app: this, pixels: this.pixels });
+      window.addEventListener('resize', this.pixels.update);
+    },
+    beforeDestroy() {
+      // prevent duplicates during dev
+      window.removeEventListener('resize', this.pixels.update);
     },
   };
 </script>

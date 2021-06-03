@@ -5,15 +5,24 @@ const vw = () => Math.max(D.clientWidth || 0, W.innerWidth || 0);
 const vh = () => Math.max(D.clientHeight || 0, W.innerHeight || 0);
 
 class Pixels {
+  classArray = null;
+
   constructor() {
+    console.clear();
+    this.update = this.update.bind(this);
     this.update();
   }
 
   update() {
-    if (this.constructor !== Pixels) console.error('whoops');
     this.vw = vw();
     this.vh = vh();
-    console.log('pixels update', this.dims);
+    this.classArray = [
+      this.pxp,
+      this.avail,
+      this.screen,
+      this.win,
+      this.orient,
+    ].join('\n');
   }
 
   get dims() {
@@ -39,12 +48,8 @@ class Pixels {
     let deg = Math.abs(W.orientation);
     return deg - 90 == 0 ? 'landscape' : 'portrait';
   }
-  get ppp() {
-    return 'ppp-' + W.devicePixelRatio;
-  }
-
-  classObj() {
-    return {};
+  get pxp() {
+    return 'pxp-' + W.devicePixelRatio;
   }
 }
 
