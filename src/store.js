@@ -35,10 +35,10 @@ const store = new Vuex.Store({
       C.log('bumpLoads', (state.loads += 1));
     },
     setTime(state, num) {
-      C.log('setTime', (state.sustain = num));
+      state.sustain = num;
     },
     setAutoplay(state, bool) {
-      C.log('setAutoplay', (state.autoplay = bool));
+      state.autoplay = bool;
     },
     setMode(state, mode) {
       C.log('setMode', (state.mode = mode));
