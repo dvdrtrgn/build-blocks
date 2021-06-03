@@ -1,17 +1,13 @@
 <template lang="pug">
   #App(:class="[orient, screen, avail, ppp, win]")
-    Main
 </template>
 
 <script>
-  import Main from '@/views/Main';
   import pixels from '@/libs/pixels';
 
   export default {
     name: 'app',
-    components: {
-      Main,
-    },
+    components: {},
     data() {
       return {
         pixels,
