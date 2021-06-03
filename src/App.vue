@@ -1,5 +1,6 @@
 <template lang="pug">
   #App(:class="pixels.classArray")
+    pre {{ pixels.classArray }}
 </template>
 
 <script>
@@ -14,7 +15,7 @@
       };
     },
     computed: {},
-    mounted() {
+    beforeMount() {
       window.glob.assigns({ app: this, pixels: this.pixels });
       window.addEventListener('resize', this.pixels.update);
     },
