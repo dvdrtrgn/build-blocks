@@ -4,87 +4,108 @@ const D = document.documentElement;
 const vw = () => Math.max(D.clientWidth || 0, W.innerWidth || 0);
 const vh = () => Math.max(D.clientHeight || 0, W.innerHeight || 0);
 
+function resetDocEl(oldList, newList) {
+  if (oldList) oldList.forEach(e => D.classList.remove(e));
+  if (newList) newList.forEach(e => D.classList.add(e));
+  return newList;
+}
+
+function round(num) {
+  return Number(num.toFixed(5));
+}
+
 class Pixels {
   classes = null;
+  #resets = false;
 
   constructor() {
     this.update = this.update.bind(this);
     this.update();
   }
 
-  watch() {
+  watchWindow(ctrldoc) {
+    this.updateDoc(ctrldoc);
     W.addEventListener('resize', this.update);
   }
-  unwatch() {
+  unwatchWindow() {
     W.removeEventListener('resize', this.update);
+    this.updateDoc(false);
   }
 
   update() {
-    return (this.classes = [
-      this.readArea(),
-      this.readDetail(),
-      this.readShape(),
-      this.readSpace(),
-    ]).join('\n');
+    this.classes = [
+      this.classMega(),
+      this.classRes(),
+      this.classShape(),
+      this.classSize(),
+    ];
+    this.updateDoc();
   }
 
-  readDetail() {
+  classMega() {
+    let mp = this.totalRes;
+    if (mp < 0.7) mp = 'submega';
+    else if (mp < 1) mp = 'mega1';
+    else mp = 'mega' + mp.toPrecision(1);
+    return mp;
+  }
+  classRes() {
     if (this.ppx >= 3) return 'hires';
     if (this.ppx <= 1) return 'lores';
     return 'okres';
   }
-  readSpace() {
-    if (this.area < 1) return 'mobile';
-    if (this.area < 2) return 'small';
-    if (this.area > 4) return 'large';
-    if (this.area > 6) return 'huge';
+  classSize() {
+    if (this.cssArea < 0.5) return 'mobile';
+    if (this.cssArea < 1) return 'small';
+    if (this.cssArea > 3) return 'huge';
+    if (this.cssArea > 2) return 'large';
     return 'average';
   }
-  readShape() {
-    if (this.ratio < 0.8) return 'portrait';
-    if (this.ratio > 1.2) return 'landscape';
+  classShape() {
+    if (this.aspectRatio < 0.8) return 'portrait';
+    if (this.aspectRatio > 1.2) return 'landscape';
     return 'square';
   }
-  readPort() {
-    return `port-${this.inner.join('-')}`;
-  }
-  readClient() {
-    return `client-${this.client.join('-')}`;
-  }
-  readScreen() {
-    return `screen-${this.screen.join('-')}`;
-  }
-  readArea() {
-    return `area-${this.area.toPrecision(1)}`;
+
+  updateDoc(doit) {
+    if (doit != null) doit = Boolean(doit);
+    else if (!this.#resets) return;
+    if (doit == null) doit = true; // permissive continuation
+
+    let newClasses = doit ? this.classes : false;
+    this.#resets = resetDocEl(this.#resets, newClasses);
   }
 
-  readAll() {
-    const obj = this;
-    const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(obj));
-    const vals = [];
+  stats() {
+    const self = this;
+    const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(self));
+    const vals = {};
+    const skip = [
+      'constructor',
+      'stats',
+      'toString',
+      'update',
+      'updateDoc',
+      'unwatchWindow',
+      'watchWindow',
+    ];
 
     keys.forEach(function(key) {
-      let val = obj[key];
-      if (key === 'constructor' || key === 'readAll') return;
-      if (typeof val === 'function') val = val.bind(obj)();
-      vals.push(`${key} = ${val}`);
+      if (skip.includes(key)) return;
+      let val = self[key];
+      if (typeof val === 'function') val = val.bind(self)();
+      vals[key] = val;
     });
 
     return vals;
   }
 
-  get area() {
-    return (vw() * vh() * this.ppx) / 1e6;
+  toString() {
+    let obj = this.stats();
+    let arr = Object.entries(obj).map(e => e.join(': '));
+    return arr.join('\n');
   }
-  get client() {
-    return [D.clientWidth, D.clientHeight];
-  }
-  get inner() {
-    return [W.innerWidth, W.innerHeight];
-  }
-  get screen() {
-    return [W.screen.width, W.screen.height];
-  }
+
   get max() {
     return Math.max(vw(), vh());
   }
@@ -94,8 +115,23 @@ class Pixels {
   get ppx() {
     return Number(W.devicePixelRatio || 2);
   }
-  get ratio() {
-    return vw() / vh();
+  get aspectRatio() {
+    return round(vw() / vh());
+  }
+  get cssArea() {
+    return (vw() * vh()) / 1e6;
+  }
+  get totalRes() {
+    return round(this.cssArea * this.ppx);
+  }
+  get client() {
+    return [D.clientWidth, D.clientHeight];
+  }
+  get inner() {
+    return [W.innerWidth, W.innerHeight];
+  }
+  get screen() {
+    return [W.screen.width, W.screen.height];
   }
 
   // LESS USEFUL STUFF

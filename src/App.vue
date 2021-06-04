@@ -1,6 +1,6 @@
 <template lang="pug">
-  #App(:class="classes")
-    pre {{ classes }}
+  #App(:class="pixels.classes")
+    pre {{ pixels.toString() }}
 </template>
 
 <script>
@@ -14,17 +14,13 @@
         pixels: new Pixels(),
       };
     },
-    computed: {
-      classes() {
-        return this.pixels.classes;
-      },
-    },
+    computed: {},
     beforeMount() {
       window.glob.assigns({ app: this, pixels: this.pixels });
-      this.pixels.watch();
+      this.pixels.watchWindow(true);
     },
     beforeDestroy() {
-      this.pixels.unwatch(); // prevent duplicates during dev
+      this.pixels.unwatchWindow(); // prevent duplicates during dev
     },
   };
 </script>
@@ -34,6 +30,19 @@
 
   body {
     background: silver;
+
+    .mobile & {
+      background: pink;
+    }
+    .small & {
+      background: gray;
+    }
+    .large & {
+      background: white;
+    }
+    .huge & {
+      background: red;
+    }
   }
   #App {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
