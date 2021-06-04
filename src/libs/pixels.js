@@ -16,10 +16,12 @@ class Pixels {
     this.vw = vw();
     this.vh = vh();
     this.classArray = [
-      this.shape,
-      // this.size,
-      this.readSpace(),
+      this.readClient(),
+      this.readPort(),
+      this.readScreen(),
       this.readDetail(),
+      this.readShape(),
+      this.readSpace(),
     ].join('\n');
   }
 
@@ -34,31 +36,59 @@ class Pixels {
     if (this.area > 2e6) return 'large';
     return 'desktop';
   }
-
-  readMax() {
-    return Math.max(...this.dims);
+  readShape() {
+    if (this.ratio < 0.8) return 'tall';
+    if (this.ratio > 1.2) return 'wide';
+    return 'square';
   }
-  readMin() {
-    return Math.min(...this.dims);
+  readPort() {
+    return `port-${this.inner.join('-')}`;
+  }
+  readClient() {
+    return `client-${this.client.join('-')}`;
+  }
+  readScreen() {
+    return `screen-${this.screen.join('-')}`;
+  }
+
+  readAll() {
+    const keys = Object.keys(this);
+    const obj = this;
+    const vals = [];
+
+    keys.forEach(function(e) {
+      vals.push(`${e} = ${obj[e]}`);
+    });
+
+    return vals;
   }
 
   get area() {
     return vw() * vh();
   }
+  get client() {
+    return [D.clientWidth, D.clientHeight];
+  }
+  get inner() {
+    return [W.innerWidth, W.innerHeight];
+  }
+  get screen() {
+    return [W.screen.width, W.screen.height];
+  }
   get dims() {
     return [vw(), vh()];
   }
+  get max() {
+    return Math.max(vw(), vh());
+  }
+  get min() {
+    return Math.min(vw(), vh());
+  }
   get ppx() {
-    // return 'ppx-' + W.devicePixelRatio;
     return Number(W.devicePixelRatio || 2);
   }
-  get size() {
-    // (page size "viewport") the only useful one!
-    return `size-${this.dims.join('-')}`;
-  }
-  get shape() {
-    let diff = vh() - vw();
-    return diff > 0 ? 'tall' : 'wide';
+  get ratio() {
+    return vw() / vh();
   }
 
   // LESS USEFUL STUFF
@@ -71,14 +101,6 @@ class Pixels {
   //   let w = W.outerWidth; let h = W.outerHeight;
   //   return `outer-${w}-${h}`;
   // }
-  // get screen() { /* (display size) */
-  //   let w = W.screen.width; let h = W.screen.height;
-  //   return `screen-${w}-${h}`;
-  // }
-  // get client() { /* (same as inner) */
-  //   let w = D.clientWidth; let h = D.clientHeight;
-  //   return `client-${w}-${h}`;
-  // }
   // get orient() { // deprecated, no good on safari
   //   let deg = Math.abs(W.orientation);
   //   return deg - 90 == 0 ? 'landscape' : 'portrait';
@@ -86,6 +108,4 @@ class Pixels {
   //
 }
 
-const pixels = new Pixels();
-
-export default pixels;
+export default new Pixels();
