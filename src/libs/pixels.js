@@ -5,40 +5,44 @@ const vw = () => Math.max(D.clientWidth || 0, W.innerWidth || 0);
 const vh = () => Math.max(D.clientHeight || 0, W.innerHeight || 0);
 
 class Pixels {
-  classArray = null;
+  classes = null;
 
   constructor() {
     this.update = this.update.bind(this);
     this.update();
   }
 
+  watch() {
+    W.addEventListener('resize', this.update);
+  }
+  unwatch() {
+    W.removeEventListener('resize', this.update);
+  }
+
   update() {
-    this.vw = vw();
-    this.vh = vh();
-    this.classArray = [
-      this.readClient(),
-      this.readPort(),
-      this.readScreen(),
+    return (this.classes = [
+      this.readArea(),
       this.readDetail(),
       this.readShape(),
       this.readSpace(),
-    ].join('\n');
+    ]).join('\n');
   }
 
   readDetail() {
     if (this.ppx >= 3) return 'hires';
     if (this.ppx <= 1) return 'lores';
-    return '';
+    return 'okres';
   }
   readSpace() {
-    if (this.area < 5e5) return 'mobile';
-    if (this.area < 1e6) return 'small';
-    if (this.area > 2e6) return 'large';
-    return 'desktop';
+    if (this.area < 1) return 'mobile';
+    if (this.area < 2) return 'small';
+    if (this.area > 4) return 'large';
+    if (this.area > 6) return 'huge';
+    return 'average';
   }
   readShape() {
-    if (this.ratio < 0.8) return 'tall';
-    if (this.ratio > 1.2) return 'wide';
+    if (this.ratio < 0.8) return 'portrait';
+    if (this.ratio > 1.2) return 'landscape';
     return 'square';
   }
   readPort() {
@@ -50,21 +54,27 @@ class Pixels {
   readScreen() {
     return `screen-${this.screen.join('-')}`;
   }
+  readArea() {
+    return `area-${this.area.toPrecision(1)}`;
+  }
 
   readAll() {
-    const keys = Object.keys(this);
     const obj = this;
+    const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(obj));
     const vals = [];
 
-    keys.forEach(function(e) {
-      vals.push(`${e} = ${obj[e]}`);
+    keys.forEach(function(key) {
+      let val = obj[key];
+      if (key === 'constructor' || key === 'readAll') return;
+      if (typeof val === 'function') val = val.bind(obj)();
+      vals.push(`${key} = ${val}`);
     });
 
     return vals;
   }
 
   get area() {
-    return vw() * vh();
+    return (vw() * vh() * this.ppx) / 1e6;
   }
   get client() {
     return [D.clientWidth, D.clientHeight];
@@ -74,9 +84,6 @@ class Pixels {
   }
   get screen() {
     return [W.screen.width, W.screen.height];
-  }
-  get dims() {
-    return [vw(), vh()];
   }
   get max() {
     return Math.max(vw(), vh());
@@ -108,4 +115,4 @@ class Pixels {
   //
 }
 
-export default new Pixels();
+export default Pixels;

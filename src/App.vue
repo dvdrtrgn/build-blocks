@@ -1,27 +1,30 @@
 <template lang="pug">
-  #App(:class="pixels.classArray")
-    pre {{ pixels.classArray }}
+  #App(:class="classes")
+    pre {{ classes }}
 </template>
 
 <script>
-  import pixels from '@/libs/pixels';
+  import Pixels from '@/libs/pixels';
 
   export default {
     name: 'app',
     components: {},
     data() {
       return {
-        pixels,
+        pixels: new Pixels(),
       };
     },
-    computed: {},
+    computed: {
+      classes() {
+        return this.pixels.classes;
+      },
+    },
     beforeMount() {
       window.glob.assigns({ app: this, pixels: this.pixels });
-      window.addEventListener('resize', this.pixels.update);
+      this.pixels.watch();
     },
     beforeDestroy() {
-      // prevent duplicates during dev
-      window.removeEventListener('resize', this.pixels.update);
+      this.pixels.unwatch(); // prevent duplicates during dev
     },
   };
 </script>
