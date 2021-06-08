@@ -1,4 +1,3 @@
-/*global define, */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   CHANGED 2018-10-16
   IDEA    Collect and calculate note frequencies
@@ -6,64 +5,69 @@
   TODO    ?
 
  */
-define(['jquery'], function ($) {
-  'use strict';
 
-  var NOM = 'Notes';
-  var W = window;
-  var C = W.console;
-  C.debug(NOM, 'loaded');
+var NOM = 'Notes';
+var W = window;
+var C = W.console;
+C.debug(NOM, 'loaded');
 
-  // - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - -
 
-  var C3 = 128;
-  var C4 = 256;
-  var C5 = 512;
-  var C6 = 1024;
-  var METRIC_C = C5;
-  var MIDDLE_C = 261.625;
+var C3 = 128;
+var C4 = 256;
+var C5 = 512;
+var C6 = 1024;
+var METRIC_C = C5;
+var MIDDLE_C = 261.625;
 
-  var INTONATION = Math.pow(2, 1 / 12);
-  var RATIO = {
-    abs: new Array(13).fill(INTONATION).map(Math.pow), // Math.pow signature maps perfectly
-    frc: new Array(13).fill(18904 / 17843).map(Math.pow),
-    num: [1, 1.0595, 1.1225, 1.189, 1.26, 1.335, 1.414, 1.4983, 1.5874, 1.682, 1.782, 1.8877, 2],
-    pct: new Array(13).fill(1.0595).map(Math.pow),
-  };
-  var RATES = RATIO.abs;
+var INTONATION = Math.pow(2, 1 / 12);
+var RATIO = {
+  abs: new Array(13).fill(INTONATION).map(Math.pow), // Math.pow signature maps perfectly
+  frc: new Array(13).fill(18904 / 17843).map(Math.pow),
+  num: [
+    1,
+    1.0595,
+    1.1225,
+    1.189,
+    1.26,
+    1.335,
+    1.414,
+    1.4983,
+    1.5874,
+    1.682,
+    1.782,
+    1.8877,
+    2,
+  ],
+  pct: new Array(13).fill(1.0595).map(Math.pow),
+};
+var RATES = RATIO.abs;
 
-  var API = {
-    C3,
-    C4,
-    C5,
-    C6,
-    INTONATION,
-    METRIC_C,
-    MIDDLE_C,
-    RATES,
-  };
+var API = {
+  C3,
+  C4,
+  C5,
+  C6,
+  INTONATION,
+  METRIC_C,
+  MIDDLE_C,
+  RATES,
+};
 
-  // - - - - - - - - - - - - - - - - - -
-  // HELPERS
+export default API;
 
-  // function makeNoteDescriptors() {
-  /* abstract freqs
-  give note a letter
-  give it a "sound" do,re,me,fa,so,la,ti,do
-  method for frequency
+// - - - - - - - - - - - - - - - - - -
+// HELPERS
 
-  i want to do more with a note
+// function makeNoteDescriptors() {
+/* abstract freqs
+give note a letter
+give it a "sound" do,re,me,fa,so,la,ti,do
+method for frequency
 
-  */
-  // }
+i want to do more with a note
 
-  // - - - - - - - - - - - - - - - - - -
-  // CONSTRUCT
-
-  $.extend(API, {});
-
-  return API;
-});
+*/
 
 /*
 
