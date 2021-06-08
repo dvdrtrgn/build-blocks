@@ -1,3 +1,4 @@
+// find active and go to next
 export default function focusNext() {
   let self = document.activeElement;
 

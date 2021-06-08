@@ -1,3 +1,9 @@
+/*
+  A Cue is basically a note with a time component
+  it models the pitch and duration
+  it also provides meta data, labels, rest (no pitch)
+
+*/
 import * as Tone from 'tone';
 import interval from './interval';
 

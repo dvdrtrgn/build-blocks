@@ -1,3 +1,7 @@
+/*
+  create a list of voices for reuse
+  todo: split into `voice` and `voices`
+*/
 import * as Tone from 'tone';
 import makeCue from './makeCue.js';
 

@@ -1,3 +1,8 @@
+/*
+
+  report corresponding interval (based on C major) for a named note
+
+*/
 const INDEX = 'R C C# D D# E F F# G G# A A# B'.split(' ');
 const IVALS = ' Ton min2 Maj2 min3 Maj3 4th Tri 5th min6 Maj6 min7 Maj7';
 
