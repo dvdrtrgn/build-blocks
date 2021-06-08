@@ -1,3 +1,4 @@
+// prettier-ignore
 export default {
   // major
   ionian: [0, 2, 2, 1, 2, 2, 2, 1],

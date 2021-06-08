@@ -10,9 +10,9 @@ import U from '../util';
 import Play from '../index';
 
 var SONG = [];
-var W = window;
-var C = W.console;
+var C = console;
 
+// prettier-ignore
 function Test(mode, skew, root) {
   skew = skew || 0;
   C.log({mode, skew});
@@ -24,11 +24,13 @@ function Test(mode, skew, root) {
   });
 }
 
+// prettier-ignore
 function double(mode, skew) {
   Test(mode, skew); //                  steps normal  root c
   Test(mode, skew + 7); //              steps octave  root c
 }
 
+// prettier-ignore
 export default {
   U,
   init: function (song) {

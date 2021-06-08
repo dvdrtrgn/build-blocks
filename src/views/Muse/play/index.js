@@ -9,7 +9,7 @@
 import $ from 'jquery';
 import U from './util';
 import Mode from './mode';
-import Notes from './notes';
+import Notes from './data/notes';
 import Tone from './tone';
 
 import Tests from './test/all';
@@ -39,13 +39,13 @@ function delayBy(fn, num) {
 }
 
 function playNoteAt(tone, time) {
-  delayBy(function () {
+  delayBy(function() {
     Tone.make(tone, 2).play(); // 2s is about right
   }, time);
 }
 
 function playArray(notes, speed) {
-  API.speed = (speed || 250);
+  API.speed = speed || 250;
 
   notes.map((e, i) => {
     playNoteAt(e, i);
@@ -77,7 +77,7 @@ function playMode(nom, rest) {
 
   rest = Number(rest) || 0; // rest for no beats
 
-  delayBy(function () {
+  delayBy(function() {
     playArray(scale);
   }, rest);
 }
@@ -109,7 +109,7 @@ function appendButtonsTo(ele) {
 
   makeButtonsOn(ele);
 
-  ele.on('click', 'button.player', function (evt) {
+  ele.on('click', 'button.player', function(evt) {
     var btn = $(evt.currentTarget);
     var str = btn.data('mode');
     playMode(str);
@@ -139,7 +139,7 @@ Object.assign(API, {
   addButtons: appendButtonsTo,
   mode: playMode,
   notes: playArray,
-  sing: function (cf) {
+  sing: function(cf) {
     if (typeof cf !== 'object') throw 'missing config';
     if (!Array.isArray(cf.notes)) throw 'no notes, huh?';
     // if (!cf.notes.every(isNumber)) throw 'numbers only';

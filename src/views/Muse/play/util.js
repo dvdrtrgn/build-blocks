@@ -1,9 +1,10 @@
-const aorb = (a, b) => (a !== undefined) ? a : b;
+const aorb = (a, b) => (a !== undefined ? a : b);
 const limit = (min, max, val) => Math.min(max, Math.max(min, val));
-const numalize = (num) => limit(-1, 1, Number(num) || 0);
+const numalize = num => limit(-1, 1, Number(num) || 0);
 const xor = (x, y) => Boolean(y ? !x : x);
 
-function modulate(dividend, divisor) { // a mod n
+function modulate(dividend, divisor) {
+  // a mod n
   var quotient = Math.floor(dividend / divisor);
   var posoffset = Math.abs(quotient) * divisor;
   var remainder = (posoffset + dividend) % divisor;

@@ -5,13 +5,10 @@
   TODO    ?
  */
 
-import Notes from './notes';
+import Notes from './data/notes';
 import SCALES from './data/scales';
 
 var NOM = 'Mode';
-var W = window;
-var C = W.console;
-C.debug(NOM, 'loaded');
 
 // - - - - - - - - - - - - - - - - - -
 
@@ -28,9 +25,10 @@ function getStepName(e) {
   return SCALES.steps[e] || e;
 }
 
-function makeSteps(hrz) { // start from a note and get all 12 semitones
-  hrz = (Number(hrz) || Notes.METRIC_C);
-  return Notes.RATES.map(e => (e * hrz));
+function makeSteps(hrz) {
+  // start from a note and get all 12 semitones
+  hrz = Number(hrz) || Notes.METRIC_C;
+  return Notes.RATES.map(e => e * hrz);
 }
 
 function resolveName(nom) {
@@ -40,12 +38,12 @@ function resolveName(nom) {
   else String(nom).toLowerCase();
 
   if (SCALES._alias[nom]) nom = SCALES._alias[nom];
-  return (nom || 'ionian');
+  return nom || 'ionian';
 }
 
 function resolveNumber(nom) {
   var num = SCALES._all.indexOf(resolveName(nom));
-  return (num > 0) ? num : 0;
+  return num > 0 ? num : 0;
 }
 
 // - - - - - - - - - - - - - - - - - -
@@ -57,7 +55,7 @@ function makeIntervals(nom) {
   var mode = SCALES[resolveName(nom)];
   if (!mode) throw 'bad mode: ' + nom;
 
-  return mode.map(e => step += e);
+  return mode.map(e => (step += e));
 }
 
 // filter needed intervals from any scale
@@ -67,7 +65,10 @@ function makeMode(nom, hrz) {
   var semis = makeSteps(hrz || Notes.METRIC_C);
   var freqs = ivals.map(e => semis[e]);
   var mode = {
-    name, freqs, ivals, semis,
+    name,
+    freqs,
+    ivals,
+    semis,
   };
 
   return mode;
@@ -77,13 +78,14 @@ function translateSteps(steps) {
   return steps.map(getStepName);
 }
 
-function getData(nom) { // UNUSED for now
+function getData(nom) {
+  // UNUSED for now
   var mode = SCALES[resolveName(nom)];
   var ivls = makeIntervals(nom);
 
   return {
     name: nom,
-    count: (ivls.length - 1),
+    count: ivls.length - 1,
     index: ivls,
     intervals: mode,
     steps: translateSteps(mode),
@@ -93,13 +95,17 @@ function getData(nom) { // UNUSED for now
 // - - - - - - - - - - - - - - - - - -
 // CONSTRUCT
 
-Object.assign(API, {
-  data: getData,
-  get: makeMode,
-  list: SCALES._all.slice(),
-  resolveName: resolveName,
-  resolveNumber: resolveNumber,
-}, Notes);
+Object.assign(
+  API,
+  {
+    data: getData,
+    get: makeMode,
+    list: SCALES._all.slice(),
+    resolveName: resolveName,
+    resolveNumber: resolveNumber,
+  },
+  Notes
+);
 
 export default API;
 

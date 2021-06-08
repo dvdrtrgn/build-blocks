@@ -1,7 +1,7 @@
 var R = -999; // a sort of rest
 
+// prettier-ignore
 export default {
-  /*eslint indent: 0 */
   mary: [
     // rooted on first note -- mary in C major, would need E phrygian
     2, 1, 0, 1,   2, 2, 2, R,

@@ -6,22 +6,15 @@
 
  */
 
-var NOM = 'Notes';
-var W = window;
-var C = W.console;
-C.debug(NOM, 'loaded');
+const C3 = 128;
+const C4 = 256;
+const C5 = 512;
+const C6 = 1024;
+const METRIC_C = C5;
+const MIDDLE_C = 261.625;
 
-// - - - - - - - - - - - - - - - - - -
-
-var C3 = 128;
-var C4 = 256;
-var C5 = 512;
-var C6 = 1024;
-var METRIC_C = C5;
-var MIDDLE_C = 261.625;
-
-var INTONATION = Math.pow(2, 1 / 12);
-var RATIO = {
+const INTONATION = Math.pow(2, 1 / 12);
+const RATIO = {
   abs: new Array(13).fill(INTONATION).map(Math.pow), // Math.pow signature maps perfectly
   frc: new Array(13).fill(18904 / 17843).map(Math.pow),
   num: [

@@ -1,6 +1,6 @@
 <template lang="pug">
   section#Muse
-    Piano
+    //- Piano
     Song(:notes='notes')
 </template>
 
@@ -10,7 +10,9 @@
   import getVoice from '@/libs/getVoice.js';
   import focusNext from '@/libs/focus-next.js';
 
-  window.glob.assigns({ store, bus, getVoice, focusNext });
+  import Play from './play/index.js';
+  console.log({ Play });
+  window.glob.assigns({ store, bus, getVoice, focusNext, Play });
 
   import Piano from './Piano/_Piano';
   import Song from './Song/_Song';

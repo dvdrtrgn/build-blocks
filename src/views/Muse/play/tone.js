@@ -6,7 +6,7 @@
   TODO    ?
 
  */
-import Notes from './notes';
+import Notes from './data/notes';
 
 var NOM = 'Tone';
 var W = window;
@@ -33,11 +33,11 @@ var API = {
 var Context = new AudioContext();
 
 var Resolve = {
-  shape: function (shape) {
+  shape: function(shape) {
     shape = shape || 0;
     if (typeof shape === 'string') {
       shape = shape.toLowerCase();
-      return (WAVE.includes(shape)) ? shape : null;
+      return WAVE.includes(shape) ? shape : null;
     }
     if (typeof shape === 'number') {
       shape = Math.round(shape);
@@ -45,10 +45,10 @@ var Resolve = {
     }
     return 'sine';
   },
-  number: function (num) {
+  number: function(num) {
     return Number(num) || 1;
   },
-  power: function (num) {
+  power: function(num) {
     return Number(num) || 0;
   },
 };
@@ -68,7 +68,7 @@ function genConfig(pitch, decay, shape) {
 // CONSTRUCT
 
 function Init(self) {
-  self = (self || this);
+  self = self || this;
 
   self.size = Context.createGain();
   self.wave = Context.createOscillator();
@@ -83,7 +83,7 @@ function Init(self) {
 }
 
 function Stop(self) {
-  self = (self || this);
+  self = self || this;
 
   var end = Context.currentTime + (self._.decay || ZERO);
 
@@ -94,7 +94,7 @@ function Stop(self) {
 }
 
 function Play(self) {
-  Init(self = self || this);
+  Init((self = self || this));
 
   if (!self._.pitch) return self; // rest!
 
@@ -109,16 +109,16 @@ function setProp(self, key, val) {
   var out;
 
   switch (key) {
-  case 'decay':
-  case 'pitch':
-    out = Resolve.number(val);
-    break;
-  case 'octave':
-    out = Resolve.power(val);
-    break;
-  case 'shape':
-    out = Resolve.shape(val);
-    break;
+    case 'decay':
+    case 'pitch':
+      out = Resolve.number(val);
+      break;
+    case 'octave':
+      out = Resolve.power(val);
+      break;
+    case 'shape':
+      out = Resolve.shape(val);
+      break;
   }
   if (out === null) throw `bad ${key}: ${val}`;
   else self._[key] = out;
@@ -154,19 +154,19 @@ function initTone(_) {
     set shape(etc) {
       self.set('shape', etc);
     },
-    play: function () {
+    play: function() {
       W.clearTimeout(timeout);
       timeout = W.setTimeout(play, 1);
       return self;
     },
-    stop: function () {
+    stop: function() {
       if (!_.playing) return self;
       return stop();
     },
-    oct: function (pow) {
+    oct: function(pow) {
       return self.set('octave', pow);
     },
-    set: function (key, val) {
+    set: function(key, val) {
       return setProp(self, key, val);
     },
   };
@@ -177,17 +177,20 @@ function initTone(_) {
   return self;
 }
 
-Object.assign(API, {
-  make: function (pitch, decay, shape) {
-    return initTone(genConfig(pitch, decay, shape));
+Object.assign(
+  API,
+  {
+    make: function(pitch, decay, shape) {
+      return initTone(genConfig(pitch, decay, shape));
+    },
+    play: function(pitch, decay, shape) {
+      return API.make(pitch, decay, shape).play();
+    },
   },
-  play: function (pitch, decay, shape) {
-    return API.make(pitch, decay, shape).play();
-  },
-}, Notes);
+  Notes
+);
 
 export default API;
-
 
 /*
 
