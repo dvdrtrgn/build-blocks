@@ -4,14 +4,14 @@
 </template>
 
 <script>
-  import Pixels from '@/libs/pixels';
+  import PixelStat from '@/libs/PixelStat';
 
   export default {
     name: 'app',
     components: {},
     data() {
       return {
-        pixels: new Pixels(),
+        pixels: new PixelStat(),
       };
     },
     computed: {},

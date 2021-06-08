@@ -4,12 +4,6 @@ const D = document.documentElement;
 const vw = () => Math.max(D.clientWidth || 0, W.innerWidth || 0);
 const vh = () => Math.max(D.clientHeight || 0, W.innerHeight || 0);
 
-function resetDocEl(oldList, newList) {
-  if (oldList) oldList.forEach(e => D.classList.remove(e));
-  if (newList) newList.forEach(e => D.classList.add(e));
-  return newList;
-}
-
 function round(num) {
   return Number(num.toFixed(5));
 }
@@ -17,19 +11,37 @@ function round(num) {
 class Pixels {
   classes = null;
   #resets = false;
+  #ele = D;
+
+  #resetEl = function(oldList, newList) {
+    if (oldList) oldList.forEach(e => this.#ele.classList.remove(e));
+    if (newList) newList.forEach(e => this.#ele.classList.add(e));
+    return newList;
+  };
+  #updateEl = function(doit) {
+    if (doit != null) doit = Boolean(doit);
+    else if (!this.#resets) return;
+    if (doit == null) doit = true; // permissive continuation
+
+    let newClasses = doit ? this.classes : false;
+    this.#resets = this.#resetEl(this.#resets, newClasses);
+  };
 
   constructor() {
     this.update = this.update.bind(this);
     this.update();
   }
 
-  watchWindow(ctrldoc) {
-    this.updateDoc(ctrldoc);
+  watchWindow(arg) {
+    if (arg && arg.parentElement) {
+      this.#ele = arg;
+    }
+    this.#updateEl(arg);
     W.addEventListener('resize', this.update);
   }
   unwatchWindow() {
     W.removeEventListener('resize', this.update);
-    this.updateDoc(false);
+    this.#updateEl(false);
   }
 
   update() {
@@ -39,19 +51,22 @@ class Pixels {
       this.classShape(),
       this.classSize(),
     ];
-    this.updateDoc();
+    this.#updateEl();
   }
 
   classMega() {
-    let mp = this.totalRes;
+    let mp = this.devArea;
+
     if (mp < 0.7) mp = 'submega';
     else if (mp < 1) mp = 'mega1';
     else mp = 'mega' + mp.toPrecision(1);
+
     return mp;
   }
   classRes() {
-    if (this.ppx >= 3) return 'hires';
-    if (this.ppx <= 1) return 'lores';
+    if (this.pxRatio >= 3) return 'hires';
+    if (this.pxRatio <= 1) return 'lores';
+
     return 'okres';
   }
   classSize() {
@@ -59,21 +74,14 @@ class Pixels {
     if (this.cssArea < 1) return 'small';
     if (this.cssArea > 3) return 'huge';
     if (this.cssArea > 2) return 'large';
+
     return 'average';
   }
   classShape() {
-    if (this.aspectRatio < 0.8) return 'portrait';
-    if (this.aspectRatio > 1.2) return 'landscape';
+    if (this.whRatio < 0.8) return 'portrait';
+    if (this.whRatio > 1.2) return 'landscape';
+
     return 'square';
-  }
-
-  updateDoc(doit) {
-    if (doit != null) doit = Boolean(doit);
-    else if (!this.#resets) return;
-    if (doit == null) doit = true; // permissive continuation
-
-    let newClasses = doit ? this.classes : false;
-    this.#resets = resetDocEl(this.#resets, newClasses);
   }
 
   stats() {
@@ -85,7 +93,6 @@ class Pixels {
       'stats',
       'toString',
       'update',
-      'updateDoc',
       'unwatchWindow',
       'watchWindow',
     ];
@@ -103,6 +110,7 @@ class Pixels {
   toString() {
     let obj = this.stats();
     let arr = Object.entries(obj).map(e => e.join(': '));
+
     return arr.join('\n');
   }
 
@@ -112,25 +120,25 @@ class Pixels {
   get min() {
     return Math.min(vw(), vh());
   }
-  get ppx() {
+  get pxRatio() {
     return Number(W.devicePixelRatio || 2);
   }
-  get aspectRatio() {
+  get whRatio() {
     return round(vw() / vh());
   }
   get cssArea() {
     return (vw() * vh()) / 1e6;
   }
-  get totalRes() {
-    return round(this.cssArea * this.ppx);
+  get devArea() {
+    return round(this.cssArea * this.pxRatio);
   }
-  get client() {
+  get clientSize() {
     return [D.clientWidth, D.clientHeight];
   }
-  get inner() {
+  get innerSize() {
     return [W.innerWidth, W.innerHeight];
   }
-  get screen() {
+  get screenSize() {
     return [W.screen.width, W.screen.height];
   }
 
