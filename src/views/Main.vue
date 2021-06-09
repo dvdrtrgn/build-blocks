@@ -1,17 +1,19 @@
 <template lang="pug">
   main
     h1.hand 👌🏿
-
     Muse
+    Drag
 
 </template>
 
 <script>
-  import Muse from './Muse/Muse';
+  import Muse from './Muse/Muse.vue';
+  import Drag from './Muse/drag/Dragtest.vue';
 
   export default {
     components: {
       Muse,
+      Drag,
     },
   };
 </script>
