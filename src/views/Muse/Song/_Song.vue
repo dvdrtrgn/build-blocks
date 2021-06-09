@@ -27,6 +27,7 @@
         class="cuelist"
         draggable="button"
         v-bind="dragOptions"
+        v-model="notes"
       >
         <div slot="header" style="float: left;">“{{ songname }}”&nbsp;</div>
 
@@ -48,6 +49,8 @@
 </template>
 
 <script>
+  import bus from '@/bus';
+  // import glob from '@/glob';
   import store from '@/store';
   import makeCue from '@/libs/makeCue.js';
 
@@ -56,7 +59,6 @@
 
   export default {
     props: {
-      notes: Array,
       songname: {
         type: String,
         default: 's1',
@@ -68,13 +70,14 @@
     },
     data() {
       return {
+        notes: [],
         saved: false,
       };
     },
     methods: {
       addRest() {
         let rest = makeCue(0, 1);
-        this.notes.push(rest);
+        this.pushCue(rest);
       },
       doClear() {
         this.notes.length = 0;
@@ -86,8 +89,15 @@
 
         song.forEach(e => {
           let note = makeCue(...e.split(' '));
-          this.notes.push(note);
+          this.pushCue(note);
         });
+      },
+      pushCue(cue) {
+        if (cue && cue.duration >= 0.01) {
+          // filter removal by zero
+          cue.order = this.notes.length;
+          this.notes.push(cue);
+        }
       },
       togMode() {
         store.commit('setMode', this.mode === 'pitch' ? 'interval' : 'pitch');
@@ -99,7 +109,7 @@
         });
       },
       logCues() {
-        console.log(this.json);
+        console.log(this.notes, JSON.parse(this.json));
       },
       togAutoplay() {
         store.commit('setAutoplay', !this.autoplay);
@@ -109,7 +119,7 @@
       dragOptions() {
         return {
           animation: 200,
-          disabled: false,
+          disabled: this.autoplay,
           ghostClass: 'ghost',
         };
       },
@@ -131,6 +141,7 @@
     mounted() {
       this.doLoad();
       this.logCues();
+      bus.$on('pushCue', this.pushCue);
     },
   };
 </script>

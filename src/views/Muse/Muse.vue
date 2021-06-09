@@ -1,7 +1,7 @@
 <template lang="pug">
   section#Muse
-    //- Piano
-    Song(:notes='notes')
+    Piano
+    Song
 </template>
 
 <script>
@@ -11,9 +11,9 @@
   import getVoice from '@/libs/getVoice.js';
   import focusNext from '@/libs/focus-next.js';
 
-  import Play from './play/index.js';
+  // import Play from './play/index.js';
 
-  glob.exposes({ store, bus, getVoice, focusNext, Play });
+  glob.exposes({ store, bus, getVoice, focusNext });
 
   import Piano from './Piano/_Piano';
   import Song from './Song/_Song';
@@ -25,7 +25,6 @@
     },
     data() {
       return {
-        notes: [],
         voice: getVoice('muse'),
       };
     },
@@ -33,16 +32,12 @@
       beep() {
         this.voice.makeCue('C2', 0);
       },
-      pushCue(note) {
-        if (note.duration >= 0.01) this.notes.push(note);
-      },
       playNote(arg) {
-        this.voice.play(arg, this.autoplay ? focusNext() : '');
+        this.voice.play(arg, focusNext(this.autoplay));
       },
     },
     mounted() {
       bus.$on('beep', this.beep);
-      bus.$on('pushCue', this.pushCue);
       bus.$on('playNote', this.playNote);
     },
     computed: {
