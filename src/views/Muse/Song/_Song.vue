@@ -22,7 +22,12 @@
     </div>
 
     <div class="bezel" tabindex="0">
-      <draggable :class="mode" class="cuelist" draggable="button">
+      <draggable
+        :class="mode"
+        class="cuelist"
+        draggable="button"
+        v-bind="dragOptions"
+      >
         <div slot="header" style="float: left;">“{{ songname }}”&nbsp;</div>
 
         <SongNote
@@ -101,6 +106,13 @@
       },
     },
     computed: {
+      dragOptions() {
+        return {
+          animation: 200,
+          disabled: false,
+          ghostClass: 'ghost',
+        };
+      },
       autoplay() {
         return store.getters.getAutoplay;
       },
@@ -149,6 +161,14 @@
     }
     .cuelist {
       text-align: left;
+
+      button:active {
+        cursor: move;
+      }
+      .ghost {
+        background: black;
+        opacity: 0.5;
+      }
     }
   }
 </style>
