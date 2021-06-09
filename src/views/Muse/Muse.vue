@@ -6,13 +6,14 @@
 
 <script>
   import bus from '@/bus';
+  import glob from '@/glob';
   import store from '@/store';
   import getVoice from '@/libs/getVoice.js';
   import focusNext from '@/libs/focus-next.js';
 
   import Play from './play/index.js';
-  console.log({ Play });
-  window.glob.assigns({ store, bus, getVoice, focusNext, Play });
+
+  glob.exposes({ store, bus, getVoice, focusNext, Play });
 
   import Piano from './Piano/_Piano';
   import Song from './Song/_Song';

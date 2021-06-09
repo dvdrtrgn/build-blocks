@@ -31,10 +31,11 @@
 
 <script>
   import bus from '@/bus';
+  import glob from '@/glob';
   import store from '@/store';
   import octave from '@/libs/octave-model.js';
 
-  window.glob.assigns({ octave });
+  glob.exposes({ octave });
 
   import PianoOctave from './PianoOctave';
 

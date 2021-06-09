@@ -11,10 +11,11 @@
 
 <script>
   import bus from '@/bus';
+  import glob from '@/glob';
   import store from '@/store';
   import getVoice from '@/libs/getVoice.js';
 
-  window.glob.assigns({ bus, store, getVoice });
+  glob.exposes({ bus, store, getVoice });
 
   export default {
     props: {
