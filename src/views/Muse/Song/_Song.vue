@@ -12,9 +12,9 @@
         </button>
       </div>
       <div class="group">
-        <button @click="runSave">Store notes</button>
-        <button @click="runLoad">Restore</button>
-        <button @click="clearCues">Clear</button>
+        <button @click="doSave">Store notes</button>
+        <button @click="doLoad">Restore</button>
+        <button @click="doClear">Clear</button>
       </div>
       <button @click="logCues" class="dev" style="float: right;">
         console.log
@@ -71,13 +71,13 @@
         let rest = makeCue(0, 1);
         this.notes.push(rest);
       },
-      clearCues() {
+      doClear() {
         this.notes.length = 0;
         this.notes.pop(); // trigger the update
       },
-      runLoad() {
+      doLoad() {
         let song = JSON.parse(this.songs[this.songname]);
-        this.clearCues();
+        this.doClear();
 
         song.forEach(e => {
           let note = makeCue(...e.split(' '));
@@ -87,7 +87,7 @@
       togMode() {
         store.commit('setMode', this.mode === 'pitch' ? 'interval' : 'pitch');
       },
-      runSave() {
+      doSave() {
         store.commit('saveSong', {
           name: this.songname,
           json: this.json,
@@ -117,7 +117,7 @@
       },
     },
     mounted() {
-      this.runLoad();
+      this.doLoad();
       this.logCues();
     },
   };
