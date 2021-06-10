@@ -11,12 +11,12 @@
   import getVoice from '@/libs/getVoice.js';
   import focusNext from '@/libs/focus-next.js';
 
+  import Piano from '@/components/Muse/Piano.vue';
+  import Song from '@/components/Muse/Song.vue';
+
   // import Play from './play/index.js';
 
-  glob.exposes({ store, bus, getVoice, focusNext });
-
-  import Piano from './Piano.vue';
-  import Song from './Song.vue';
+  glob.exposes({ bus, store });
 
   export default {
     components: {
@@ -85,4 +85,14 @@
     padding: 0.5rem;
     position: relative;
   }
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.3s ease;
+  }
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0;
+  }
+
 </style>
