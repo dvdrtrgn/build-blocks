@@ -32,8 +32,8 @@
         <div slot="header" style="float: left;">“{{ songname }}”&nbsp;</div>
 
         <SongNote
-          v-for="(note, i) in notes"
-          :key="`k${i}`"
+          v-for="note in notes"
+          :key="note.order"
           :note="note"
         ></SongNote>
 
