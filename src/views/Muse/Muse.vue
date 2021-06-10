@@ -15,8 +15,8 @@
 
   glob.exposes({ store, bus, getVoice, focusNext });
 
-  import Piano from './Piano/_Piano';
-  import Song from './Song/_Song';
+  import Piano from './Piano.vue';
+  import Song from './Song.vue';
 
   export default {
     components: {
