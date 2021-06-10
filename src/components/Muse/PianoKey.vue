@@ -6,6 +6,7 @@
     @mouseup="stop()"
   >
     <span class="label" v-html="makeLabel"></span>
+    <!-- <i class="interval" v-html="asText.interval"></i> -->
   </button>
 </template>
 
@@ -13,6 +14,7 @@
   import bus from '@/bus';
   import glob from '@/glob';
   import store from '@/store';
+  import makeCue from '@/libs/makeCue.js';
   import getVoice from '@/libs/getVoice.js';
 
   glob.exposes({ bus, store, getVoice });
@@ -52,9 +54,22 @@
       isEbony() {
         return this.pitch.includes('#');
       },
+      asCue() {
+        return makeCue(this.pitch);
+      },
+      asText() {
+        return this.mode === 'interval' ? this.asCue.interval : this.pitch;
+      },
+      mode() {
+        return store.getters.getMode;
+      },
       makeLabel() {
-        if (!this.isEbony) return this.pitch;
-        return this.pitch.replace('#', '').replace(/(\d)/, '<br>$1');
+        let str = this.asText;
+        if (this.isEbony) {
+          str = str.replace(/#\d/, '#');
+          str = str.replace(/(.)/g, '<br>$1');
+        }
+        return str;
       },
       getBias() {
         if (!this.isEbony) return '';
@@ -111,6 +126,7 @@
       background-image: linear-gradient(180deg, black, #333);
       border-top: 0;
       box-shadow: 0 $frac $frac rgba(grey, 0.5);
+      color: white;
       height: $short;
       margin: 0 $thin/-2;
       width: $thin;

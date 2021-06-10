@@ -4,7 +4,7 @@
 
 */
 const INDEX = 'R C C# D D# E F F# G G# A A# B'.split(' ');
-const IVALS = ' Ton min2 Maj2 min3 Maj3 4th Tri 5th min6 Maj6 min7 Maj7';
+const IVALS = ' Ton m2 M2 m3 M3 P4 tri P5 m6 M6 m7 M7';
 
 function lookup(name) {
   if (name.replace) {
