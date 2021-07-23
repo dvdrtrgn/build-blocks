@@ -14,8 +14,8 @@
   import bus from '@/bus';
   import glob from '@/glob';
   import store from '@/store';
-  import makeCue from '@/libs/makeCue.js';
-  import getVoice from '@/libs/getVoice.js';
+  import makeCue from '@/libs/muse/makeCue.js';
+  import getVoice from '@/libs/muse/getVoice.js';
 
   glob.exposes({ bus, store, getVoice });
 

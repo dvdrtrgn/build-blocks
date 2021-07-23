@@ -2,15 +2,17 @@
   main
     h1.hand 👌🏿
 
-    Muse
+    Music
 </template>
 
 <script>
   import Muse from './Muse.vue';
+  import Music from './Music.vue';
 
   export default {
     components: {
       Muse,
+      Music,
     },
   };
 </script>

@@ -5,7 +5,7 @@
 
 */
 import * as Tone from 'tone';
-import interval from './interval';
+import interval from './interval.js';
 
 function aprox(num) {
   return Math.round((Number(num) + Number.EPSILON) * 10) / 10;
