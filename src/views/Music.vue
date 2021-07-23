@@ -1,26 +1,41 @@
-<template lang="pug">
-  section#Music
-    <button id="play-button">Play/Pause</button>
+<template>
+  <section id="Music">
+    <button @click="toggle" :class="{ active: playing }">Play/Pause</button>
+  </section>
 </template>
 
 <script>
-  import bus from '@/bus';
-  import glob from '@/glob';
-  import store from '@/store';
+  import music, { misc } from '@/libs/music/music';
 
-  // import Play from './play/index.js';
-
-  glob.exposes({ bus, store });
+  console.log(misc);
 
   export default {
     components: {},
-    data() {
-      return {};
-    },
-    methods: {},
     mounted() {},
-    computed: {},
+    data() {
+      return {
+        music,
+      };
+    },
+    methods: {
+      toggle: function() {
+        this.music.tryToggle();
+      },
+    },
+    computed: {
+      playing() {
+        return this.music.started;
+      },
+    },
   };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+  #Music {
+    line-height: 2;
+    text-align: center;
+    .active {
+      font-weight: 800;
+    }
+  }
+</style>

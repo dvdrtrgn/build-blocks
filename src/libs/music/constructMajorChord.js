@@ -1,5 +1,5 @@
 /*global define, */
-define([], function () {
+define([], function() {
   'use strict';
 
   const SCALE = {
@@ -7,7 +7,7 @@ define([], function () {
   };
 
   const addOctaveNumbers = (scale, octaveNumber) =>
-    scale.map((note) => {
+    scale.map(note => {
       const firstOctaveNoteIndex =
         scale.indexOf('C') !== -1 ? scale.indexOf('C') : scale.indexOf('C#');
       const lower = scale.indexOf(note) < firstOctaveNoteIndex;
