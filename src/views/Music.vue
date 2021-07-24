@@ -17,6 +17,10 @@
         music,
       };
     },
+    beforeCreate() {
+      music.remakeList();
+      console.log('music reset');
+    },
     methods: {
       toggle: function() {
         this.music.tryToggle();

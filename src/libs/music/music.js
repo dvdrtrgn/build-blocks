@@ -26,17 +26,24 @@ function tryToggle() {
   }
 }
 
+let list;
+
+function remakeList() {
+  list = {
+    '.': 'music/misc',
+    highChordPart: makeHigh(MAX - 10),
+    normChordPart: makeNorm(MAX - 25),
+    melodyPart: makeMelody(MAX - 15),
+    snarePart: makeSnare(MAX - 20),
+    bassPart: makeBass(MAX - 0),
+    kickPart: makeKick(MAX - 10),
+  };
+}
+
+export { list as misc };
+
 export default {
   started: hasStarted(),
   tryToggle,
-};
-
-export const misc = {
-  '.': 'music/misc',
-  highChordPart: makeHigh(MAX - 10),
-  normChordPart: makeNorm(MAX - 25),
-  melodyPart: makeMelody(MAX - 15),
-  snarePart: makeSnare(MAX - 20),
-  bassPart: makeBass(MAX - 0),
-  kickPart: makeKick(MAX - 10),
+  remakeList,
 };
