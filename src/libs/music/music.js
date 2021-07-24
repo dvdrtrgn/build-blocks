@@ -18,7 +18,9 @@ function hasStarted() {
 
 function tryToggle() {
   if (!this.started) {
-    Tone.Transport.start();
+    Tone.start().then(() => {
+      Tone.Transport.start();
+    });
     this.started = true;
   } else {
     Tone.Transport.stop();
@@ -26,11 +28,17 @@ function tryToggle() {
   }
 }
 
+let IDX = 0;
 let list;
+
+function dispose() {
+  Tone.Transport.cancel(0);
+}
 
 function remakeList() {
   list = {
-    '.': 'music/misc',
+    '.': 'music_misc' + IDX++,
+    Tone,
     highChordPart: makeHigh(MAX - 10),
     normChordPart: makeNorm(MAX - 25),
     melodyPart: makeMelody(MAX - 15),
@@ -38,12 +46,17 @@ function remakeList() {
     bassPart: makeBass(MAX - 0),
     kickPart: makeKick(MAX - 10),
   };
+  // window[list['.']] = list;
+  console.log(list);
 }
 
-export { list as misc };
+remakeList();
+
+export { list };
 
 export default {
   started: hasStarted(),
   tryToggle,
   remakeList,
+  dispose
 };

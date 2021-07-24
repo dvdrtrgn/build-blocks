@@ -21,8 +21,6 @@
 </script>
 
 <style lang="scss">
-  @import '@/scss/base.scss';
-
   body {
     background: silver;
   }

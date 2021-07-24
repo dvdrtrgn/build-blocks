@@ -49,6 +49,7 @@
 </script>
 
 <style lang="scss">
+  @import '@/scss/base.scss';
   #Muse {
     line-height: 2;
     text-align: center;

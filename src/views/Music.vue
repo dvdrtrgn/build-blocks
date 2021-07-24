@@ -1,13 +1,17 @@
 <template>
   <section id="Music">
-    <button @click="toggle" :class="{ active: playing }">Play/Pause</button>
+    <button @click="toggle" :class="{ active: playing }">
+      Play/Pause
+    </button>
+    <button @click="music.remakeList">remakeList</button>
+    <button @click="music.dispose">dispose</button>
   </section>
 </template>
 
 <script>
-  import music, { misc } from '@/libs/music/music';
-
-  console.log(misc);
+  import music, { list } from '@/libs/music/music';
+  import * as Tone from 'tone';
+  window.Tone = Tone;
 
   export default {
     components: {},
@@ -18,8 +22,10 @@
       };
     },
     beforeCreate() {
-      music.remakeList();
-      console.log('music reset');
+      console.log('beforeCreate');
+    },
+    beforeDestroy() {
+      console.log('beforeDestroy');
     },
     methods: {
       toggle: function() {
