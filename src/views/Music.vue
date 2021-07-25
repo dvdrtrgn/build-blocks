@@ -5,16 +5,18 @@
     </button>
     <button @click="music.remakeList">remakeList</button>
     <button @click="music.dispose">dispose</button>
+    <Foo />
   </section>
 </template>
 
 <script>
   import music, { list } from '@/libs/music/music';
+  import Foo from '@/components/foo';
   import * as Tone from 'tone';
   window.Tone = Tone;
 
   export default {
-    components: {},
+    components: { Foo },
     mounted() {},
     data() {
       return {
