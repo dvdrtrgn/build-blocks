@@ -7,38 +7,38 @@
     <button @click="pause" :class="{ active: paused }">pause</button>
     <label>
       masterVol
-      <input type="range" min="1" max="100" v-model.number="masterVol" />
+      <input type="range" min="50" max="100" v-model.number="masterVol" />
       {{ masterVol }}
     </label>
     <hr />
     <label>
       melodyVol
-      <input type="range" min="1" max="100" v-model.number="melodyVol" />
+      <input type="range" min="50" max="100" v-model.number="melodyVol" />
       {{ melodyVol }}
     </label>
     <label>
       snareVol
-      <input type="range" min="1" max="100" v-model.number="snareVol" />
+      <input type="range" min="50" max="100" v-model.number="snareVol" />
       {{ snareVol }}
     </label>
     <label>
       kickVol
-      <input type="range" min="1" max="100" v-model.number="kickVol" />
+      <input type="range" min="50" max="100" v-model.number="kickVol" />
       {{ kickVol }}
     </label>
     <label>
-      normVol
-      <input type="range" min="1" max="100" v-model.number="normVol" />
-      {{ normVol }}
+      chordsVol
+      <input type="range" min="50" max="100" v-model.number="chordsVol" />
+      {{ chordsVol }}
     </label>
     <label>
-      highVol
-      <input type="range" min="1" max="100" v-model.number="highVol" />
-      {{ highVol }}
+      accentVol
+      <input type="range" min="50" max="100" v-model.number="accentVol" />
+      {{ accentVol }}
     </label>
     <label>
       bassVol
-      <input type="range" min="1" max="100" v-model.number="bassVol" />
+      <input type="range" min="50" max="100" v-model.number="bassVol" />
       {{ bassVol }}
     </label>
   </section>
@@ -59,10 +59,10 @@
         masterVol: db.get(Tone.Destination.volume),
         melodyVol: db.get(list.melody.vol.volume),
         snareVol: db.get(list.snare.vol.volume),
-        highVol: db.get(list.high.vol.volume),
+        accentVol: db.get(list.accent.vol.volume),
         kickVol: db.get(list.kick.vol.volume),
         bassVol: db.get(list.bass.vol.volume),
-        normVol: db.get(list.norm.vol.volume),
+        chordsVol: db.get(list.chords.vol.volume),
       };
     },
     created() {
@@ -105,11 +105,11 @@
       snareVol() {
         db.set(list.snare.vol.volume, this.snareVol);
       },
-      highVol() {
-        db.set(list.high.vol.volume, this.highVol);
+      accentVol() {
+        db.set(list.accent.vol.volume, this.accentVol);
       },
-      normVol() {
-        db.set(list.norm.vol.volume, this.normVol);
+      chordsVol() {
+        db.set(list.chords.vol.volume, this.chordsVol);
       },
       melodyVol() {
         db.set(list.melody.vol.volume, this.melodyVol);

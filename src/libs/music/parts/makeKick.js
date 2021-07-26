@@ -27,7 +27,11 @@ export function makeKick(volume) {
   }).connect(vol);
 
   const part = new Tone.Part(function(time) {
-    synth.triggerAttackRelease('C1', '8n', time);
+    try {
+      synth.triggerAttackRelease('C1', '8n', time);
+    } catch (err) {
+      console.log(err);
+    }
   }, data).start(0);
 
   return { data, synth, part, vol };

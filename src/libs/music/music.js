@@ -1,8 +1,8 @@
 import * as Tone from 'tone';
 import db from './db';
 import {
-  makeHigh,
-  makeNorm,
+  makeAccent,
+  makeChords,
   makeMelody,
   makeSnare,
   makeBass,
@@ -14,9 +14,9 @@ Tone.Transport.loop = true;
 Tone.Transport.setLoopPoints('0m', '8m');
 
 const list = {
-  high: makeHigh(-15),
-  norm: makeNorm(-30),
-  melody: makeMelody(-20),
+  accent: makeAccent(-15),
+  chords: makeChords(-30),
+  melody: makeMelody(-30),
   snare: makeSnare(-25),
   bass: makeBass(0),
   kick: makeKick(-15),

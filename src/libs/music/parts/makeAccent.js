@@ -6,7 +6,7 @@ const chord4 = constructMajorChord('AMinor', 4, 'D4');
 const chord5 = constructMajorChord('AMinor', 5, 'E5');
 const chord6 = constructMajorChord('AMinor', 4, 'F4');
 
-export function makeHigh(volume) {
+export function makeAccent(volume) {
   const vol = new Tone.Volume(volume).toDestination();
 
   const data = [
@@ -39,7 +39,11 @@ export function makeHigh(volume) {
   }).connect(vol);
 
   const part = new Tone.Part(function(time, note) {
-    synth.triggerAttackRelease(note.note, note.duration, time, 0.5);
+    try {
+      synth.triggerAttackRelease(note.note, note.duration, time, 0.5);
+    } catch (err) {
+      console.log(err);
+    }
   }, data).start(0);
 
   return { data, synth, part, vol };

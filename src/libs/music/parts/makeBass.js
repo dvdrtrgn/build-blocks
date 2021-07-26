@@ -17,7 +17,11 @@ export function makeBass(volume) {
   }).connect(vol);
 
   const part = new Tone.Part(function(time, note) {
-    synth.triggerAttackRelease(note.note, note.duration, time);
+    try {
+      synth.triggerAttackRelease(note.note, note.duration, time);
+    } catch (err) {
+      console.log(err);
+    }
   }, data).start(0);
 
   return { data, synth, part, vol };

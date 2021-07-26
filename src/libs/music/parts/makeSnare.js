@@ -34,7 +34,11 @@ export function makeSnare(volume) {
   ];
 
   const part = new Tone.Part(function(time) {
-    synth.triggerAttackRelease('4n', time);
+    try {
+      synth.triggerAttackRelease('4n', time);
+    } catch (err) {
+      console.log(err);
+    }
   }, data).start(0);
 
   return { data, synth, part, vol };

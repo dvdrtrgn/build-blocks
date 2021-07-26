@@ -17,7 +17,7 @@ const chord6 = constructMajorChord('AMinor', 3, 'F3');
 chord6.push('F2', 'E4');
 chord6.push('F3', 'E5');
 
-export function makeNorm(volume) {
+export function makeChords(volume) {
   const vol = new Tone.Volume(volume).toDestination();
 
   const data = [
@@ -48,7 +48,11 @@ export function makeNorm(volume) {
   }).connect(vol);
 
   const part = new Tone.Part(function(time, note) {
-    synth.triggerAttackRelease(note.note, note.duration, time);
+    try {
+      synth.triggerAttackRelease(note.note, note.duration, time);
+    } catch (err) {
+      console.log(err);
+    }
   }, data).start(0);
 
   return { data, synth, part, vol };
