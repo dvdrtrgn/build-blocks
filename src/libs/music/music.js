@@ -1,4 +1,5 @@
 import * as Tone from 'tone';
+import db from './db';
 import {
   makeHigh,
   makeNorm,
@@ -28,4 +29,4 @@ export default {
   // scheduleEvents,
   // resetTransport,
 };
-export { list };
+export { list, db };

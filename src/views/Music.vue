@@ -13,32 +13,32 @@
     <hr />
     <label>
       melodyVol
-      <input type="range" min="1" max="100" v-model.lazy.number="melodyVol" />
+      <input type="range" min="1" max="100" v-model.number="melodyVol" />
       {{ melodyVol }}
     </label>
     <label>
       snareVol
-      <input type="range" min="1" max="100" v-model.lazy.number="snareVol" />
+      <input type="range" min="1" max="100" v-model.number="snareVol" />
       {{ snareVol }}
     </label>
     <label>
       kickVol
-      <input type="range" min="1" max="100" v-model.lazy.number="kickVol" />
+      <input type="range" min="1" max="100" v-model.number="kickVol" />
       {{ kickVol }}
     </label>
     <label>
       normVol
-      <input type="range" min="1" max="100" v-model.lazy.number="normVol" />
+      <input type="range" min="1" max="100" v-model.number="normVol" />
       {{ normVol }}
     </label>
     <label>
       highVol
-      <input type="range" min="1" max="100" v-model.lazy.number="highVol" />
+      <input type="range" min="1" max="100" v-model.number="highVol" />
       {{ highVol }}
     </label>
     <label>
       bassVol
-      <input type="range" min="1" max="100" v-model.lazy.number="bassVol" />
+      <input type="range" min="1" max="100" v-model.number="bassVol" />
       {{ bassVol }}
     </label>
   </section>
@@ -47,10 +47,7 @@
 <script>
   import * as Tone from 'tone';
   window.Tone = Tone;
-  import music, { list } from '@/libs/music/music';
-
-  const toDB = vol => Math.trunc(vol - 50);
-  const toVol = db => Math.trunc(db + 50);
+  import music, { db, list } from '@/libs/music/music';
 
   export default {
     components: {},
@@ -59,13 +56,13 @@
       return {
         music,
         transport: Tone.Transport,
-        masterVol: 50,
-        melodyVol: toVol(list.melody.vol.volume.value),
-        snareVol: toVol(list.snare.vol.volume.value),
-        highVol: toVol(list.high.vol.volume.value),
-        kickVol: toVol(list.kick.vol.volume.value),
-        bassVol: toVol(list.bass.vol.volume.value),
-        normVol: toVol(list.norm.vol.volume.value),
+        masterVol: db.get(Tone.Destination.volume),
+        melodyVol: db.get(list.melody.vol.volume),
+        snareVol: db.get(list.snare.vol.volume),
+        highVol: db.get(list.high.vol.volume),
+        kickVol: db.get(list.kick.vol.volume),
+        bassVol: db.get(list.bass.vol.volume),
+        normVol: db.get(list.norm.vol.volume),
       };
     },
     created() {
@@ -97,25 +94,25 @@
     },
     watch: {
       masterVol() {
-        Tone.Destination.volume.value = toDB(this.masterVol);
+        db.set(Tone.Destination.volume, this.masterVol);
       },
       bassVol() {
-        list.bass.vol.volume.value = toDB(this.bassVol);
+        db.set(list.bass.vol.volume, this.bassVol);
       },
       kickVol() {
-        list.kick.vol.volume.value = toDB(this.kickVol);
+        db.set(list.kick.vol.volume, this.kickVol);
       },
       snareVol() {
-        list.snare.vol.volume.value = toDB(this.snareVol);
+        db.set(list.snare.vol.volume, this.snareVol);
       },
       highVol() {
-        list.high.vol.volume.value = toDB(this.highVol);
+        db.set(list.high.vol.volume, this.highVol);
       },
       normVol() {
-        list.norm.vol.volume.value = toDB(this.normVol);
+        db.set(list.norm.vol.volume, this.normVol);
       },
       melodyVol() {
-        list.melody.vol.volume.value = toDB(this.melodyVol);
+        db.set(list.melody.vol.volume, this.melodyVol);
       },
     },
   };
