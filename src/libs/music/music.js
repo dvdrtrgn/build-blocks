@@ -8,39 +8,34 @@ import {
   makeKick,
 } from './parts/';
 
-Tone.Transport.bpm.value = 150;
-Tone.Transport.loop = true;
-Tone.Transport.setLoopPoints('0m', '8m');
-
 const MAX = 0;
-
 let IDX = 0;
 let list;
 
-function clearEvents() {
+function resetTransport() {
   Tone.Transport.cancel(0);
+  Tone.Transport.bpm.value = 150;
+  Tone.Transport.loop = true;
+  Tone.Transport.setLoopPoints('0m', '8m');
 }
 
 function scheduleEvents() {
-  clearEvents(1);
+  resetTransport();
   list = {
     '.': 'music_list' + IDX++,
-    highChordPart: makeHigh(MAX - 10),
-    normChordPart: makeNorm(MAX - 25),
-    melodyPart: makeMelody(MAX - 15),
-    snarePart: makeSnare(MAX - 20),
-    bassPart: makeBass(MAX + 5),
-    kickPart: makeKick(MAX - 10),
+    high: makeHigh(MAX - 10),
+    norm: makeNorm(MAX - 25),
+    melody: makeMelody(MAX - 15),
+    snare: makeSnare(MAX - 20),
+    bass: makeBass(MAX + 5),
+    kick: makeKick(MAX - 10),
   };
   window[list['.']] = list;
   console.log(list);
 }
 
-scheduleEvents();
-
-export { list };
-
 export default {
   scheduleEvents,
-  clearEvents,
+  resetTransport,
 };
+export { list };

@@ -1,17 +1,17 @@
 <template>
   <section id="Music">
+    {{ transport.state }}
     <button @click="toggle" :class="{ active: started }">
       {{ started ? 'stop' : 'start' }}
     </button>
     <button @click="pause" :class="{ active: paused }">pause</button>
-    {{ transport.state }}
-    <hr />
-    <button @click="music.scheduleEvents">scheduleEvents</button>
-    <button @click="music.clearEvents">clearEvents</button>
     <label for="">
       <input type="range" min="1" max="100" v-model.number="volume" />
       {{ volume }}
     </label>
+    <hr />
+    <button @click="music.scheduleEvents">scheduleEvents</button>
+    <button @click="music.resetTransport">resetTransport</button>
   </section>
 </template>
 
@@ -30,14 +30,14 @@
         transport: Tone.Transport,
       };
     },
-    beforeCreate() {
-      console.log('beforeCreate');
-    },
     created() {
+      console.log('created');
+      this.music.scheduleEvents();
       this.volume -= 1;
     },
     beforeDestroy() {
       console.log('beforeDestroy');
+      this.music.resetTransport();
     },
     methods: {
       toggle() {
