@@ -5,7 +5,7 @@
     </button>
     <button @click="pause">pause</button>
     {{ transport.state }}
-    <hr>
+    <hr />
     <button @click="music.scheduleEvents">scheduleEvents</button>
     <button @click="music.clearEvents">clearEvents</button>
     <label for="">
