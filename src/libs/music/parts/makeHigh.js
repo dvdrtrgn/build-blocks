@@ -1,13 +1,15 @@
 import * as Tone from 'tone';
 import constructMajorChord from './constructMajorChord';
 
-export function makeHigh(volume) {
-  const chord1 = constructMajorChord('AMinor', 5, 'A4');
-  const chord4 = constructMajorChord('AMinor', 4, 'D4');
-  const chord5 = constructMajorChord('AMinor', 5, 'E5');
-  const chord6 = constructMajorChord('AMinor', 4, 'F4');
+const chord1 = constructMajorChord('AMinor', 5, 'A4');
+const chord4 = constructMajorChord('AMinor', 4, 'D4');
+const chord5 = constructMajorChord('AMinor', 5, 'E5');
+const chord6 = constructMajorChord('AMinor', 4, 'F4');
 
-  const highOctaveChords = [
+export function makeHigh(volume) {
+  const vol = new Tone.Volume(volume).toDestination();
+
+  const data = [
     { time: '0:0', note: chord1, duration: '2n' },
     { time: '0:3', note: chord5, duration: '4n' },
     { time: '1:0', note: chord6, duration: '2n' },
@@ -28,18 +30,17 @@ export function makeHigh(volume) {
     { time: '7:3', note: chord4, duration: '4n' },
   ];
 
-  const highSynth = new Tone.PolySynth(Tone.Synth, {
-    volume: volume,
+  const synth = new Tone.PolySynth(Tone.Synth, {
     count: 6,
     spread: 80,
     oscillator: {
       type: 'fatsawtooth',
     },
-  }).toDestination();
+  }).connect(vol);
 
-  const highChordPart = new Tone.Part(function(time, note) {
-    highSynth.triggerAttackRelease(note.note, note.duration, time, 0.5);
-  }, highOctaveChords).start(0);
+  const part = new Tone.Part(function(time, note) {
+    synth.triggerAttackRelease(note.note, note.duration, time, 0.5);
+  }, data).start(0);
 
-  return highChordPart;
+  return { data, synth, part, vol };
 }

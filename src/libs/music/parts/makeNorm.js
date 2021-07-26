@@ -1,21 +1,26 @@
 import * as Tone from 'tone';
 import constructMajorChord from './constructMajorChord';
 
-export function makeNorm(volume) {
-  const chord1 = constructMajorChord('AMinor', 4, 'A3');
-  chord1.push('A2', 'G4');
-  chord1.push('A3', 'G5');
-  const chord4 = constructMajorChord('AMinor', 3, 'D3');
-  chord4.push('D2', 'C4');
-  chord4.push('D3', 'C5');
-  const chord5 = constructMajorChord('AMinor', 4, 'E4');
-  chord5.push('E2', 'G3');
-  chord5.push('E3', 'D5');
-  const chord6 = constructMajorChord('AMinor', 3, 'F3');
-  chord6.push('F2', 'E4');
-  chord6.push('F3', 'E5');
+const chord1 = constructMajorChord('AMinor', 4, 'A3');
+chord1.push('A2', 'G4');
+chord1.push('A3', 'G5');
 
-  const mainChords = [
+const chord4 = constructMajorChord('AMinor', 3, 'D3');
+chord4.push('D2', 'C4');
+chord4.push('D3', 'C5');
+
+const chord5 = constructMajorChord('AMinor', 4, 'E4');
+chord5.push('E2', 'G3');
+chord5.push('E3', 'D5');
+
+const chord6 = constructMajorChord('AMinor', 3, 'F3');
+chord6.push('F2', 'E4');
+chord6.push('F3', 'E5');
+
+export function makeNorm(volume) {
+  const vol = new Tone.Volume(volume).toDestination();
+
+  const data = [
     { time: '0:0', note: chord1, duration: '2n' },
     { time: '0:3', note: chord5, duration: '4n' },
     { time: '1:0', note: chord6, duration: '2n' },
@@ -37,15 +42,14 @@ export function makeNorm(volume) {
   ];
 
   const synth = new Tone.PolySynth(Tone.Synth, {
-    volume: volume,
     oscillator: {
       type: 'sawtooth',
     },
-  }).toDestination();
+  }).connect(vol);
 
-  const normChordPart = new Tone.Part(function(time, note) {
+  const part = new Tone.Part(function(time, note) {
     synth.triggerAttackRelease(note.note, note.duration, time);
-  }, mainChords).start(0);
+  }, data).start(0);
 
-  return { mainChords, synth, normChordPart };
+  return { data, synth, part, vol };
 }

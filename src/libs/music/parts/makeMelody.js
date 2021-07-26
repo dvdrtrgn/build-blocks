@@ -1,7 +1,9 @@
 import * as Tone from 'tone';
 
 export function makeMelody(volume) {
-  const mainMelody = [
+  const vol = new Tone.Volume(volume).toDestination();
+
+  const data = [
     { note: 'G4', duration: '8n', time: '0:0:0' },
     { note: 'F4', duration: '8n', time: '0:0:2' },
     { note: 'D4', duration: '8n', time: '0:1:0' },
@@ -35,18 +37,17 @@ export function makeMelody(volume) {
     { note: 'A4', duration: '1n', time: '6:3:2' },
   ];
 
-  const synth2 = new Tone.Synth({
+  const synth = new Tone.Synth({
     oscillator: {
-      volume: volume,
       count: 3,
       spread: 40,
       type: 'fatsawtooth',
     },
-  }).toDestination();
+  }).connect(vol);
 
-  const melodyPart = new Tone.Part(function(time, note) {
-    synth2.triggerAttackRelease(note.note, note.duration, time);
-  }, mainMelody).start(0);
+  const part = new Tone.Part(function(time, note) {
+    synth.triggerAttackRelease(note.note, note.duration, time);
+  }, data).start(0);
 
-  return melodyPart;
+  return { data, synth, part, vol };
 }

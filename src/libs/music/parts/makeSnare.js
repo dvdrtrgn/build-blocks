@@ -1,11 +1,13 @@
 import * as Tone from 'tone';
 
 export function makeSnare(volume) {
+  const vol = new Tone.Volume(volume).toDestination();
+
   const lowPass = new Tone.Filter({
     frequency: 8000,
-  }).toDestination();
+  });
 
-  const snareDrum = new Tone.NoiseSynth({
+  const synth = new Tone.NoiseSynth({
     noise: {
       type: 'white',
       playbackRate: 3,
@@ -16,10 +18,11 @@ export function makeSnare(volume) {
       sustain: 0.15,
       release: 0.03,
     },
-    volume: volume,
-  }).connect(lowPass);
+  })
+    .connect(lowPass)
+    .connect(vol);
 
-  const snares = [
+  const data = [
     { time: '0:2' },
     { time: '1:2' },
     { time: '2:2' },
@@ -30,9 +33,9 @@ export function makeSnare(volume) {
     { time: '7:2' },
   ];
 
-  const snarePart = new Tone.Part(function(time) {
-    snareDrum.triggerAttackRelease('4n', time);
-  }, snares).start(0);
+  const part = new Tone.Part(function(time) {
+    synth.triggerAttackRelease('4n', time);
+  }, data).start(0);
 
-  return { snareDrum, snares, snarePart };
+  return { data, synth, part, vol };
 }

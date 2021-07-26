@@ -1,11 +1,9 @@
 import * as Tone from 'tone';
 
 export function makeKick(volume) {
-  const kickDrum = new Tone.MembraneSynth({
-    volume: volume,
-  }).toDestination();
+  const vol = new Tone.Volume(volume).toDestination();
 
-  const kicks = [
+  const data = [
     { time: '0:0:0' },
     { time: '0:3:2' },
     { time: '1:1:0' },
@@ -24,9 +22,13 @@ export function makeKick(volume) {
     { time: '7:1:0' },
   ];
 
-  const kickPart = new Tone.Part(function(time) {
-    kickDrum.triggerAttackRelease('C1', '8n', time);
-  }, kicks).start(0);
+  const synth = new Tone.MembraneSynth({
+    // volume: volume,
+  }).connect(vol);
 
-  return kickPart;
+  const part = new Tone.Part(function(time) {
+    synth.triggerAttackRelease('C1', '8n', time);
+  }, data).start(0);
+
+  return { data, synth, part, vol };
 }

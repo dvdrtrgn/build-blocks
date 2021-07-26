@@ -3,7 +3,7 @@
     <button @click="toggle" :class="{ active: started }">
       {{ started ? 'stop' : 'start' }}
     </button>
-    <button @click="pause">pause</button>
+    <button @click="pause" :class="{ active: paused }">pause</button>
     {{ transport.state }}
     <hr />
     <button @click="music.scheduleEvents">scheduleEvents</button>
@@ -44,7 +44,11 @@
         this.transport.toggle();
       },
       pause() {
-        this.transport.pause();
+        if (this.paused) {
+          this.transport.start();
+        } else {
+          this.transport.pause();
+        }
       },
     },
     computed: {
@@ -53,6 +57,9 @@
       },
       started() {
         return this.transport.state === 'started';
+      },
+      paused() {
+        return this.transport.state === 'paused';
       },
     },
     watch: {
