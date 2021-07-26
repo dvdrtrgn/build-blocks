@@ -8,34 +8,24 @@ import {
   makeKick,
 } from './parts/';
 
-const MAX = 0;
-let IDX = 0;
-let list;
+Tone.Transport.bpm.value = 150;
+Tone.Transport.loop = true;
+Tone.Transport.setLoopPoints('0m', '8m');
 
-function resetTransport() {
-  Tone.Transport.cancel(0);
-  Tone.Transport.bpm.value = 150;
-  Tone.Transport.loop = true;
-  Tone.Transport.setLoopPoints('0m', '8m');
-}
+const list = {
+  high: makeHigh(-15),
+  norm: makeNorm(-30),
+  melody: makeMelody(-20),
+  snare: makeSnare(-25),
+  bass: makeBass(0),
+  kick: makeKick(-15),
+};
 
-function scheduleEvents() {
-  resetTransport();
-  list = {
-    '.': 'music_list' + IDX++,
-    high: makeHigh(MAX - 10),
-    norm: makeNorm(MAX - 25),
-    melody: makeMelody(MAX - 15),
-    snare: makeSnare(MAX - 20),
-    bass: makeBass(MAX + 5),
-    kick: makeKick(MAX - 10),
-  };
-  window[list['.']] = list;
-  console.log(list);
-}
+console.log(list);
+window.foolist = list;
 
 export default {
-  scheduleEvents,
-  resetTransport,
+  // scheduleEvents,
+  // resetTransport,
 };
 export { list };

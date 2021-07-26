@@ -5,13 +5,42 @@
       {{ started ? 'stop' : 'start' }}
     </button>
     <button @click="pause" :class="{ active: paused }">pause</button>
-    <label for="">
-      <input type="range" min="1" max="100" v-model.number="volume" />
-      {{ volume }}
+    <label>
+      masterVol
+      <input type="range" min="1" max="100" v-model.number="masterVol" />
+      {{ masterVol }}
     </label>
     <hr />
-    <button @click="music.scheduleEvents">scheduleEvents</button>
-    <button @click="music.resetTransport">resetTransport</button>
+    <label>
+      melodyVol
+      <input type="range" min="1" max="100" v-model.lazy.number="melodyVol" />
+      {{ melodyVol }}
+    </label>
+    <label>
+      snareVol
+      <input type="range" min="1" max="100" v-model.lazy.number="snareVol" />
+      {{ snareVol }}
+    </label>
+    <label>
+      kickVol
+      <input type="range" min="1" max="100" v-model.lazy.number="kickVol" />
+      {{ kickVol }}
+    </label>
+    <label>
+      normVol
+      <input type="range" min="1" max="100" v-model.lazy.number="normVol" />
+      {{ normVol }}
+    </label>
+    <label>
+      highVol
+      <input type="range" min="1" max="100" v-model.lazy.number="highVol" />
+      {{ highVol }}
+    </label>
+    <label>
+      bassVol
+      <input type="range" min="1" max="100" v-model.lazy.number="bassVol" />
+      {{ bassVol }}
+    </label>
   </section>
 </template>
 
@@ -20,27 +49,31 @@
   window.Tone = Tone;
   import music, { list } from '@/libs/music/music';
 
+  const toDB = vol => Math.trunc(vol - 50);
+  const toVol = db => Math.trunc(db + 50);
+
   export default {
     components: {},
     mounted() {},
     data() {
       return {
         music,
-        volume: 51,
         transport: Tone.Transport,
+        masterVol: 50,
+        melodyVol: toVol(list.melody.vol.volume.value),
+        snareVol: toVol(list.snare.vol.volume.value),
+        highVol: toVol(list.high.vol.volume.value),
+        kickVol: toVol(list.kick.vol.volume.value),
+        bassVol: toVol(list.bass.vol.volume.value),
+        normVol: toVol(list.norm.vol.volume.value),
       };
     },
     created() {
-      console.log('created');
-      this.music.scheduleEvents();
-      this.volume -= 1;
-    },
-    beforeDestroy() {
-      console.log('beforeDestroy');
-      this.music.resetTransport();
+      // this.masterVol -= 1;
     },
     methods: {
       toggle() {
+        Tone.start();
         this.transport.toggle();
       },
       pause() {
@@ -63,9 +96,26 @@
       },
     },
     watch: {
-      volume() {
-        let db = this.volume / 3 - 33;
-        Tone.Destination.volume.value = db;
+      masterVol() {
+        Tone.Destination.volume.value = toDB(this.masterVol);
+      },
+      bassVol() {
+        list.bass.vol.volume.value = toDB(this.bassVol);
+      },
+      kickVol() {
+        list.kick.vol.volume.value = toDB(this.kickVol);
+      },
+      snareVol() {
+        list.snare.vol.volume.value = toDB(this.snareVol);
+      },
+      highVol() {
+        list.high.vol.volume.value = toDB(this.highVol);
+      },
+      normVol() {
+        list.norm.vol.volume.value = toDB(this.normVol);
+      },
+      melodyVol() {
+        list.melody.vol.volume.value = toDB(this.melodyVol);
       },
     },
   };
@@ -79,8 +129,13 @@
     .active {
       font-weight: 800;
     }
+    label {
+      display: block;
+      text-align: right;
+    }
   }
   .hand {
+    opacity: 0.2;
     z-index: -1;
   }
 </style>
