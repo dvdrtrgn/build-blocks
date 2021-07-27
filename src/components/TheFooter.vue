@@ -1,6 +1,6 @@
 <template lang="pug">
-  footer
-    h2 footer
+footer
+  h2 footer
 </template>
 
 <script>

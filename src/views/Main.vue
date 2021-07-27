@@ -1,8 +1,8 @@
 <template lang="pug">
-  main
-    h1.hand 👌🏿
+main
+  h1.hand 👌🏿
 
-    Music
+  Music
 </template>
 
 <script>

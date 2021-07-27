@@ -1,6 +1,6 @@
 <template lang="pug">
-  header
-    h1 header
+header
+  h1 header
 </template>
 
 <script>

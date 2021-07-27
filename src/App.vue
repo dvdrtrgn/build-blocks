@@ -1,8 +1,8 @@
 <template lang="pug">
-  #App
-    Header
-    Main
-    Footer
+#App
+  Header
+  Main
+  Footer
 </template>
 
 <script>

@@ -1,12 +1,25 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex'
+
+// export default createStore({
+//   state: {
+//   },
+//   mutations: {
+//   },
+//   actions: {
+//   },
+//   modules: {
+//   }
+// })
+
+// import Vue from 'vue';
+// import Vuex from 'vuex';
 
 const C = console;
 const Key = 'build-blocks';
 
-Vue.use(Vuex);
+// Vue.use(Vuex);
 
-const store = new Vuex.Store({
+const store = createStore({
   state: {
     autoplay: 0,
     loads: 0,
