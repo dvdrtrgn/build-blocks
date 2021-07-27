@@ -23,7 +23,6 @@ function eventsInfo() {
 }
 
 const Music = {
-  start: Tone.start,
   clearAll: () => Tone.Transport.cancel(0),
   toggle: () => Tone.Transport.toggle(),
   play: () => Tone.Transport.start(),

@@ -11,42 +11,34 @@
     <button @click="Music.info">info</button>
 
     <label>
-      masterVol
-      <input type="range" min="50" max="100" v-model.number="masterVol" />
-      {{ masterVol }}
+      masterVol ({{ masterVol }})
+      <input type="range" min="0" max="100" v-model.number="masterVol" />
     </label>
-
     <hr />
 
     <label>
-      melodyVol
-      <input type="range" min="50" max="100" v-model.number="melodyVol" />
-      {{ melodyVol }}
+      melodyVol ({{ melodyVol }})
+      <input type="range" min="0" max="100" v-model.number="melodyVol" />
     </label>
     <label>
-      snareVol
-      <input type="range" min="50" max="100" v-model.number="snareVol" />
-      {{ snareVol }}
+      snareVol ({{ snareVol }})
+      <input type="range" min="0" max="100" v-model.number="snareVol" />
     </label>
     <label>
-      kickVol
-      <input type="range" min="50" max="100" v-model.number="kickVol" />
-      {{ kickVol }}
+      kickVol ({{ kickVol }})
+      <input type="range" min="0" max="100" v-model.number="kickVol" />
     </label>
     <label>
-      chordsVol
-      <input type="range" min="50" max="100" v-model.number="chordsVol" />
-      {{ chordsVol }}
+      chordsVol ({{ chordsVol }})
+      <input type="range" min="0" max="100" v-model.number="chordsVol" />
     </label>
     <label>
-      accentVol
-      <input type="range" min="50" max="100" v-model.number="accentVol" />
-      {{ accentVol }}
+      accentVol ({{ accentVol }})
+      <input type="range" min="0" max="100" v-model.number="accentVol" />
     </label>
     <label>
-      bassVol
-      <input type="range" min="50" max="100" v-model.number="bassVol" />
-      {{ bassVol }}
+      bassVol ({{ bassVol }})
+      <input type="range" min="0" max="100" v-model.number="bassVol" />
     </label>
   </section>
 </template>
@@ -74,7 +66,6 @@
     },
     methods: {
       toggle() {
-        Music.start();
         Music.toggle();
       },
       pause() {
