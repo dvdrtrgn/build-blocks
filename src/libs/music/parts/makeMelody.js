@@ -45,9 +45,9 @@ export function makeMelody(volume) {
     },
   }).connect(vol);
 
-  const part = new Tone.Part(function(time, note) {
+  const part = new Tone.Part(function(time, value) {
     try {
-      synth.triggerAttackRelease(note.note, note.duration, time);
+      synth.triggerAttackRelease(value.note, value.duration, time);
     } catch (err) {
       console.log(err);
     }

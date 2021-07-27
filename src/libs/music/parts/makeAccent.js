@@ -38,9 +38,9 @@ export function makeAccent(volume) {
     },
   }).connect(vol);
 
-  const part = new Tone.Part(function(time, note) {
+  const part = new Tone.Part(function(time, value) {
     try {
-      synth.triggerAttackRelease(note.note, note.duration, time, 0.5);
+      synth.triggerAttackRelease(value.note, value.duration, time, 0.5);
     } catch (err) {
       console.log(err);
     }
