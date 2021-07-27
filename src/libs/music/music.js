@@ -16,7 +16,7 @@ Tone.Transport.setLoopPoints('0m', '8m');
 function makeList() {
   Tone.Transport.cancel(0);
 
-  const list = {
+  const Parts = {
     accent: makeAccent(-15),
     chords: makeChords(-30),
     melody: makeMelody(-30),
@@ -25,19 +25,19 @@ function makeList() {
     kick: makeKick(-15),
   };
 
-  Object.keys(list).map(key => {
-    const obj = list[key];
+  Object.keys(Parts).map(key => {
+    const obj = Parts[key];
 
     obj.part = obj.addPart();
-    obj.clearPart = () => obj.part.clear(0);
+    obj.clearPart = () => obj.part.cancel(0);
   });
 
-  console.log(list);
+  console.log(Parts);
 
-  return list;
+  return Parts;
 }
 
-const list = makeList();
+const Parts = makeList();
 
 function lazy(name, self, obj) {
   setInterval(() => (self['lazy_' + name] = obj[name]), 333);
@@ -45,7 +45,7 @@ function lazy(name, self, obj) {
 }
 
 // EXPOSE
-export { Tone, Vol, list, lazy };
+export { Tone, Vol, Parts, lazy };
 
-window.foolist = list;
+window.Parts = Parts;
 window.Tone = Tone;

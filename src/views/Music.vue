@@ -1,8 +1,6 @@
 <template>
   <section id="Music">
-    <button @click="clear">
-      Tone.Transport.clear
-    </button>
+    <button @click="clear">clear</button>
     {{ lazy_state }}
     <button @click="toggle" :class="{ active: started }">
       {{ started ? 'stop' : 'start' }}
@@ -48,7 +46,7 @@
 </template>
 
 <script>
-  import { Tone, Vol, list, lazy } from '@/libs/music/music';
+  import { Tone, Vol, Parts, lazy } from '@/libs/music/music';
 
   export default {
     components: {},
@@ -57,12 +55,12 @@
       return {
         lazy_state: lazy('state', this, Tone.Transport),
         masterVol: Vol.get(Tone.Destination.volume),
-        melodyVol: Vol.get(list.melody.vol.volume),
-        snareVol: Vol.get(list.snare.vol.volume),
-        accentVol: Vol.get(list.accent.vol.volume),
-        kickVol: Vol.get(list.kick.vol.volume),
-        bassVol: Vol.get(list.bass.vol.volume),
-        chordsVol: Vol.get(list.chords.vol.volume),
+        melodyVol: Vol.get(Parts.melody.vol.volume),
+        snareVol: Vol.get(Parts.snare.vol.volume),
+        accentVol: Vol.get(Parts.accent.vol.volume),
+        kickVol: Vol.get(Parts.kick.vol.volume),
+        bassVol: Vol.get(Parts.bass.vol.volume),
+        chordsVol: Vol.get(Parts.chords.vol.volume),
       };
     },
     created() {
@@ -88,8 +86,8 @@
       Tone() {
         return Tone;
       },
-      list() {
-        return list;
+      Parts() {
+        return Parts;
       },
       started() {
         return this.lazy_state === 'started';
@@ -103,22 +101,22 @@
         Vol.set(Tone.Destination.volume, this.masterVol);
       },
       bassVol() {
-        Vol.set(list.bass.vol.volume, this.bassVol);
+        Vol.set(Parts.bass.vol.volume, this.bassVol);
       },
       kickVol() {
-        Vol.set(list.kick.vol.volume, this.kickVol);
+        Vol.set(Parts.kick.vol.volume, this.kickVol);
       },
       snareVol() {
-        Vol.set(list.snare.vol.volume, this.snareVol);
+        Vol.set(Parts.snare.vol.volume, this.snareVol);
       },
       accentVol() {
-        Vol.set(list.accent.vol.volume, this.accentVol);
+        Vol.set(Parts.accent.vol.volume, this.accentVol);
       },
       chordsVol() {
-        Vol.set(list.chords.vol.volume, this.chordsVol);
+        Vol.set(Parts.chords.vol.volume, this.chordsVol);
       },
       melodyVol() {
-        Vol.set(list.melody.vol.volume, this.melodyVol);
+        Vol.set(Parts.melody.vol.volume, this.melodyVol);
       },
     },
   };
