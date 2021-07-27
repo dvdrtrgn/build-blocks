@@ -1,6 +1,6 @@
 <template>
   <section id="Music">
-    <button @click="Music.clearAll">clearAll</button>
+    <!-- <button @click="Music.clearAll">clearAll</button> -->
     <button @click="Music.clearEvery">clearEvery</button>
     <button @click="Music.addEvery">addEvery</button>
     {{ lazy_state }}

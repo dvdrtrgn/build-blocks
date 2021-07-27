@@ -50,12 +50,12 @@ function makeList() {
   Music.clearAll();
 
   const partList = {
-    accent: makeAccent(-15),
-    chords: makeChords(-30),
-    melody: makeMelody(-30),
-    snare: makeSnare(-25),
-    bass: makeBass(0),
-    kick: makeKick(-15),
+    accent: makeAccent(-20),
+    chords: makeChords(-20),
+    melody: makeMelody(-10),
+    snare: makeSnare(-15),
+    bass: makeBass(-5),
+    kick: makeKick(-10),
   };
 
   walkProps(partList, initPart);

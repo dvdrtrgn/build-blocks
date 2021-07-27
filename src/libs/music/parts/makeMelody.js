@@ -6,9 +6,9 @@ export function makeMelody(volume) {
   const data = [
     { note: 'G4', duration: '8n', time: '0:0:0' },
     { note: 'F4', duration: '8n', time: '0:0:2' },
-    { note: 'D4', duration: '8n', time: '0:1:0' },
+    { note: 'D4', duration: '8n.', time: '0:1:0' },
     { note: 'D4', duration: '8n', time: '0:2:0' },
-    { note: 'F4', duration: '8n', time: '0:2:2' },
+    { note: 'F4', duration: '8n.', time: '0:2:2' },
     { note: 'G4', duration: '8n', time: '0:3:0' },
     { note: 'A4', duration: '2n', time: '0:3:2' },
     { note: 'A4', duration: '8n', time: '2:0:0' },
