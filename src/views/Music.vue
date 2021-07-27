@@ -1,6 +1,6 @@
 <template>
   <section id="Music">
-    {{ transport.state }}
+    {{ Tone.Transport.state }}
     <button @click="toggle" :class="{ active: started }">
       {{ started ? 'stop' : 'start' }}
     </button>
@@ -55,7 +55,7 @@
     data() {
       return {
         music,
-        transport: Tone.Transport,
+        // transport: Tone.Transport,
         masterVol: db.get(Tone.Destination.volume),
         melodyVol: db.get(list.melody.vol.volume),
         snareVol: db.get(list.snare.vol.volume),
@@ -71,25 +71,28 @@
     methods: {
       toggle() {
         Tone.start();
-        this.transport.toggle();
+        Tone.Transport.toggle();
       },
       pause() {
         if (this.paused) {
-          this.transport.start();
+          Tone.Transport.start();
         } else {
-          this.transport.pause();
+          Tone.Transport.pause();
         }
       },
     },
     computed: {
+      Tone() {
+        return Tone;
+      },
       list() {
         return list;
       },
       started() {
-        return this.transport.state === 'started';
+        return this.Tone.Transport.state === 'started';
       },
       paused() {
-        return this.transport.state === 'paused';
+        return this.Tone.Transport.state === 'paused';
       },
     },
     watch: {
