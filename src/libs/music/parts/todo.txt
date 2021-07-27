@@ -1,5 +1,1 @@
-find cause of hiss (snare?)
-compare to learn source
-
-try not to make the whole transport reactive
-i just need to get to Transport.state
+https://github.com/Tonejs/Tone.js/wiki/Time

@@ -6,27 +6,30 @@ define([], function() {
     AMinor: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
   };
 
-  const addOctaveNumbers = (scale, octaveNumber) =>
+  const addOctaveNums = (scale, octaveNum) =>
     scale.map(note => {
-      const firstOctaveNoteIndex =
-        scale.indexOf('C') !== -1 ? scale.indexOf('C') : scale.indexOf('C#');
-      const lower = scale.indexOf(note) < firstOctaveNoteIndex;
-      const noteOctaveNumber = lower ? octaveNumber - 1 : octaveNumber;
-      return `${note}${noteOctaveNumber}`;
+      let cIndex = scale.indexOf('C');
+      cIndex = cIndex !== -1 ? cIndex : scale.indexOf('C#');
+
+      const lower = scale.indexOf(note) < cIndex;
+      const noteOctaveNum = lower ? octaveNum - 1 : octaveNum;
+
+      return `${note}${noteOctaveNum}`;
     });
 
   const constructMajorChord = (scaleName, octave, rootNote) => {
     const scale = SCALE[scaleName];
-    const scaleWithOctave = addOctaveNumbers(scale, octave);
 
-    const getNextChordNote = (note, nextNoteNumber) => {
-      const nextNoteInScaleIndex =
-        scaleWithOctave.indexOf(note) + nextNoteNumber - 1;
+    const scaleWithOctave = addOctaveNums(scale, octave);
+
+    const getNextChordNote = (note, nextNoteNum) => {
+      const nextNoteIndex = scaleWithOctave.indexOf(note) + nextNoteNum - 1;
       let nextNote;
-      if (typeof scaleWithOctave[nextNoteInScaleIndex] !== 'undefined') {
-        nextNote = scaleWithOctave[nextNoteInScaleIndex];
+
+      if (typeof scaleWithOctave[nextNoteIndex] !== 'undefined') {
+        nextNote = scaleWithOctave[nextNoteIndex];
       } else {
-        nextNote = scaleWithOctave[nextNoteInScaleIndex - 7];
+        nextNote = scaleWithOctave[nextNoteIndex - 7];
         const updatedOctave = parseInt(nextNote.slice(1)) + 1;
         nextNote = `${nextNote.slice(0, 1)}${updatedOctave}`;
       }
@@ -36,6 +39,7 @@ define([], function() {
 
     const thirdNote = getNextChordNote(rootNote, 3);
     const fifthNote = getNextChordNote(rootNote, 5);
+
     const chord = [rootNote, thirdNote, fifthNote];
 
     return chord;

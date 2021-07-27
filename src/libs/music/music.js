@@ -50,7 +50,7 @@ function makeList() {
   Music.clearAll();
 
   const partList = {
-    accent: makeAccent(-20),
+    accent: makeAccent(-15),
     chords: makeChords(-20),
     melody: makeMelody(-10),
     snare: makeSnare(-15),
