@@ -1,5 +1,8 @@
 <template>
   <section id="Music">
+    <button @click="clear">
+      Tone.Transport.clear
+    </button>
     {{ lazy_state }}
     <button @click="toggle" :class="{ active: started }">
       {{ started ? 'stop' : 'start' }}
@@ -45,30 +48,30 @@
 </template>
 
 <script>
-  import * as Tone from 'tone';
-  window.Tone = Tone;
-  import music, { db, list, lazy } from '@/libs/music/music';
+  import { Tone, Vol, list, lazy } from '@/libs/music/music';
 
   export default {
     components: {},
     mounted() {},
     data() {
       return {
-        music,
         lazy_state: lazy('state', this, Tone.Transport),
-        masterVol: db.get(Tone.Destination.volume),
-        melodyVol: db.get(list.melody.vol.volume),
-        snareVol: db.get(list.snare.vol.volume),
-        accentVol: db.get(list.accent.vol.volume),
-        kickVol: db.get(list.kick.vol.volume),
-        bassVol: db.get(list.bass.vol.volume),
-        chordsVol: db.get(list.chords.vol.volume),
+        masterVol: Vol.get(Tone.Destination.volume),
+        melodyVol: Vol.get(list.melody.vol.volume),
+        snareVol: Vol.get(list.snare.vol.volume),
+        accentVol: Vol.get(list.accent.vol.volume),
+        kickVol: Vol.get(list.kick.vol.volume),
+        bassVol: Vol.get(list.bass.vol.volume),
+        chordsVol: Vol.get(list.chords.vol.volume),
       };
     },
     created() {
       // this.masterVol -= 1;
     },
     methods: {
+      clear() {
+        Tone.Transport.cancel(0);
+      },
       toggle() {
         Tone.start();
         Tone.Transport.toggle();
@@ -97,25 +100,25 @@
     },
     watch: {
       masterVol() {
-        db.set(Tone.Destination.volume, this.masterVol);
+        Vol.set(Tone.Destination.volume, this.masterVol);
       },
       bassVol() {
-        db.set(list.bass.vol.volume, this.bassVol);
+        Vol.set(list.bass.vol.volume, this.bassVol);
       },
       kickVol() {
-        db.set(list.kick.vol.volume, this.kickVol);
+        Vol.set(list.kick.vol.volume, this.kickVol);
       },
       snareVol() {
-        db.set(list.snare.vol.volume, this.snareVol);
+        Vol.set(list.snare.vol.volume, this.snareVol);
       },
       accentVol() {
-        db.set(list.accent.vol.volume, this.accentVol);
+        Vol.set(list.accent.vol.volume, this.accentVol);
       },
       chordsVol() {
-        db.set(list.chords.vol.volume, this.chordsVol);
+        Vol.set(list.chords.vol.volume, this.chordsVol);
       },
       melodyVol() {
-        db.set(list.melody.vol.volume, this.melodyVol);
+        Vol.set(list.melody.vol.volume, this.melodyVol);
       },
     },
   };

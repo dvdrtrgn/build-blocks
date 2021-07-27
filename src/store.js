@@ -1,23 +1,7 @@
-import { createStore } from 'vuex'
-
-// export default createStore({
-//   state: {
-//   },
-//   mutations: {
-//   },
-//   actions: {
-//   },
-//   modules: {
-//   }
-// })
-
-// import Vue from 'vue';
-// import Vuex from 'vuex';
+import { createStore } from 'vuex';
 
 const C = console;
 const Key = 'build-blocks';
-
-// Vue.use(Vuex);
 
 const store = createStore({
   state: {
@@ -76,5 +60,7 @@ store.subscribe((mutation, state) => {
   // called after every mutation{type,payload}
   localStorage.setItem(Key, JSON.stringify(state));
 });
+
+store.commit('initStore', 'foo');
 
 export default store;
