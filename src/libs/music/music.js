@@ -44,8 +44,19 @@ function lazy(name, self, obj) {
   return obj[name];
 }
 
+const Music = {
+  start: Tone.start,
+  clear: () => Tone.Transport.cancel(0),
+  toggle: () => Tone.Transport.toggle(),
+  play: () => Tone.Transport.start(),
+  pause: () => Tone.Transport.pause(),
+  stop: () => Tone.Transport.stop(),
+  volume: Tone.Destination.volume,
+  transport: Tone.Transport,
+};
+
 // EXPOSE
-export { Tone, Vol, Parts, lazy };
+export { Music, Vol, Parts, lazy };
 
 window.Parts = Parts;
 window.Tone = Tone;

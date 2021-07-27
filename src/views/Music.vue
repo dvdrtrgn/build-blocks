@@ -46,15 +46,15 @@
 </template>
 
 <script>
-  import { Tone, Vol, Parts, lazy } from '@/libs/music/music';
+  import { Music, Vol, Parts, lazy } from '@/libs/music/music';
 
   export default {
     components: {},
     mounted() {},
     data() {
       return {
-        lazy_state: lazy('state', this, Tone.Transport),
-        masterVol: Vol.get(Tone.Destination.volume),
+        lazy_state: lazy('state', this, Music.transport),
+        masterVol: Vol.get(Music.volume),
         melodyVol: Vol.get(Parts.melody.vol.volume),
         snareVol: Vol.get(Parts.snare.vol.volume),
         accentVol: Vol.get(Parts.accent.vol.volume),
@@ -68,24 +68,21 @@
     },
     methods: {
       clear() {
-        Tone.Transport.cancel(0);
+        Music.clear();
       },
       toggle() {
-        Tone.start();
-        Tone.Transport.toggle();
+        Music.start();
+        Music.toggle();
       },
       pause() {
         if (this.paused) {
-          Tone.Transport.start();
+          Music.play();
         } else {
-          Tone.Transport.pause();
+          Music.pause();
         }
       },
     },
     computed: {
-      Tone() {
-        return Tone;
-      },
       Parts() {
         return Parts;
       },
@@ -98,7 +95,7 @@
     },
     watch: {
       masterVol() {
-        Vol.set(Tone.Destination.volume, this.masterVol);
+        Vol.set(Music.volume, this.masterVol);
       },
       bassVol() {
         Vol.set(Parts.bass.vol.volume, this.bassVol);
