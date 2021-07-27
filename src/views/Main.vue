@@ -9,6 +9,8 @@ main
   // import Muse from './Muse.vue';
   import Music from './Music.vue';
 
+  window.App = Music;
+
   export default {
     components: {
       // Muse,

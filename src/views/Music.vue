@@ -1,17 +1,23 @@
 <template>
   <section id="Music">
-    <button @click="clear">clear</button>
+    <button @click="Music.clearAll">clearAll</button>
+    <button @click="Music.clearEvery">clearEvery</button>
+    <button @click="Music.addEvery">addEvery</button>
     {{ lazy_state }}
     <button @click="toggle" :class="{ active: started }">
       {{ started ? 'stop' : 'start' }}
     </button>
     <button @click="pause" :class="{ active: paused }">pause</button>
+    <button @click="Music.info">info</button>
+
     <label>
       masterVol
       <input type="range" min="50" max="100" v-model.number="masterVol" />
       {{ masterVol }}
     </label>
+
     <hr />
+
     <label>
       melodyVol
       <input type="range" min="50" max="100" v-model.number="melodyVol" />
@@ -67,9 +73,6 @@
       // this.masterVol -= 1;
     },
     methods: {
-      clear() {
-        Music.clear();
-      },
       toggle() {
         Music.start();
         Music.toggle();
@@ -83,6 +86,9 @@
       },
     },
     computed: {
+      Music() {
+        return Music;
+      },
       Parts() {
         return Parts;
       },
