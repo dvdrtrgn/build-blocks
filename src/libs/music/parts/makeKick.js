@@ -26,13 +26,15 @@ export function makeKick(volume) {
     // volume: volume,
   }).connect(vol);
 
-  const part = new Tone.Part(function(time) {
-    try {
-      synth.triggerAttackRelease('C1', '8n', time);
-    } catch (err) {
-      console.log(err);
-    }
-  }, data).start(0);
+  const addPart = () => {
+    return new Tone.Part(function(time) {
+      try {
+        synth.triggerAttackRelease('C1', '8n', time);
+      } catch (err) {
+        console.log(err.message);
+      }
+    }, data).start(0);
+  };
 
-  return { data, synth, part, vol };
+  return { data, synth, vol, addPart };
 }

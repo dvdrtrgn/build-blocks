@@ -38,13 +38,15 @@ export function makeAccent(volume) {
     },
   }).connect(vol);
 
-  const part = new Tone.Part(function(time, value) {
-    try {
-      synth.triggerAttackRelease(value.note, value.duration, time, 0.5);
-    } catch (err) {
-      console.log(err);
-    }
-  }, data).start(0);
+  const addPart = () => {
+    return new Tone.Part(function(time, value) {
+      try {
+        synth.triggerAttackRelease(value.note, value.duration, time, 0.5);
+      } catch (err) {
+        console.log(err.message);
+      }
+    }, data).start(0);
+  };
 
-  return { data, synth, part, vol };
+  return { data, synth, vol, addPart };
 }

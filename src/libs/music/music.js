@@ -22,6 +22,13 @@ const list = {
   kick: makeKick(-15),
 };
 
+Object.keys(list).map(key => {
+  const obj = list[key];
+
+  obj.part = obj.addPart();
+  obj.clearPart = () => obj.part.clear(0);
+});
+
 console.log(list);
 window.foolist = list;
 
@@ -30,3 +37,8 @@ export default {
   // resetTransport,
 };
 export { list, db };
+
+export function lazy(name, self, obj) {
+  setInterval(() => (self['lazy_' + name] = obj[name]), 333);
+  return obj[name];
+}

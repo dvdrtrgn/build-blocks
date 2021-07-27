@@ -1,6 +1,6 @@
 <template>
   <section id="Music">
-    {{ Tone.Transport.state }}
+    {{ lazy_state }}
     <button @click="toggle" :class="{ active: started }">
       {{ started ? 'stop' : 'start' }}
     </button>
@@ -47,7 +47,7 @@
 <script>
   import * as Tone from 'tone';
   window.Tone = Tone;
-  import music, { db, list } from '@/libs/music/music';
+  import music, { db, list, lazy } from '@/libs/music/music';
 
   export default {
     components: {},
@@ -55,7 +55,7 @@
     data() {
       return {
         music,
-        // transport: Tone.Transport,
+        lazy_state: lazy('state', this, Tone.Transport),
         masterVol: db.get(Tone.Destination.volume),
         melodyVol: db.get(list.melody.vol.volume),
         snareVol: db.get(list.snare.vol.volume),
@@ -89,10 +89,10 @@
         return list;
       },
       started() {
-        return this.Tone.Transport.state === 'started';
+        return this.lazy_state === 'started';
       },
       paused() {
-        return this.Tone.Transport.state === 'paused';
+        return this.lazy_state === 'paused';
       },
     },
     watch: {
