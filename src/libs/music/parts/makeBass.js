@@ -1,7 +1,7 @@
 import * as Tone from 'tone';
 
 export function makeBass(volume) {
-  const vol = new Tone.Volume(volume).toDestination();
+  const vol = volume;
 
   const data = [
     { time: '0:0', note: 'A1', duration: '2n' },
@@ -14,17 +14,11 @@ export function makeBass(volume) {
     oscillator: {
       type: 'triangle',
     },
-  }).connect(vol);
+  });
 
-  const addPart = () => {
-    return new Tone.Part(function(time, value) {
-      try {
-        synth.triggerAttackRelease(value.note, value.duration, time);
-      } catch (err) {
-        console.log(err.message);
-      }
-    }, data).start(0);
+  const trigger = (time, value) => {
+    synth.triggerAttackRelease(value.note, value.duration, time);
   };
 
-  return { data, synth, vol, addPart };
+  return { data, synth, vol, trigger };
 }

@@ -18,8 +18,6 @@ function to_Pc(num) {
   return Math.round(num);
 }
 
-// const to_dB = vol => Math.trunc(vol - 90);
-// const to_Pc = db => Math.trunc(db + 90);
 const setVal = (x, y) => (x.value = to_dB(y));
 
 const Vol = {

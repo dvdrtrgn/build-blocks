@@ -1,7 +1,7 @@
 import * as Tone from 'tone';
 
 export function makeMelody(volume) {
-  const vol = new Tone.Volume(volume).toDestination();
+  const vol = volume;
 
   const data = [
     { note: 'G4', time: '0:0:0', duration: '8n' },
@@ -43,17 +43,11 @@ export function makeMelody(volume) {
       spread: 40,
       type: 'fatsawtooth',
     },
-  }).connect(vol);
+  });
 
-  const addPart = () => {
-    return new Tone.Part(function(time, value) {
-      try {
-        synth.triggerAttackRelease(value.note, value.duration, time);
-      } catch (err) {
-        console.log(err.message);
-      }
-    }, data).start(0);
+  const trigger = (time, value) => {
+    synth.triggerAttackRelease(value.note, value.duration, time);
   };
 
-  return { data, synth, vol, addPart };
+  return { data, synth, vol, trigger };
 }

@@ -7,7 +7,7 @@ const chord5 = constructMajorChord('AMinor', 5, 'E5');
 const chord6 = constructMajorChord('AMinor', 4, 'F4');
 
 export function makeAccent(volume) {
-  const vol = new Tone.Volume(volume).toDestination();
+  const vol = volume;
 
   const data = [
     { time: '0:0', note: chord1, duration: '2n.' },
@@ -36,17 +36,11 @@ export function makeAccent(volume) {
     oscillator: {
       type: 'fatsawtooth',
     },
-  }).connect(vol);
+  });
 
-  const addPart = () => {
-    return new Tone.Part(function(time, value) {
-      try {
-        synth.triggerAttackRelease(value.note, value.duration, time, 0.5);
-      } catch (err) {
-        console.log(err.message);
-      }
-    }, data).start(0);
+  const trigger = (time, value) => {
+    synth.triggerAttackRelease(value.note, value.duration, time, 0.5);
   };
 
-  return { data, synth, vol, addPart };
+  return { data, synth, vol, trigger };
 }

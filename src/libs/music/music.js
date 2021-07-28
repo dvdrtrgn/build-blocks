@@ -1,4 +1,5 @@
 import * as Tone from 'tone';
+import { lazy, walkProps } from './utils';
 import Vol from './Vol';
 import {
   makeAccent,
@@ -8,7 +9,6 @@ import {
   makeBass,
   makeKick,
 } from './parts/';
-import { lazy, walkProps } from './utils';
 
 Tone.Transport.bpm.value = 150;
 Tone.Transport.loop = true;
@@ -33,16 +33,31 @@ const Music = {
   transport: Tone.Transport,
 };
 
+function makePart(obj) {
+  obj.part = new Tone.Part(function(time, value) {
+    try {
+      obj.trigger(time, value);
+    } catch (err) {
+      console.log(err.message);
+    }
+  }, obj.data).start(0);
+}
+
 function initPart(obj) {
-  let _private = obj.addPart;
-  obj.part = _private();
+  makePart(obj);
+
+  obj.addPart = () => {
+    obj.clearPart();
+    makePart(obj);
+  };
   obj.clearPart = () => {
     obj.part.cancel(0);
   };
-  obj.addPart = () => {
-    obj.clearPart();
-    obj.part = _private();
-  };
+
+  if (typeof obj.vol === 'number') {
+    obj.vol = new Tone.Volume(obj.vol).toDestination();
+    obj.synth.connect(obj.vol);
+  }
 }
 
 function makeList() {
@@ -65,11 +80,11 @@ function makeList() {
 
 const Parts = makeList();
 
-Music.clearEvery = () => {
-  walkProps(Parts, obj => obj.clearPart());
-};
 Music.addEvery = () => {
   walkProps(Parts, obj => obj.addPart());
+};
+Music.clearEvery = () => {
+  walkProps(Parts, obj => obj.clearPart());
 };
 
 // EXPOSE

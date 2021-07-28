@@ -1,7 +1,7 @@
 import * as Tone from 'tone';
 
 export function makeKick(volume) {
-  const vol = new Tone.Volume(volume).toDestination();
+  const vol = volume;
 
   const data = [
     { time: '0:0:0' },
@@ -24,17 +24,11 @@ export function makeKick(volume) {
 
   const synth = new Tone.MembraneSynth({
     // volume: volume,
-  }).connect(vol);
+  });
 
-  const addPart = () => {
-    return new Tone.Part(function(time) {
-      try {
-        synth.triggerAttackRelease('C1', '8n', time);
-      } catch (err) {
-        console.log(err.message);
-      }
-    }, data).start(0);
+  const trigger = (time, value) => {
+    synth.triggerAttackRelease('C1', '8n', time);
   };
 
-  return { data, synth, vol, addPart };
+  return { data, synth, vol, trigger };
 }

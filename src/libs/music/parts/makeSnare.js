@@ -1,7 +1,7 @@
 import * as Tone from 'tone';
 
 export function makeSnare(volume) {
-  const vol = new Tone.Volume(volume).toDestination();
+  const vol = volume;
 
   const lowPass = new Tone.Filter({
     frequency: 8000,
@@ -18,9 +18,7 @@ export function makeSnare(volume) {
       sustain: 0.15,
       release: 0.03,
     },
-  })
-    .connect(lowPass)
-    .connect(vol);
+  }).connect(lowPass);
 
   const data = [
     { time: '0:2' },
@@ -33,15 +31,9 @@ export function makeSnare(volume) {
     { time: '7:2' },
   ];
 
-  const addPart = () => {
-    return new Tone.Part(function(time) {
-      try {
-        synth.triggerAttackRelease('4n', time);
-      } catch (err) {
-        console.log(err.message);
-      }
-    }, data).start(0);
+  const trigger = (time, value) => {
+    synth.triggerAttackRelease('4n', time);
   };
 
-  return { data, synth, vol, addPart };
+  return { data, synth, vol, trigger };
 }
