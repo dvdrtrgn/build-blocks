@@ -131,8 +131,4 @@
       text-align: right;
     }
   }
-  .hand {
-    opacity: 0.2;
-    z-index: -1;
-  }
 </style>

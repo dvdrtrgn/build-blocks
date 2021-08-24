@@ -1,8 +1,9 @@
-<template lang="pug">
-#App
-  Header
-  Main
-  Footer
+<template>
+  <div id="App">
+    <Header />
+    <Main />
+    <Footer />
+  </div>
 </template>
 
 <script>

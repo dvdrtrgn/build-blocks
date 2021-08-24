@@ -1,7 +1,8 @@
-<template lang="pug">
-  section#Muse
-    Piano
-    Song
+<template>
+  <section id="Muse">
+    <Piano />
+    <Song />
+  </section>
 </template>
 
 <script>

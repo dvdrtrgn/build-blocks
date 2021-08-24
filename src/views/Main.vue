@@ -1,8 +1,8 @@
-<template lang="pug">
-main
-  h1.hand 👌🏿
-
-  Synth
+<template>
+  <main>
+    <h1 class="hand">👌🏿</h1>
+    <Synth />
+  </main>
 </template>
 
 <script>
@@ -35,8 +35,10 @@ main
   .hand {
     font-size: 9 * $root;
     left: 0;
+    opacity: 0.2;
     position: absolute;
     top: 0;
+    z-index: -1;
   }
 
   // @font-face {
