@@ -1,15 +1,15 @@
 <template>
-  <section id="Music">
-    <h1>Music.vue</h1>
-    <!-- <button @click="Music.clearAll">clearAll</button> -->
-    <button @click="Music.clearEvery">clearEvery</button>
-    <button @click="Music.addEvery">addEvery</button>
+  <section id="Synth">
+    <h1>Synth.vue</h1>
+    <!-- <button @click="Synth.clearAll">clearAll</button> -->
+    <button @click="Synth.clearEvery">clearEvery</button>
+    <button @click="Synth.addEvery">addEvery</button>
     {{ lazy_state }}
     <button @click="toggle" :class="{ active: started }">
       {{ started ? 'stop' : 'start' }}
     </button>
     <button @click="pause" :class="{ active: paused }">pause</button>
-    <button @click="Music.info">info</button>
+    <button @click="Synth.info">info</button>
 
     <label>
       masterVol ({{ masterVol }})
@@ -45,15 +45,15 @@
 </template>
 
 <script>
-  import { Music, Vol, Parts, lazy } from '../libs/music/music.js';
+  import { Synth, Vol, Parts, lazy } from '../libs/music/music.js';
 
   export default {
     components: {},
     mounted() {},
     data() {
       return {
-        lazy_state: lazy('state', this, Music.transport),
-        masterVol: Vol.get(Music.volume),
+        lazy_state: lazy('state', this, Synth.transport),
+        masterVol: Vol.get(Synth.volume),
         melodyVol: Vol.get(Parts.melody.vol.volume),
         snareVol: Vol.get(Parts.snare.vol.volume),
         accentVol: Vol.get(Parts.accent.vol.volume),
@@ -67,20 +67,20 @@
     },
     methods: {
       toggle() {
-        Music.ensure(); // force AudioContext on page
-        Music.toggle();
+        Synth.ensure(); // force AudioContext on page
+        Synth.toggle();
       },
       pause() {
         if (this.paused) {
-          Music.play();
+          Synth.play();
         } else {
-          Music.pause();
+          Synth.pause();
         }
       },
     },
     computed: {
-      Music() {
-        return Music;
+      Synth() {
+        return Synth;
       },
       Parts() {
         return Parts;
@@ -94,7 +94,7 @@
     },
     watch: {
       masterVol() {
-        Vol.set(Music.volume, this.masterVol);
+        Vol.set(Synth.volume, this.masterVol);
       },
       bassVol() {
         Vol.set(Parts.bass.vol.volume, this.bassVol);
@@ -119,7 +119,7 @@
 </script>
 
 <style lang="scss">
-  #Music {
+  #Synth {
     line-height: 2;
     text-align: center;
 

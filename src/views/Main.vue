@@ -2,19 +2,19 @@
 main
   h1.hand 👌🏿
 
-  Music
+  Synth
 </template>
 
 <script>
   // import Muse from './Muse.vue';
-  import Music from './Music.vue';
+  import Synth from './Synth.vue';
 
-  window.App = Music;
+  window.App = Synth;
 
   export default {
     components: {
       // Muse,
-      Music,
+      Synth,
     },
   };
 </script>

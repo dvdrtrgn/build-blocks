@@ -22,7 +22,7 @@ function eventsInfo() {
   };
 }
 
-const Music = {
+const Synth = {
   ensure: () => Tone.start(),
   clearAll: () => Tone.Transport.cancel(0),
   toggle: () => Tone.Transport.toggle(),
@@ -62,7 +62,7 @@ function initPart(obj) {
 }
 
 function makeList() {
-  Music.clearAll();
+  Synth.clearAll();
 
   const partList = {
     accent: makeAccent(-15),
@@ -81,15 +81,15 @@ function makeList() {
 
 const Parts = makeList();
 
-Music.addEvery = () => {
+Synth.addEvery = () => {
   walkProps(Parts, obj => obj.addPart());
 };
-Music.clearEvery = () => {
+Synth.clearEvery = () => {
   walkProps(Parts, obj => obj.clearPart());
 };
 
 // EXPOSE
-export { Music, Vol, Parts, lazy };
+export { Synth, Vol, Parts, lazy };
 
 window.Tone = Tone;
-window.Foo = { Music, Vol, Parts, lazy };
+window.Foo = { Synth, Vol, Parts, lazy };
