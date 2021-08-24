@@ -1,5 +1,6 @@
 <template>
   <section id="Music">
+    <h1>Music.vue</h1>
     <!-- <button @click="Music.clearAll">clearAll</button> -->
     <button @click="Music.clearEvery">clearEvery</button>
     <button @click="Music.addEvery">addEvery</button>
@@ -44,7 +45,7 @@
 </template>
 
 <script>
-  import { Music, Vol, Parts, lazy } from '@/libs/music/music';
+  import { Music, Vol, Parts, lazy } from '../libs/music/music.js';
 
   export default {
     components: {},
@@ -66,6 +67,7 @@
     },
     methods: {
       toggle() {
+        Music.ensure(); // force AudioContext on page
         Music.toggle();
       },
       pause() {

@@ -33,6 +33,7 @@ export function makeSnare(volume) {
 
   const trigger = (time, value) => {
     synth.triggerAttackRelease('4n', time);
+    void value;
   };
 
   return { data, synth, vol, trigger };

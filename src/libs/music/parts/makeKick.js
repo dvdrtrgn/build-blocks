@@ -28,6 +28,7 @@ export function makeKick(volume) {
 
   const trigger = (time, value) => {
     synth.triggerAttackRelease('C1', '8n', time);
+    void value;
   };
 
   return { data, synth, vol, trigger };
