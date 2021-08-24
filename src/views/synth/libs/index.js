@@ -8,7 +8,7 @@ import {
   makeSnare,
   makeBass,
   makeKick,
-} from './parts/';
+} from './parts';
 
 Tone.Transport.bpm.value = 150;
 Tone.Transport.loop = true;

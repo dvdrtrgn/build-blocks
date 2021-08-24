@@ -45,7 +45,7 @@
 </template>
 
 <script>
-  import { Synth, Vol, Parts, lazy } from '../libs/music/music.js';
+  import { Synth, Vol, Parts, lazy } from './synth/libs/index.js';
 
   export default {
     components: {},
