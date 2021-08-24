@@ -11,44 +11,24 @@
     <button @click="pause" :class="{ active: paused }">pause</button>
     <button @click="Synth.info">info</button>
 
-    <label>
-      masterVol ({{ masterVol }})
-      <input type="range" min="0" max="100" v-model.number="masterVol" />
-    </label>
+    <VolSlide nom="masterVol" v-model:vol="masterVol" />
     <hr />
 
-    <label>
-      melodyVol ({{ melodyVol }})
-      <input type="range" min="0" max="100" v-model.number="melodyVol" />
-    </label>
-    <label>
-      snareVol ({{ snareVol }})
-      <input type="range" min="0" max="100" v-model.number="snareVol" />
-    </label>
-    <label>
-      kickVol ({{ kickVol }})
-      <input type="range" min="0" max="100" v-model.number="kickVol" />
-    </label>
-    <label>
-      chordsVol ({{ chordsVol }})
-      <input type="range" min="0" max="100" v-model.number="chordsVol" />
-    </label>
-    <label>
-      accentVol ({{ accentVol }})
-      <input type="range" min="0" max="100" v-model.number="accentVol" />
-    </label>
-    <label>
-      bassVol ({{ bassVol }})
-      <input type="range" min="0" max="100" v-model.number="bassVol" />
-    </label>
+    <VolSlide nom="melodyVol" v-model:vol="melodyVol" />
+    <VolSlide nom="snareVol" v-model:vol="snareVol" />
+    <VolSlide nom="kickVol" v-model:vol="kickVol" />
+    <VolSlide nom="chordsVol" v-model:vol="chordsVol" />
+    <VolSlide nom="accentVol" v-model:vol="accentVol" />
+    <VolSlide nom="bassVol" v-model:vol="bassVol" />
   </section>
 </template>
 
 <script>
+  import VolSlide from './synth/components/VolSlide.vue';
   import { Synth, Vol, Parts, lazy } from './synth/libs/index.js';
 
   export default {
-    components: {},
+    components: { VolSlide },
     mounted() {},
     data() {
       return {
