@@ -1,19 +1,22 @@
 <template>
-  <section id="Synth">
+  <section id="Synth" @click="getInfo">
     <h1>Synth.vue</h1>
     <!-- <button @click="Synth.clearAll">clearAll</button> -->
     <button @click="Synth.clearEvery">clearEvery</button>
     <button @click="Synth.addEvery">addEvery</button>
-    {{ lazy_state }}
+    <p>
+      <b>{{ lazy_state }}</b>
+    </p>
     <button @click="toggle" :class="{ active: started }">
       {{ started ? 'stop' : 'start' }}
     </button>
     <button @click="pause" :class="{ active: paused }">pause</button>
-    <button @click="Synth.info">info</button>
+    <p>
+      scheduledEvents {{ info }}
+    </p>
 
     <VolSlide nom="masterVol" v-model:vol="masterVol" />
     <hr />
-
     <VolSlide nom="melodyVol" v-model:vol="melodyVol" />
     <VolSlide nom="snareVol" v-model:vol="snareVol" />
     <VolSlide nom="kickVol" v-model:vol="kickVol" />
@@ -33,6 +36,7 @@
     data() {
       return {
         lazy_state: lazy('state', this, Synth.transport),
+        info: '',
         masterVol: Vol.get(Synth.volume),
         melodyVol: Vol.get(Parts.melody.vol.volume),
         snareVol: Vol.get(Parts.snare.vol.volume),
@@ -57,13 +61,13 @@
           Synth.pause();
         }
       },
+      getInfo() {
+        this.info = Synth.info();
+      },
     },
     computed: {
       Synth() {
         return Synth;
-      },
-      Parts() {
-        return Parts;
       },
       started() {
         return this.lazy_state === 'started';

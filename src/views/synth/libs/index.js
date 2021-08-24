@@ -29,7 +29,7 @@ const Synth = {
   play: () => Tone.Transport.start(),
   pause: () => Tone.Transport.pause(),
   stop: () => Tone.Transport.stop(),
-  info: () => console.log(eventsInfo()),
+  info: () => eventsInfo(),
   volume: Tone.Destination.volume,
   transport: Tone.Transport,
 };
