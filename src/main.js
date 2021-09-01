@@ -1,15 +1,12 @@
-import Vue from 'vue';
+import './glob.js';
+
+import { createApp } from 'vue';
 import App from './App.vue';
 import store from './store';
 
-Vue.config.productionTip = false;
-
-new Vue({
-  store,
-  beforeCreate() {
-    store.commit('initStore');
-  },
-  render: h => h(App),
-}).$mount('#app');
+createApp(App)
+  // .use(router)
+  .use(store)
+  .mount('#app');
 
 store.commit('bumpLoads', 'foo');

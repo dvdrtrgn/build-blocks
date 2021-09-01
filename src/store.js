@@ -1,15 +1,13 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 
 const C = console;
 const Key = 'build-blocks';
 
-Vue.use(Vuex);
-
-const store = new Vuex.Store({
+const store = createStore({
   state: {
     autoplay: 0,
     loads: 0,
+    mode: 'pitch',
     sustain: 0,
     songs: {
       s1: '["C4 0.44","D4 0.22","F4 0.25"]',
@@ -22,6 +20,9 @@ const store = new Vuex.Store({
     getAutoplay(state) {
       return state.autoplay;
     },
+    getMode(state) {
+      return state.mode;
+    },
     getSongs(state) {
       return state.songs;
     },
@@ -31,10 +32,13 @@ const store = new Vuex.Store({
       C.log('bumpLoads', (state.loads += 1));
     },
     setTime(state, num) {
-      C.log('setTime', (state.sustain = num));
+      state.sustain = num;
     },
     setAutoplay(state, bool) {
-      C.log('setAutoplay', (state.autoplay = bool));
+      state.autoplay = bool;
+    },
+    setMode(state, mode) {
+      C.log('setMode', (state.mode = mode));
     },
     saveSong(state, obj) {
       C.log('saveSong', obj);
@@ -56,5 +60,7 @@ store.subscribe((mutation, state) => {
   // called after every mutation{type,payload}
   localStorage.setItem(Key, JSON.stringify(state));
 });
+
+store.commit('initStore', 'foo');
 
 export default store;

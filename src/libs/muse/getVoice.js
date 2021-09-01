@@ -1,7 +1,11 @@
+/*
+  create a list of voices for reuse
+  todo: split into `voice` and `voices`
+*/
 import * as Tone from 'tone';
 import makeCue from './makeCue.js';
 
-const allVoices = {};
+const CACHE = {};
 
 class Voice {
   // _parent = Tone;
@@ -57,11 +61,11 @@ class Voice {
 }
 
 function getVoice(name = 'default') {
-  let voice = allVoices[name];
+  let voice = CACHE[name];
 
   if (!voice) {
     voice = new Voice(name);
-    allVoices[name] = voice;
+    CACHE[name] = voice;
 
     console.log('get', voice);
   }
@@ -73,5 +77,5 @@ export default getVoice;
 
 window.addEventListener('load', function() {
   window.Tone = Tone;
-  getVoice().makeCue(33);
+  getVoice().makeCue(33); // init default voice
 });

@@ -1,37 +1,30 @@
-<template lang="pug">
-  main
-    h1.hand 👌🏿
-
-    Muse
-
+<template>
+  <main>
+    <h1 class="hand">👌🏿</h1>
+    <Synth />
+  </main>
 </template>
 
 <script>
-  import Muse from './Muse/Muse';
+  // import Muse from './Muse.vue';
+  import Synth from './Synth.vue';
+
+  window.App = Synth;
 
   export default {
     components: {
-      Muse,
+      // Muse,
+      Synth,
     },
-  };
-
-  window.yelp = function(arg, clr) {
-    let c = 'background: black; color: yellow; font-size: 200%;';
-    if (clr) console.clear();
-    if (arg === 0) debugger;
-    else console.log('%cYELP', c, arg);
   };
 </script>
 
 <style lang="scss">
   $root: 1.2rem;
 
-  @font-face {
-    font-family: 'Bravura';
-    src: url('../assets/Bravura.woff2');
-    font-weight: 400;
-    font-style: normal;
-    font-stretch: normal;
+  main {
+    padding-top: 10vh;
+    padding-bottom: 10vh;
   }
 
   .dev {
@@ -42,7 +35,17 @@
   .hand {
     font-size: 9 * $root;
     left: 0;
+    opacity: 0.2;
     position: absolute;
     top: 0;
+    z-index: -1;
   }
+
+  // @font-face {
+  //   font-family: 'Bravura';
+  //   src: url('../assets/Bravura.woff2');
+  //   font-weight: 400;
+  //   font-style: normal;
+  //   font-stretch: normal;
+  // }
 </style>

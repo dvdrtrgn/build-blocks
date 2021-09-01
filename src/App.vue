@@ -1,24 +1,27 @@
-<template lang="pug">
-  #App
-
-    Main
-
+<template>
+  <div id="App">
+    <Header />
+    <Main />
+    <Footer />
+  </div>
 </template>
 
 <script>
   import Main from '@/views/Main';
+  import Header from '@/components/TheHeader';
+  import Footer from '@/components/TheFooter';
 
   export default {
     name: 'app',
     components: {
       Main,
+      Header,
+      Footer,
     },
   };
 </script>
 
 <style lang="scss">
-  @import '@/scss/base.scss';
-
   body {
     background: silver;
   }
