@@ -1,13 +1,12 @@
-<template lang="pug">
-  .fret(
-    @click='showTab'
-  )
-    span.num {{idx ? idx : '|'}}
+<template>
+  <div class="fret" @click="showTab">
+    <span class="num"> {{ idx ? idx : '|' }}</span>
+  </div>
 </template>
 
 <script>
   /* eslint-disable no-console */
-  import Notes from './Notes.js';
+  import Notes from '../libs/Notes.js';
 
   const MAX = 24;
   const ZOOM = 1.8;
@@ -46,8 +45,6 @@
 </script>
 
 <style lang="scss">
-  @import '@/scss/vars.scss';
-
   .fret {
     border-left: 1px solid gray;
     color: black;

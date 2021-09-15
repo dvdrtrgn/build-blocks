@@ -1,15 +1,13 @@
-<template lang="pug">
-  .string
-    .nut {{str.slice(0,1)}}
+<template>
+  <div class="string">
+    <div class="nut">{{ str.slice(0, 1) }}</div>
 
-    Fret(
-      v-for='(fret, index) in frets'
-      :idx='index' :str='str' :key='index'
-    )
+    <Fret v-for="(fret, index) in frets" :idx="index" :str="str" :key="index" />
+  </div>
 </template>
 
 <script>
-  import Fret from './Fret';
+  import Fret from './Fret.vue';
 
   export default {
     name: 'String',
@@ -28,8 +26,6 @@
 </script>
 
 <style lang="scss">
-  @import '@/scss/vars.scss';
-
   .string {
     border-bottom: 1px solid silver;
     border-top: 1px solid silver;

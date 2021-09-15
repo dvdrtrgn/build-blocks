@@ -1,14 +1,17 @@
-<template lang="pug">
-  .neck
-    String(
-      v-for='(string, index) in strings'
-      :str='string'
-      :key='index'
-    )
+<template>
+  <main>
+    <div class="neck">
+      <String
+        v-for="(string, index) in strings"
+        :str="string"
+        :key="index"
+      ></String>
+    </div>
+  </main>
 </template>
 
 <script>
-  import String from './String';
+  import String from './components/String.vue';
 
   export default {
     name: 'Neck',
@@ -27,8 +30,6 @@
 </script>
 
 <style lang="scss">
-  @import '@/scss/vars.scss';
-
   .neck {
     border: 2px solid white;
   }

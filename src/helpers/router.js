@@ -35,6 +35,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "Notate" */ '../views/notate/Notate.vue'),
   },
+  {
+    path: '/Guitar',
+    name: 'Guitar',
+    component: () =>
+      import(/* webpackChunkName: "Guitar" */ '../views/guitar/Neck.vue'),
+  },
 ];
 
 const router = createRouter({
