@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade" appear>
+  <!-- <transition name="fade" appear> -->
     <button
       :class="classObj"
       v-if="note.duration"
@@ -18,7 +18,7 @@
         >{{ note.duration.toFixed(1) }}s</small
       >
     </button>
-  </transition>
+  <!-- </transition> -->
 </template>
 
 <script>

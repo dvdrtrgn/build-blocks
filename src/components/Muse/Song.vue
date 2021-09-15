@@ -22,28 +22,32 @@
     </div>
 
     <div class="bezel" tabindex="0">
-      <draggable
+      <!-- <draggable
         :class="mode"
         class="cuelist"
         draggable="button"
         v-bind="dragOptions"
         v-model="notes"
         item-key="order"
-      >
-        <template #header>
+      > -->
+        <!-- <template #header> -->
           <div style="float: left;">“{{ songname }}”&nbsp;</div>
-        </template>
+        <!-- </template> -->
 
-        <template #item="{note}">
-          <SongNote :note="note"></SongNote>
-        </template>
+        <!-- <template #item="{note}"> -->
+          <SongNote
+          v-for="note in notes"
+          :key="note.order"
+          :note="note"
+        ></SongNote>
+        <!-- </template> -->
 
-        <template #footer>
+        <!-- <template #footer> -->
           <div style="float: right;">
             <button @click="addRest">&lt; Append Rest</button>
           </div>
-        </template>
-      </draggable>
+        <!-- </template> -->
+      <!-- </draggable> -->
 
       <!-- https://github.com/SortableJS/Vue.Draggable -->
       <small>Notes are draggable with “Autoplay&nbsp;off”</small>
@@ -58,7 +62,7 @@
   import makeCue from '@/libs/muse/makeCue.js';
 
   import SongNote from './SongNote';
-  import draggable from 'vuedraggable';
+  // import draggable from 'vuedraggable';
 
   export default {
     props: {
@@ -69,7 +73,7 @@
     },
     components: {
       SongNote,
-      draggable,
+      // draggable,
     },
     data() {
       return {
