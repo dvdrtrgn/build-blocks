@@ -52,10 +52,10 @@
 </template>
 
 <script>
-  import bus from '../../helpers/bus';
+  import bus from '../../../helpers/bus';
   // import glob from '../../glob';
-  import store from '../../helpers/store';
-  import makeCue from '../../libs/muse/makeCue.js';
+  import store from '../../../helpers/store';
+  import makeCue from '../../../libs/muse/makeCue.js';
 
   import SongNote from './SongNote';
   // import draggable from 'vuedraggable';
