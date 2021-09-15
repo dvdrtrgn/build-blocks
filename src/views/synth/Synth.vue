@@ -27,8 +27,8 @@
 </template>
 
 <script>
-  import VolSlide from './synth/components/VolSlide.vue';
-  import { Synth, Vol, Parts, lazy } from './synth/libs/index.js';
+  import VolSlide from './components/VolSlide.vue';
+  import { Synth, Vol, Parts, lazy } from './libs/index.js';
 
   export default {
     components: { VolSlide },
