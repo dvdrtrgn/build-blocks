@@ -49,26 +49,27 @@
 
 <style lang="scss">
   .fret {
-    border-left: 1px solid gray;
+    border-left: 3px solid gray;
     color: black;
     cursor: pointer;
     display: inline-block;
     line-height: 2;
     padding: 1px;
     text-align: center;
-    text-indent: -105%;
+    text-indent: -111%;
 
     &:hover {
-      border-left: 1px solid red;
-      color: red;
+      border-color: white;
+      color: darkred;
     }
+
     .num {
-      background-color: rgba(255, 255, 255, 0.8);
+      background-color: rgba(255, 255, 255, 0.5);
+      border: 1px solid gray;
       border-radius: 100%;
-      font-size: 0.8em;
-      padding: 0px 11%;
-      text-shadow: 1px 1px 0px white, -1px 1px 0px white, 1px -1px 0px white,
-        -1px -1px 0px white;
+      font-size: 0.7em;
+      padding: 0px 15%;
+      text-shadow: 1px 1px 1px white, -1px 1px 1px white, 1px -1px 1px white;
     }
   }
 </style>

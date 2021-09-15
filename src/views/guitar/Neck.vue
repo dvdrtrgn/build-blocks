@@ -32,7 +32,7 @@
 <style lang="scss">
   #Guitar main {
     .neck {
-      border: 2px solid white;
+      border: 2px solid gray;
     }
   }
 </style>

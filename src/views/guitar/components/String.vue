@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import Fret from './Fret.vue';
+  import Fret from './StringFret.vue';
 
   export default {
     name: 'String',
@@ -27,8 +27,9 @@
 
 <style lang="scss">
   .string {
-    border-bottom: 1px solid silver;
-    border-top: 1px solid silver;
+    background-color: gray;
+    border-bottom: 1px dotted white;
+    border-top: 1px dotted white;
     color: blue;
     line-height: 0;
     margin-top: 1em;
@@ -40,12 +41,13 @@
     }
 
     .nut {
-      border-right: 1px solid gray;
-      background-color: white;
+      background-image: linear-gradient(to right, white, gray);
       display: inline-block;
       line-height: 2;
+      position: relative;
       text-align: center;
       width: 2rem;
+      z-index: 9;
     }
 
     > * {
