@@ -1,21 +1,12 @@
 <template>
   <main>
     <h1 class="hand">👌🏿</h1>
-    <Muse />
   </main>
 </template>
 
 <script>
-  import Muse from './Muse.vue';
-  // import Synth from './Synth.vue';
-
-  window.App = Muse;
-
   export default {
-    components: {
-      Muse,
-      // Synth,
-    },
+    components: {},
   };
 </script>
 

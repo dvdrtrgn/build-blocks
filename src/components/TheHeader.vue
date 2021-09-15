@@ -1,6 +1,7 @@
 <template lang="pug">
 header
   h1 header
+  slot
 </template>
 
 <script>
