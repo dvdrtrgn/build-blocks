@@ -27,7 +27,7 @@ const routes = [
     path: '/Synth',
     name: 'Synth',
     component: () =>
-      import(/* webpackChunkName: "Synth" */ '../views/Synth.vue'),
+      import(/* webpackChunkName: "Synth" */ '../views/synth/Synth.vue'),
   },
 ];
 

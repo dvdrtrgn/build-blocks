@@ -1,8 +1,8 @@
 <template>
-  <section id="Muse">
+  <main>
     <Piano />
     <Song />
-  </section>
+  </main>
 </template>
 
 <script>

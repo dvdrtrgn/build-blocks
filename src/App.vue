@@ -1,12 +1,10 @@
 <template>
-  <div id="App">
-    <div :id="$route.name">
-      <Header>
-        <NavBar />
-      </Header>
-      <router-view />
-      <Footer />
-    </div>
+  <div :id="$route.name">
+    <Header>
+      <NavBar />
+    </Header>
+    <router-view />
+    <Footer />
   </div>
 </template>
 
@@ -29,7 +27,7 @@
   body {
     background: silver;
   }
-  #App {
+  #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
   }
 </style>
