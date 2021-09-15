@@ -33,22 +33,20 @@
     padding: 1rem;
 
     a {
-      color: #2c3e50;
+      color: gray;
 
       &.router-link-active {
         font-weight: bold;
       }
       &.router-link-exact-active {
-        color: #42b983;
+        color: red;
       }
     }
 
     ul {
-      background-color: white;
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 3px;
       list-style: none;
-      margin: 0;
-      padding: 0;
-      position: relative;
 
       :hover > a {
         color: #911c1c;
@@ -60,29 +58,6 @@
         padding: 0 0.5em;
         &:last-child {
           border-right: 0;
-        }
-
-        // NESTED
-        @mixin fadein($z: inherit) {
-          opacity: 1;
-          pointer-events: all;
-          z-index: $z;
-        }
-        a.router-link-active + ul {
-          @include fadein;
-        }
-        &:hover > ul {
-          @include fadein(1);
-        }
-        ul {
-          opacity: 0;
-          pointer-events: none;
-          position: absolute;
-          transition: opacity 1s, z-index 3s;
-          width: 100%;
-          &:hover {
-            @include fadein(2);
-          }
         }
       }
     }
