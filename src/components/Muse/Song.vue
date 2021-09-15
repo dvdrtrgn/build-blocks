@@ -29,7 +29,7 @@
         v-bind="dragOptions"
         v-model="notes"
       >
-        <div slot="header" style="float: left;">“{{ songname }}”&nbsp;</div>
+        <!-- <div slot="header" style="float: left;">“{{ songname }}”&nbsp;</div> -->
 
         <SongNote
           v-for="note in notes"
@@ -37,9 +37,9 @@
           :note="note"
         ></SongNote>
 
-        <div slot="footer" style="float: right;">
+        <!-- <div slot="footer" style="float: right;">
           <button @click="addRest">&lt; Append Rest</button>
-        </div>
+        </div> -->
       </draggable>
 
       <!-- https://github.com/SortableJS/Vue.Draggable -->
