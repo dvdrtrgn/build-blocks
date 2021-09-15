@@ -11,14 +11,9 @@
   const MAX = 24;
   const ZOOM = 1.8;
 
-  function showTab() {
-    var note = `${this.str}+${this.idx}`;
-    console.log(Notes.detab(note));
-  }
-
   function calcPad(obj) {
-    var idx = obj.idx;
-    var pad = ((MAX - idx) * ZOOM) / 10;
+    const idx = obj.idx;
+    const pad = ((MAX - idx) * ZOOM) / 10;
 
     if (idx > MAX) throw `${MAX} fret limit!`;
     else obj.$el.style.width = pad + ZOOM + '%';
@@ -36,10 +31,18 @@
       };
     },
     methods: {
-      showTab,
+      showTab() {
+        console.log(this.detab);
+      },
     },
     mounted: function() {
       calcPad(this);
+    },
+    computed: {
+      detab() {
+        let note = `${this.str}+${this.idx}`;
+        return Notes.detab(note);
+      },
     },
   };
 </script>
