@@ -1,26 +1,26 @@
 <template>
-  <div>
+  <main>
     <form action="" @submit.prevent="">
       <p>
         Note Info
         <input type="number" v-model.number="num" />
       </p>
-      <Display @limit="backprop" :arg="num + 1" />
+      <DisplayNotes @limit="backprop" :arg="num + 1" />
       <br />
-      <Display @limit="backprop" :arg="num" />
+      <DisplayNotes @limit="backprop" :arg="num" />
       <br />
-      <Display @limit="backprop" :arg="num - 1" />
+      <DisplayNotes @limit="backprop" :arg="num - 1" />
     </form>
-  </div>
+  </main>
 </template>
 
 <script>
   /* eslint-disable no-console */
-  import Display from './Display';
+  import DisplayNotes from './DisplayNotes';
 
   export default {
     components: {
-      Display,
+      DisplayNotes,
     },
     data() {
       return {
@@ -35,8 +35,11 @@
   };
 </script>
 
-<style lang="scss" scoped>
-  input {
-    text-align: center;
+<style lang="scss">
+  #Notate main {
+    font-size: xx-small;
+    input {
+      text-align: center;
+    }
   }
 </style>

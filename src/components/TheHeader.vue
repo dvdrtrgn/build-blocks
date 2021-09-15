@@ -9,10 +9,8 @@
 </script>
 
 <style lang="scss">
-  @import '@/scss/vars.scss';
-
   header {
-    background: $color1;
+    background: steelblue;
     height: 7vh;
     position: fixed;
     text-align: left;

@@ -1,10 +1,10 @@
 import { throttle } from 'lodash';
 
-let RAT = 2.9;
+let RATIO = 2.9;
 
 function to_dB(num) {
   num = num * 1000;
-  num = Math.pow(num, 1 / RAT);
+  num = Math.pow(num, 1 / RATIO);
   num = num - 50;
   if (num <= -50) num = -Infinity;
   return Math.round(num);
@@ -13,7 +13,7 @@ function to_dB(num) {
 function to_Pc(num) {
   if (num < -50) num = -50;
   num = num + 50;
-  num = Math.pow(num, RAT);
+  num = Math.pow(num, RATIO);
   num = num / 1000;
   return Math.round(num);
 }

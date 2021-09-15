@@ -1,7 +1,7 @@
 <template>
   <span>
-    <span v-show="note.label">Note name: {{ note.label }}</span>
-    <span v-show="note.octave">octave: {{ note.octave }}</span>
+    <span v-show="note.name">Note {{ note.name }}</span>
+    <span v-show="note.octave != null">octave: {{ note.octave }}</span>
     <span v-show="note.frequency">frequency: {{ note.frequency }}</span>
     <span v-show="note.midi">midi: {{ note.midi }}</span>
   </span>
@@ -9,7 +9,7 @@
 
 <script>
   /* eslint-disable no-console */
-  import modelNote from './model-note.js';
+  import modelNote from './libs/model-note.js';
 
   export default {
     props: {
@@ -20,6 +20,8 @@
     computed: {
       note() {
         const note = modelNote(this.arg);
+
+        console.log('note', note);
 
         if (this.arg !== note.midi) {
           this.$emit('limit', note.midi); // keep in bounds

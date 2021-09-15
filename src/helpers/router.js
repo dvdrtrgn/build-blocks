@@ -29,6 +29,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "Synth" */ '../views/synth/Synth.vue'),
   },
+  {
+    path: '/Notate',
+    name: 'Notate',
+    component: () =>
+      import(/* webpackChunkName: "Notate" */ '../views/notate/Notate.vue'),
+  },
 ];
 
 const router = createRouter({
