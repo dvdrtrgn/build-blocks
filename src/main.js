@@ -1,5 +1,3 @@
-import './helpers/glob';
-
 import { createApp } from 'vue';
 import App from './App.vue';
 import store from './helpers/store';

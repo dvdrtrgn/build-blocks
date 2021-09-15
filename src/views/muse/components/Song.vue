@@ -52,7 +52,7 @@
 </template>
 
 <script>
-  import bus from '../../../helpers/bus';
+  import bus from '../libs/bus';
   // import glob from '../../glob';
   import store from '../../../helpers/store';
   import makeCue from '../libs/makeCue.js';

@@ -6,8 +6,8 @@
 </template>
 
 <script>
-  import bus from '../../helpers/bus';
-  import glob from '../../helpers/glob';
+  import bus from './libs/bus';
+  import glob from './libs/glob';
   import store from '../../helpers/store';
   import getVoice from './libs/getVoice.js';
   import focusNext from './libs/focus-next.js';

@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import Bus from '../../../helpers/bus';
+  import Bus from '../libs/bus';
 
   export default {
     props: ['note'],
