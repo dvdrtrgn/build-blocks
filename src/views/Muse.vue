@@ -6,14 +6,14 @@
 </template>
 
 <script>
-  import bus from '@/bus';
-  import glob from '@/glob';
-  import store from '@/store';
-  import getVoice from '@/libs/muse/getVoice.js';
-  import focusNext from '@/libs/muse/focus-next.js';
+  import bus from '../bus';
+  import glob from '../glob';
+  import store from '../store';
+  import getVoice from '../libs/muse/getVoice.js';
+  import focusNext from '../libs/muse/focus-next.js';
 
-  import Piano from '@/components/Muse/Piano.vue';
-  import Song from '@/components/Muse/Song.vue';
+  import Piano from '../components/Muse/Piano.vue';
+  import Song from '../components/Muse/Song.vue';
 
   // import Play from './play/index.js';
 

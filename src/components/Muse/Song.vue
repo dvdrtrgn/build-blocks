@@ -56,10 +56,10 @@
 </template>
 
 <script>
-  import bus from '@/bus';
-  // import glob from '@/glob';
-  import store from '@/store';
-  import makeCue from '@/libs/muse/makeCue.js';
+  import bus from '../../bus';
+  // import glob from '../../glob';
+  import store from '../../store';
+  import makeCue from '../../libs/muse/makeCue.js';
 
   import SongNote from './SongNote';
   // import draggable from 'vuedraggable';

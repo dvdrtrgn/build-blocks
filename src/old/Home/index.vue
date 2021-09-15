@@ -14,12 +14,12 @@
 
 <script>
   // @ is an alias to /src
-  import Header from '@/components/Header';
+  import Header from '../components/Header';
   import Section1 from './Section1.vue';
   import Section2 from './Section2.vue';
   import Section3 from './Section3.vue';
   import Section4 from './Section4.vue';
-  import Footer from '@/components/Footer';
+  import Footer from '../components/Footer';
 
   export default {
     name: 'home',

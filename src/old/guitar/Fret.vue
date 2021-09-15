@@ -7,7 +7,7 @@
 
 <script>
   /* eslint-disable no-console */
-  import Notes from '@/guitar/Notes.js';
+  import Notes from './Notes.js';
 
   const MAX = 24;
   const ZOOM = 1.8;

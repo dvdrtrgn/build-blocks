@@ -7,9 +7,9 @@
 </template>
 
 <script>
-  import Main from '@/views/Main';
-  import Header from '@/components/TheHeader';
-  import Footer from '@/components/TheFooter';
+  import Main from './views/Main';
+  import Header from './components/TheHeader';
+  import Footer from './components/TheFooter';
 
   export default {
     name: 'app',

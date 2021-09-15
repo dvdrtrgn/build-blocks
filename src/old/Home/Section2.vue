@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import Neck from '@/guitar/Neck';
+  import Neck from './guitar/Neck';
 
   export default {
     name: 'Section2',
