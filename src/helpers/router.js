@@ -20,7 +20,8 @@ const routes = [
   {
     path: '/Muse',
     name: 'Muse',
-    component: () => import(/* webpackChunkName: "Muse" */ '../views/muse/Muse.vue'),
+    component: () =>
+      import(/* webpackChunkName: "Muse" */ '../views/muse/Muse.vue'),
   },
   {
     path: '/Synth',

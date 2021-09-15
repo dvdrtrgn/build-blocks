@@ -55,7 +55,7 @@
   import bus from '../../../helpers/bus';
   // import glob from '../../glob';
   import store from '../../../helpers/store';
-  import makeCue from '../../../libs/muse/makeCue.js';
+  import makeCue from '../libs/makeCue.js';
 
   import SongNote from './SongNote';
   // import draggable from 'vuedraggable';

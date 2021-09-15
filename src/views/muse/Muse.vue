@@ -9,8 +9,8 @@
   import bus from '../../helpers/bus';
   import glob from '../../helpers/glob';
   import store from '../../helpers/store';
-  import getVoice from '../../libs/muse/getVoice.js';
-  import focusNext from '../../libs/muse/focus-next.js';
+  import getVoice from './libs/getVoice.js';
+  import focusNext from './libs/focus-next.js';
 
   import Piano from './components/Piano.vue';
   import Song from './components/Song.vue';
