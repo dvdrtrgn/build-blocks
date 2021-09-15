@@ -15,12 +15,12 @@ class Cue {
   name = '';
   playing = false;
   _end = 0;
-  #start = 0;
+  _start = 0;
 
   constructor(name, duration) {
     let now = Tone.now();
 
-    this.#start = now;
+    this._start = now;
     this._end = now;
 
     this.name = name;
@@ -48,10 +48,10 @@ class Cue {
   }
 
   get duration() {
-    return aprox(this._end - this.#start);
+    return aprox(this._end - this._start);
   }
   set duration(val) {
-    this._end = this.#start + Number(val);
+    this._end = this._start + Number(val);
   }
 
   get delay() {
