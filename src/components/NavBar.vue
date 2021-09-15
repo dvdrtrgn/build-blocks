@@ -30,30 +30,31 @@
 
 <style lang="scss">
   #Nav {
-    padding: 1rem;
-
     a {
-      color: gray;
+      color: silver;
+      font-weight: bold;
 
       &.router-link-active {
-        font-weight: bold;
+        text-decoration: underline;
       }
       &.router-link-exact-active {
-        color: red;
+        color: white;
+        text-shadow: 0 0 2px black;
       }
     }
 
     ul {
-      background-color: rgba(255, 255, 255, 0.5);
+      background-color: rgba(255, 255, 255, 0.1);
       border-radius: 3px;
       list-style: none;
+      padding: 0 2rem;
 
       :hover > a {
-        color: #911c1c;
+        color: lime;
       }
 
       li {
-        border-right: 2px solid #eee;
+        border-right: 2px solid silver;
         display: inline;
         padding: 0 0.5em;
         &:last-child {

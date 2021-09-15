@@ -1,22 +1,23 @@
 <template>
-  <main>
+  <main class="flexed">
     <form action="" @submit.prevent="">
-      <p>
-        Note Info
+      <h1>
+        Note number
         <input type="number" v-model.number="num" />
-      </p>
-      <DisplayNotes @limit="backprop" :arg="num + 1" />
-      <br />
-      <DisplayNotes @limit="backprop" :arg="num" />
-      <br />
-      <DisplayNotes @limit="backprop" :arg="num - 1" />
+      </h1>
+
+      <table>
+        <DisplayNotes @limit="backprop" :arg="num + 1" />
+        <DisplayNotes @limit="backprop" :arg="num" />
+        <DisplayNotes @limit="backprop" :arg="num - 1" />
+      </table>
     </form>
   </main>
 </template>
 
 <script>
   /* eslint-disable no-console */
-  import DisplayNotes from './DisplayNotes';
+  import DisplayNotes from './components/DisplayNotes.vue';
 
   export default {
     components: {
@@ -37,9 +38,14 @@
 
 <style lang="scss">
   #Notate main {
-    font-size: xx-small;
+    text-align: center;
+
     input {
       text-align: center;
+    }
+    table {
+      margin-top: 1rem;
+      margin-bottom: 10rem;
     }
   }
 </style>

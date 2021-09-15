@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="flexed">
     <slot />
   </header>
 </template>

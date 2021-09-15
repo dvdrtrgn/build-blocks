@@ -50,8 +50,7 @@
 </script>
 
 <style lang="scss">
-  @import '@/scss/base.scss';
-  #Muse {
+  #Muse main {
     line-height: 2;
     text-align: center;
 
@@ -77,23 +76,23 @@
     select {
       -webkit-appearance: menulist;
     }
-  }
 
-  .bezel {
-    // rounded wrappers
-    background-color: rgba(white, 0.5);
-    border: 1px solid silver;
-    border-radius: 1rem;
-    padding: 0.5rem;
-    position: relative;
-  }
+    .bezel {
+      // rounded wrappers
+      background-color: rgba(white, 0.5);
+      border: 1px solid silver;
+      border-radius: 1rem;
+      padding: 0.5rem;
+      position: relative;
+    }
 
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 0.3s ease;
-  }
-  .fade-enter,
-  .fade-leave-to {
-    opacity: 0;
+    .fade-enter-active,
+    .fade-leave-active {
+      transition: opacity 0.3s ease;
+    }
+    .fade-enter,
+    .fade-leave-to {
+      opacity: 0;
+    }
   }
 </style>

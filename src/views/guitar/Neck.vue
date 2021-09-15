@@ -30,7 +30,9 @@
 </script>
 
 <style lang="scss">
-  .neck {
-    border: 2px solid white;
+  #Guitar main {
+    .neck {
+      border: 2px solid white;
+    }
   }
 </style>

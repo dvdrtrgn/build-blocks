@@ -101,7 +101,7 @@
 </script>
 
 <style lang="scss">
-  #Synth {
+  #Synth main {
     line-height: 2;
     text-align: center;
 

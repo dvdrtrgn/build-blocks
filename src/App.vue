@@ -24,10 +24,21 @@
 </script>
 
 <style lang="scss">
+  @import '@/scss/base.scss';
   body {
     background: silver;
   }
+  main {
+    height: 100vh;
+    padding-top: 8vh;
+    padding-bottom: 5vh;
+  }
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  }
+  .flexed {
+    align-items: center;
+    display: flex;
+    justify-content: center;
   }
 </style>
