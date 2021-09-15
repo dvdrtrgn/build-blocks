@@ -11,11 +11,11 @@
 </template>
 
 <script>
-  import bus from '@/bus';
-  import glob from '@/glob';
-  import store from '@/store';
-  import makeCue from '@/libs/muse/makeCue.js';
-  import getVoice from '@/libs/muse/getVoice.js';
+  import bus from '../libs/bus';
+  import glob from '../libs/glob';
+  import store from '../../../helpers/store';
+  import makeCue from '../libs/makeCue.js';
+  import getVoice from '../libs/getVoice.js';
 
   glob.exposes({ bus, store, getVoice });
 

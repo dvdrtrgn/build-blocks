@@ -1,5 +1,5 @@
 <template>
-  <section id="Synth" @click="getInfo">
+  <main @click="getInfo">
     <h1>Synth.vue</h1>
     <!-- <button @click="Synth.clearAll">clearAll</button> -->
     <button @click="Synth.clearEvery">clearEvery</button>
@@ -11,9 +11,7 @@
       {{ started ? 'stop' : 'start' }}
     </button>
     <button @click="pause" :class="{ active: paused }">pause</button>
-    <p>
-      scheduledEvents {{ info }}
-    </p>
+    <p>scheduledEvents {{ info }}</p>
 
     <VolSlide nom="masterVol" v-model:vol="masterVol" />
     <hr />
@@ -23,12 +21,12 @@
     <VolSlide nom="chordsVol" v-model:vol="chordsVol" />
     <VolSlide nom="accentVol" v-model:vol="accentVol" />
     <VolSlide nom="bassVol" v-model:vol="bassVol" />
-  </section>
+  </main>
 </template>
 
 <script>
-  import VolSlide from './synth/components/VolSlide.vue';
-  import { Synth, Vol, Parts, lazy } from './synth/libs/index.js';
+  import VolSlide from './components/VolSlide.vue';
+  import { Synth, Vol, Parts, lazy } from './libs/index.js';
 
   export default {
     components: { VolSlide },

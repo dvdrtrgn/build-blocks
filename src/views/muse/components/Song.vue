@@ -22,25 +22,28 @@
     </div>
 
     <div class="bezel" tabindex="0">
-      <draggable
+      <!-- <draggable
         :class="mode"
         class="cuelist"
         draggable="button"
         v-bind="dragOptions"
         v-model="notes"
-      >
-        <div slot="header" style="float: left;">“{{ songname }}”&nbsp;</div>
+        item-key="order"
+      > -->
+      <!-- <template #header> -->
+      <div style="float: left;">“{{ songname }}”&nbsp;</div>
+      <!-- </template> -->
 
-        <SongNote
-          v-for="note in notes"
-          :key="note.order"
-          :note="note"
-        ></SongNote>
+      <!-- <template #item="{note}"> -->
+      <SongNote v-for="note in notes" :key="note.order" :note="note"></SongNote>
+      <!-- </template> -->
 
-        <div slot="footer" style="float: right;">
-          <button @click="addRest">&lt; Append Rest</button>
-        </div>
-      </draggable>
+      <!-- <template #footer> -->
+      <div style="float: right;">
+        <button @click="addRest">&lt; Append Rest</button>
+      </div>
+      <!-- </template> -->
+      <!-- </draggable> -->
 
       <!-- https://github.com/SortableJS/Vue.Draggable -->
       <small>Notes are draggable with “Autoplay&nbsp;off”</small>
@@ -49,13 +52,13 @@
 </template>
 
 <script>
-  import bus from '@/bus';
-  // import glob from '@/glob';
-  import store from '@/store';
-  import makeCue from '@/libs/muse/makeCue.js';
+  import bus from '../libs/bus';
+  // import glob from '../../glob';
+  import store from '../../../helpers/store';
+  import makeCue from '../libs/makeCue.js';
 
   import SongNote from './SongNote';
-  import draggable from 'vuedraggable';
+  // import draggable from 'vuedraggable';
 
   export default {
     props: {
@@ -66,7 +69,7 @@
     },
     components: {
       SongNote,
-      draggable,
+      // draggable,
     },
     data() {
       return {

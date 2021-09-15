@@ -1,28 +1,28 @@
 <template>
-  <transition name="fade" appear>
-    <button
-      :class="classObj"
-      v-if="note.duration"
-      @focus="play(note)"
-      :title="editmsg"
+  <!-- <transition name="fade" appear> -->
+  <button
+    :class="classObj"
+    v-if="note.duration"
+    @focus="play(note)"
+    :title="editmsg"
+  >
+    <span
+      v-show="note.label != 'R'"
+      class="pitch editable"
+      @mousedown.alt="editNote(note)"
     >
-      <span
-        v-show="note.label != 'R'"
-        class="pitch editable"
-        @mousedown.alt="editNote(note)"
-      >
-        <span class="pitch" v-html="pitchLabel"></span>
-        <i class="interval" v-html="note.interval || 'Rest'"></i>
-      </span>
-      <small class="duration editable" @mousedown.alt="editDuration(note)"
-        >{{ note.duration.toFixed(1) }}s</small
-      >
-    </button>
-  </transition>
+      <span class="pitch" v-html="pitchLabel"></span>
+      <i class="interval" v-html="note.interval || 'Rest'"></i>
+    </span>
+    <small class="duration editable" @mousedown.alt="editDuration(note)"
+      >{{ note.duration.toFixed(1) }}s</small
+    >
+  </button>
+  <!-- </transition> -->
 </template>
 
 <script>
-  import Bus from '@/bus';
+  import Bus from '../libs/bus';
 
   export default {
     props: ['note'],

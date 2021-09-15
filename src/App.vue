@@ -1,20 +1,22 @@
 <template>
-  <div id="App">
-    <Header />
-    <Main />
+  <div :id="$route.name">
+    <Header>
+      <NavBar />
+    </Header>
+    <router-view />
     <Footer />
   </div>
 </template>
 
 <script>
-  import Main from '@/views/Main';
-  import Header from '@/components/TheHeader';
-  import Footer from '@/components/TheFooter';
+  import Header from './components/TheHeader';
+  import Footer from './components/TheFooter';
+  import NavBar from './components/NavBar.vue';
 
   export default {
     name: 'app',
     components: {
-      Main,
+      NavBar,
       Header,
       Footer,
     },
@@ -25,7 +27,7 @@
   body {
     background: silver;
   }
-  #App {
+  #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
   }
 </style>

@@ -1,10 +1,7 @@
-<template lang="pug">
-  .keylist
-    PianoKey(
-      v-for="pitch in octave"
-      :pitch="pitch"
-      :key="pitch"
-    )
+<template>
+  <div class="keylist">
+    <PianoKey v-for="pitch in octave" :pitch="pitch" :key="pitch"></PianoKey>
+  </div>
 </template>
 
 <script>

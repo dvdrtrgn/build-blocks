@@ -10,31 +10,31 @@ const CACHE = {};
 class Voice {
   // _parent = Tone;
   running = false;
-  #cue;
-  #timeout;
-  #tone;
+  _cue;
+  _timeout;
+  _tone;
 
   constructor(name) {
     this.name = name;
-    this.#tone = new Tone.Synth().toDestination();
+    this._tone = new Tone.Synth().toDestination();
   }
 
   timer(cb, sec) {
-    this.#timeout = setTimeout(cb, sec * 1000);
+    this._timeout = setTimeout(cb, sec * 1000);
   }
 
   stop() {
-    clearTimeout(this.#timeout);
+    clearTimeout(this._timeout);
 
-    this.#tone.triggerRelease();
+    this._tone.triggerRelease();
     this.running = false;
-    this.#cue.playing = false;
-    this.#cue.cutShort();
+    this._cue.playing = false;
+    this._cue.cutShort();
   }
 
   play(cue, cb) {
     if (cue.isNote) {
-      this.#tone.triggerAttackRelease(...cue.params);
+      this._tone.triggerAttackRelease(...cue.params);
       cue.playing = true;
     }
 
@@ -50,13 +50,13 @@ class Voice {
 
   makeCue(pitch, duration) {
     // why remake? just expect a cue?
-    this.#cue = makeCue(pitch, duration || 0.1);
+    this._cue = makeCue(pitch, duration || 0.1);
 
     if (this.running) this.stop();
 
-    this.play(this.#cue);
+    this.play(this._cue);
 
-    return this.#cue;
+    return this._cue;
   }
 }
 

@@ -1,12 +1,11 @@
-<template lang="pug">
-header
-  h1 header
+<template>
+  <header>
+    <slot />
+  </header>
 </template>
 
 <script>
-  export default {
-    name: 'Header',
-  };
+  export default {};
 </script>
 
 <style lang="scss">
@@ -14,7 +13,7 @@ header
 
   header {
     background: $color1;
-    height: 10vh;
+    height: 7vh;
     position: fixed;
     text-align: left;
     top: 0;
