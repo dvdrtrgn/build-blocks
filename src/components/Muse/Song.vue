@@ -28,18 +28,21 @@
         draggable="button"
         v-bind="dragOptions"
         v-model="notes"
+        item-key="order"
       >
-        <!-- <div slot="header" style="float: left;">“{{ songname }}”&nbsp;</div> -->
+        <template #header>
+          <div style="float: left;">“{{ songname }}”&nbsp;</div>
+        </template>
 
-        <SongNote
-          v-for="note in notes"
-          :key="note.order"
-          :note="note"
-        ></SongNote>
+        <template #item="{note}">
+          <SongNote :note="note"></SongNote>
+        </template>
 
-        <!-- <div slot="footer" style="float: right;">
-          <button @click="addRest">&lt; Append Rest</button>
-        </div> -->
+        <template #footer>
+          <div style="float: right;">
+            <button @click="addRest">&lt; Append Rest</button>
+          </div>
+        </template>
       </draggable>
 
       <!-- https://github.com/SortableJS/Vue.Draggable -->
