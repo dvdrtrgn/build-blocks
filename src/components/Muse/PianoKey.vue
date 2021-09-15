@@ -11,9 +11,9 @@
 </template>
 
 <script>
-  import bus from '../../bus';
-  import glob from '../../glob';
-  import store from '../../store';
+  import bus from '../../helpers/bus';
+  import glob from '../../helpers/glob';
+  import store from '../../helpers/store';
   import makeCue from '../../libs/muse/makeCue.js';
   import getVoice from '../../libs/muse/getVoice.js';
 

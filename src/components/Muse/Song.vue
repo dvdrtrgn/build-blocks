@@ -56,9 +56,9 @@
 </template>
 
 <script>
-  import bus from '../../bus';
+  import bus from '../../helpers/bus';
   // import glob from '../../glob';
-  import store from '../../store';
+  import store from '../../helpers/store';
   import makeCue from '../../libs/muse/makeCue.js';
 
   import SongNote from './SongNote';

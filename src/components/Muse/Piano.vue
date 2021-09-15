@@ -30,9 +30,9 @@
 </template>
 
 <script>
-  import bus from '../../bus';
-  import glob from '../../glob';
-  import store from '../../store';
+  import bus from '../../helpers/bus';
+  import glob from '../../helpers/glob';
+  import store from '../../helpers/store';
   import octave from '../../libs/octave-model.js';
 
   glob.exposes({ octave });
