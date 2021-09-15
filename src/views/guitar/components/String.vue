@@ -1,8 +1,15 @@
 <template>
   <div class="string">
-    <div class="nut">{{ str.slice(0, 1) }}</div>
+    <div class="nut">{{ strName.slice(0, 1) }}</div>
 
-    <Fret v-for="(fret, index) in frets" :idx="index" :str="str" :key="index" />
+    <Fret
+      v-for="(_, i) in frets"
+      :fretNum="i"
+      :strName="strName"
+      :active="fretted.fret === i"
+      :key="i"
+      @fretted="getPressed"
+    />
   </div>
 </template>
 
@@ -10,17 +17,29 @@
   import Fret from './StringFret.vue';
 
   export default {
-    name: 'String',
-    components: {
-      Fret,
+    props: {
+      strName: String,
+      strNum: Number,
     },
+    components: { Fret },
     data: () => {
       return {
-        frets: '0 1 2 3 0 1 2 3 0 1 2 3 0 1 2 3 0 1 2 3 0 1 2'.split(' '),
+        frets: Array(23),
+        fretted: { fret: 0 },
       };
     },
-    props: {
-      str: String,
+    methods: {
+      getPressed(arg) {
+        this.fretted = arg;
+      },
+    },
+    watch: {
+      fretted() {
+        this.$emit('stringPress', {
+          note: this.fretted.raw,
+          string: this.strNum,
+        });
+      },
     },
   };
 </script>

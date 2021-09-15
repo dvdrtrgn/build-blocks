@@ -1,22 +1,28 @@
 const NOTES = 'C C# D D# E F F# G G# A A# B'.split(' ');
 
 export default {
-  sciNoteFromMidiNum: function(num) {
-    var mid = Number(num);
-    var oct = -1;
+  nameFromMidi: function(num) {
+    let mid = Number(num);
+    let oct = -1;
 
-    if (mid < 12) throw 'too low';
-    else if (mid > 119) throw 'too high';
-    else while (mid > 11) (oct += 1), (mid -= 12);
-
+    if (mid < 12) {
+      throw 'too low';
+    } else if (mid > 119) {
+      throw 'too high';
+    } else {
+      while (mid > 11) {
+        oct += 1;
+        mid -= 12;
+      }
+    }
     return NOTES[mid] + oct;
   },
-  midiNumFromSciNote: function(str) {
-    var sci = String(str);
-    var nom = sci.slice(0, -1);
-    var oct = Number(sci.slice(-1));
-    var num = NOTES.indexOf(nom);
-    var mid = 12 * (oct + 1) + num;
+  midiFromName: function(str) {
+    const sci = String(str);
+    const nom = sci.slice(0, -1);
+    const oct = Number(sci.slice(-1));
+    const num = NOTES.indexOf(nom);
+    const mid = 12 * (oct + 1) + num;
 
     if (mid < 12) throw 'too low';
     else if (mid > 119) throw 'too high';
@@ -24,21 +30,22 @@ export default {
     return mid;
   },
   detab: function(str) {
-    var sci = str;
-    var arr = sci.split('+');
-    var off = 0;
-    var mid = 0;
+    let sci = str;
+    let arr = sci.split('+');
+    let fret = 0;
+    let midi = 0;
 
     if (arr.length > 1) {
       sci = arr[0];
-      off = Number(arr[1]);
+      fret = Number(arr[1]);
     }
-    mid = this.midiNumFromSciNote(sci) + off;
+    midi = this.midiFromName(sci) + fret;
 
     return {
       raw: str,
-      sci: this.sciNoteFromMidiNum(mid),
-      mid: mid,
+      sci: this.nameFromMidi(midi),
+      midi: midi,
+      fret: fret,
     };
   },
 };

@@ -2,11 +2,14 @@
   <main>
     <div class="neck">
       <String
-        v-for="(string, index) in strings"
-        :str="string"
-        :key="index"
+        @stringPress="lastNote"
+        v-for="(note, i) in allStrings"
+        :strName="note"
+        :strNum="i + 1"
+        :key="note"
       ></String>
     </div>
+    <pre>{{ stringsPlaying }}</pre>
   </main>
 </template>
 
@@ -14,17 +17,17 @@
   import String from './components/String.vue';
 
   export default {
-    name: 'Neck',
-    components: {
-      String,
-    },
+    components: { String },
     data: () => {
       return {
-        strings: ['E2', 'A2', 'D3', 'G3', 'B3', 'E4'].reverse(),
+        stringsPlaying: {},
+        allStrings: ['E2', 'A2', 'D3', 'G3', 'B3', 'E4'].reverse(),
       };
     },
-    props: {
-      msg: String,
+    methods: {
+      lastNote(arg) {
+        this.stringsPlaying[arg.string] = arg.note;
+      },
     },
   };
 </script>

@@ -1,47 +1,49 @@
 <template>
-  <div class="fret" @click="showTab">
-    <span class="num"> {{ idx ? idx : '|' }}</span>
+  <div class="fret" :class="{ active }" @click="showTab">
+    <span class="num"> {{ fretNum ? fretNum : '|' }}</span>
   </div>
 </template>
 
 <script>
-  /* eslint-disable no-console */
   import Notes from '../libs/Notes.js';
 
-  const MAX = 24;
+  const MAX = 24; // name ambiguous
   const ZOOM = 1.8;
 
-  function calcPad(obj) {
-    const idx = obj.idx;
+  function calcPadding(idx, ele) {
     const pad = ((MAX - idx) * ZOOM) / 10;
 
-    if (idx > MAX) throw `${MAX} fret limit!`;
-    else obj.$el.style.width = pad + ZOOM + '%';
+    if (idx > MAX) {
+      throw `${MAX} fret limit!`;
+    } else {
+      ele.style.width = pad + ZOOM + '%';
+    }
   }
 
   export default {
-    name: 'Fret',
     props: {
-      idx: Number,
-      str: String,
+      active: Boolean,
+      fretNum: Number,
+      strName: String,
     },
     data: () => {
-      return {
-        note: {},
-      };
+      return {};
     },
     methods: {
       showTab() {
+        this.$emit('fretted', this.detab);
         console.log(this.detab);
       },
     },
     mounted: function() {
-      calcPad(this);
+      calcPadding(this.fretNum, this.$el);
     },
     computed: {
+      code() {
+        return `${this.strName}+${this.fretNum}`;
+      },
       detab() {
-        let note = `${this.str}+${this.idx}`;
-        return Notes.detab(note);
+        return Notes.detab(this.code);
       },
     },
   };
@@ -63,6 +65,9 @@
       color: darkred;
     }
 
+    &.active .num {
+      border: 1px solid red;
+    }
     .num {
       background-color: rgba(255, 255, 255, 0.5);
       border: 1px solid gray;
