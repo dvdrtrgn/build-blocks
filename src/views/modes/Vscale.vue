@@ -35,7 +35,7 @@
       selectedMode: 'ionian',
       selectedSong: 'mary',
       selectedSynth: 'am',
-    }),
+    })
   );
 
   const app = {
@@ -88,5 +88,4 @@
       opacity: 0.5;
     }
   }
-
 </style>

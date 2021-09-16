@@ -30,7 +30,7 @@ function mapOffsetsToNotes(offsets, rootIdx = 60) {
 function _fact_NoteFromIval(offsetKeys, rootIdx) {
   let modulus = offsetKeys.length - 1;
 
-  return function (ivalNum) {
+  return function(ivalNum) {
     if (ivalNum === 0) return new NoteModel('_');
     if (ivalNum > 0) ivalNum -= 1;
 

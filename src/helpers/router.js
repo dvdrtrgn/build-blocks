@@ -55,7 +55,7 @@ const router = createRouter({
 });
 
 const DEFAULT_TITLE = document.title;
-router.afterEach(to => {
+router.afterEach((to) => {
   document.title = to.meta.title || DEFAULT_TITLE;
 });
 
