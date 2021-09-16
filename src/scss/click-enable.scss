@@ -1,0 +1,18 @@
+.click-enable:not([enabled]) {
+  opacity: 0.8;
+  position: relative;
+  &:before {
+    align-items: center;
+    background-color:  rgba(222, 222, 222, 0.5);
+    color: red;
+    content: 'Click to Enable';
+    display: flex;
+    font-size: 3rem;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
