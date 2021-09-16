@@ -13,8 +13,8 @@
 </template>
 
 <script>
-  import SongsModel from './libs/songs-model.js';
-  import Toner from './libs/tone_wrap.js';
+  import SongsModel from '../libs/songs-model.js';
+  import Toner from '../libs/tone_wrap.js';
 
   export default {
     props: ['song', 'mode'],
@@ -41,7 +41,7 @@
         return SongsModel.getNotesFor(this.song, this.mode);
       },
       tags() {
-        console.log('this.notes', this.notes);
+        // console.log('this.notes', this.notes);
         return this.notes.map((e) => e.html).join(' ');
       },
       names() {

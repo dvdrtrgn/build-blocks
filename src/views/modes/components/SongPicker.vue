@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import SongsModel from './libs/songs-model.js';
+  import SongsModel from '../libs/songs-model.js';
 
   export default {
     props: ['modelSong'],

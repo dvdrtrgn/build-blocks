@@ -7,9 +7,9 @@ Notes for octave: {{ notes }}
 </template>
 
 <script>
-  import ModesModel from './libs/modes-model.js';
-  import ScaleNotes from './libs/scaleNotes.js';
-  import Toner from './libs/tone_wrap.js';
+  import ModesModel from '../libs/modes-model.js';
+  import ScaleNotes from '../libs/scaleNotes.js';
+  import Toner from '../libs/tone_wrap.js';
 
   export default {
     props: ['mode'],

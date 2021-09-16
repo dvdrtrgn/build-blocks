@@ -9,8 +9,8 @@
 </template>
 
 <script>
-  import Synths from './libs/synths/index.js';
-  import Toner from './libs/tone_wrap.js';
+  import Synths from '../libs/synths/index.js';
+  import Toner from '../libs/tone_wrap.js';
 
   export default {
     props: ['modelSynth'],

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import ModesModel from './libs/modes-model.js';
+  import ModesModel from '../libs/modes-model.js';
 
   export default {
     props: ['modelMode'],

@@ -27,7 +27,7 @@
   import ModePicker from './components/ModePicker.vue';
   import ModePlayer from './components/ModePlayer.vue';
   // console.clear();
-  import Toner from './components/libs/tone_wrap.js';
+  import Toner from './libs/tone_wrap.js';
 
   const state = reactive(
     Store.init({
@@ -77,15 +77,17 @@
 
 <style lang="scss">
   #Modes main {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-family: Avenir, Helvetica, Arial, sans-serif;
     padding-left: 3rem;
     padding-right: 3rem;
     text-align: left;
 
     .player:not(.enabled) * {
       opacity: 0.5;
+    }
+    label {
+      display: inline-block;
+      font-size: x-small;
+      padding-right: 1em;
     }
   }
 </style>
