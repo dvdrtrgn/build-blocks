@@ -1,18 +1,22 @@
 <template>
   <main>
-    <div class="tidy player" @mousedown.once="enablemode" :class="{ enabled }">
+    <div class="tidy">
       <h1>Try the modes</h1>
       <SongPicker v-model:modelSong="selectedSong" />
       <ModePicker v-model:modelMode="selectedMode" />
       <SynthPicker v-model:modelSynth="selectedSynth" />
       <SongPlayer :mode="selectedMode" :song="selectedSong" />
     </div>
+
+    <div class="mode-info">
     <label>
       <input v-model="showModeInfo" type="checkbox" />
       Mode info
     </label>
-    <div v-show="showModeInfo">
-      <ModePlayer :mode="selectedMode" />
+
+      <ClickEnable v-show="showModeInfo" v-model:on="enabled" once>
+        <ModePlayer :mode="selectedMode" />
+      </ClickEnable>
     </div>
   </main>
 </template>
@@ -26,6 +30,7 @@
   import SongPlayer from './components/SongPlayer.vue';
   import ModePicker from './components/ModePicker.vue';
   import ModePlayer from './components/ModePlayer.vue';
+  import ClickEnable from './components/ClickEnable.vue';
   // console.clear();
   import Toner from './libs/tone_wrap.js';
 
@@ -40,6 +45,7 @@
 
   const app = {
     components: {
+      ClickEnable,
       SynthPicker,
       SongPicker,
       SongPlayer,
@@ -81,9 +87,6 @@
     padding-right: 3rem;
     text-align: left;
 
-    .player:not(.enabled) * {
-      opacity: 0.5;
-    }
     label {
       display: inline-block;
       font-size: x-small;
