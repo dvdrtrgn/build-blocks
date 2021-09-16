@@ -1,18 +1,20 @@
 <template>
-  <div class="tidy player" @mousedown.once="enablemode" :class="{ enabled }">
-    <h1>Try the modes</h1>
-    <SongPicker v-model:modelSong="selectedSong" />
-    <ModePicker v-model:modelMode="selectedMode" />
-    <SynthPicker v-model:modelSynth="selectedSynth" />
-    <SongPlayer :mode="selectedMode" :song="selectedSong" />
-  </div>
-  <label>
-    <input v-model="showModeInfo" type="checkbox" />
-    Mode info
-  </label>
-  <div v-show="showModeInfo">
-    <ModePlayer :mode="selectedMode" />
-  </div>
+  <main>
+    <div class="tidy player" @mousedown.once="enablemode" :class="{ enabled }">
+      <h1>Try the modes</h1>
+      <SongPicker v-model:modelSong="selectedSong" />
+      <ModePicker v-model:modelMode="selectedMode" />
+      <SynthPicker v-model:modelSynth="selectedSynth" />
+      <SongPlayer :mode="selectedMode" :song="selectedSong" />
+    </div>
+    <label>
+      <input v-model="showModeInfo" type="checkbox" />
+      Mode info
+    </label>
+    <div v-show="showModeInfo">
+      <ModePlayer :mode="selectedMode" />
+    </div>
+  </main>
 </template>
 
 <script>
@@ -74,12 +76,17 @@
 </script>
 
 <style lang="scss">
-  #Scales {
-    padding: 0 3rem;
+  #Modes main {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    padding-left: 3rem;
+    padding-right: 3rem;
     text-align: left;
 
     .player:not(.enabled) * {
       opacity: 0.5;
     }
   }
+
 </style>

@@ -41,6 +41,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "Guitar" */ '../views/guitar/Neck.vue'),
   },
+  {
+    path: '/Modes',
+    name: 'Modes',
+    component: () =>
+      import(/* webpackChunkName: "Modes" */ '../views/modes/Vscale.vue'),
+  },
 ];
 
 const router = createRouter({
