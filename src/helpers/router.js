@@ -1,5 +1,5 @@
 const MODE =
-  process.env.NODE_ENV === 'production'
+import.meta.env.NODE_ENV === 'production'
     ? createWebHistory
     : createWebHashHistory;
 
@@ -50,7 +50,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: MODE(process.env.BASE_URL),
+  history: MODE(import.meta.env.BASE_URL),
   routes,
 });
 

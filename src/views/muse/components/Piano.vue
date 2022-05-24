@@ -37,7 +37,7 @@
 
   glob.exposes({ octave });
 
-  import PianoOctave from './PianoOctave';
+  import PianoOctave from './PianoOctave.vue';
 
   export default {
     components: {
@@ -81,12 +81,12 @@
     text-align: center;
 
     .pianolist > :nth-child(3) {
-      @media (max-width: $root * 30) {
+      @media (max-width: ($root * 30)) {
         display: none;
       }
     }
     .pianolist > :nth-child(2) {
-      @media (max-width: $root * 20) {
+      @media (max-width: ($root * 20)) {
         display: none;
       }
     }

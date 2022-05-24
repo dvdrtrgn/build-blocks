@@ -57,7 +57,7 @@
   import store from '../../../helpers/store';
   import makeCue from '../libs/makeCue.js';
 
-  import SongNote from './SongNote';
+  import SongNote from './SongNote.vue';
   // import draggable from 'vuedraggable';
 
   export default {
@@ -166,11 +166,11 @@
       .group {
         background: silver;
         display: inline-block;
-        margin: $root/2;
+        margin: calc($root/2);
       }
       button {
-        margin: $root/4;
-        padding: $root/2;
+        margin: calc($root/4);
+        padding: calc($root/2);
       }
     }
     .cuelist {

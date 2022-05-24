@@ -1,5 +1,5 @@
 import * as Tone from 'tone';
-import constructMajorChord from './constructMajorChord';
+import constructMajorChord from './constructMajorChord.js';
 
 const chord1 = constructMajorChord('AMinor', 4, 'A3');
 chord1.push('A2', 'G4');

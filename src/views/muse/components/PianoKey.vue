@@ -91,13 +91,13 @@
 
 <style lang="scss">
   $root: 1.2rem;
-  $tall: $root * 12;
-  $wide: $root * 2.2;
+  $tall: calc($root * 12);
+  $wide: calc($root * 2.2);
 
   #Piano button {
-    $short: $tall/1.6;
-    $thin: $wide/1.5;
-    $frac: $thin/7;
+    $short: calc($tall / 1.6);
+    $thin: calc($wide / 1.5);
+    $frac: calc($thin / 7);
 
     background-color: white;
     border-radius: 3px;
@@ -128,7 +128,7 @@
       box-shadow: 0 $frac $frac rgba(grey, 0.5);
       color: white;
       height: $short;
-      margin: 0 $thin/-2;
+      margin: 0 calc($thin / -2);
       width: $thin;
       z-index: 2;
 

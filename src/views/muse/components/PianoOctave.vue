@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import PianoKey from './PianoKey';
+  import PianoKey from './PianoKey.vue';
 
   export default {
     props: ['octave'],

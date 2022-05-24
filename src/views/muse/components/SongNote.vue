@@ -73,7 +73,7 @@
     }
   }
   #Song .songnote {
-    $quart: $root/4;
+    $quart: calc($root/4);
 
     border-radius: $quart;
     cursor: pointer;
@@ -88,7 +88,7 @@
       background-color: rgba(white, 0.5);
       border-radius: $quart;
       display: inline-block;
-      padding: 0 $quart/2;
+      padding: 0 calc($quart/2);
       transition: transform 1s;
 
       &:hover {
