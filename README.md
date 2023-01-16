@@ -1,4 +1,4 @@
-# blocks
+# Muse2 Vite (build-blocks)
 
 ## Project setup
 ```
